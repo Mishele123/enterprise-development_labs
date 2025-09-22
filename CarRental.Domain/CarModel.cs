@@ -17,7 +17,7 @@ public class CarModel
     /// <summary>
     /// The drive type of the vehicle (FWD, RWD, AWD)
     /// </summary>
-    public required DriveType DriveType { get; set; }
+    public required DriveTypes DriveType { get; set; }
     /// <summary>
     /// The number of seats available in the vehicle
     /// </summary>

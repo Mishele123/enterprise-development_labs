@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Domain", "CarRental.Domain\CarRental.Domain.csproj", "{4F8165FF-0DB1-43B4-A80F-F0C63301C0D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Tests", "CarRental.Tests\CarRental.Tests.csproj", "{A7760E41-DE1A-409E-B9C7-10FC26E6D263}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4F8165FF-0DB1-43B4-A80F-F0C63301C0D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F8165FF-0DB1-43B4-A80F-F0C63301C0D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F8165FF-0DB1-43B4-A80F-F0C63301C0D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7760E41-DE1A-409E-B9C7-10FC26E6D263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7760E41-DE1A-409E-B9C7-10FC26E6D263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7760E41-DE1A-409E-B9C7-10FC26E6D263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7760E41-DE1A-409E-B9C7-10FC26E6D263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
