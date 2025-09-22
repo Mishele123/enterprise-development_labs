@@ -9,7 +9,7 @@ public class Rental
     /// <summary>
     /// Unique identifier for the rental transaction
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
     /// <summary>
     /// The date and time when the rental was issued/started
     /// </summary>
@@ -19,9 +19,17 @@ public class Rental
     /// </summary>
     public required int RentalHours { get; set; }
     /// <summary>
+    /// Renter car
+    /// </summary>
+    public required Car RentedCar { get; set; }
+    /// <summary>
     /// Foreign key referencing the rented car
     /// </summary>
     public required int CarId { get; set; }
+    /// <summary>
+    /// Client who rentering car
+    /// </summary>
+    public required Client Client { get; set; }
     /// <summary>
     /// Foreign key referencing the client who rented the car
     /// </summary>

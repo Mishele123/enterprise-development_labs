@@ -9,7 +9,7 @@ public class CarModel
     /// <summary>
     /// Unique identifier for the car model
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
     /// <summary>
     /// The name of the car model
     /// </summary>

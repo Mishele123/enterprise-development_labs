@@ -8,7 +8,7 @@ public class Car
     /// <summary>
     /// Unique identifier for the car
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
     /// <summary>
     /// The model generation details including year, engine, and specifications
     /// </summary>

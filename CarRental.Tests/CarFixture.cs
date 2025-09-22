@@ -3,6 +3,9 @@ using CarRental.Domain.Enums;
 
 namespace CarRental.Tests;
 
+/// <summary>
+/// A fixture for providing test data to all tests
+/// </summary>
 public class CarRentalFixture
 {
     public List<CarModel> CarModels;
@@ -11,8 +14,12 @@ public class CarRentalFixture
     public List<Client> Clients;
     public List<Rental> Rentals;
 
+    /// <summary>
+    /// Initializing test data
+    /// </summary>
     public CarRentalFixture()
     {
+        // Initialize CarModels
         CarModels = new List<CarModel>
         {
             new() { 
@@ -25,11 +32,11 @@ public class CarRentalFixture
             },
             new() { 
                 Id = 2, 
-                Name = "BMW X5", 
-                DriveType = DriveTypes.AWD, 
-                SeatCount = 5,
-                BodyType = BodyType.SUV, 
-                VehicleClass = VehicleClass.Premium 
+                Name = "BMW 3 Series", 
+                DriveType = DriveTypes.RWD, 
+                SeatCount = 5, 
+                BodyType = BodyType.Sedan, 
+                VehicleClass = VehicleClass.Business 
             },
             new() { 
                 Id = 3, 
@@ -37,23 +44,24 @@ public class CarRentalFixture
                 DriveType = DriveTypes.FWD, 
                 SeatCount = 5, 
                 BodyType = BodyType.Sedan, 
-                VehicleClass = VehicleClass.Economy
+                VehicleClass = 
+                VehicleClass.Economy 
             },
             new() { 
                 Id = 4, 
-                Name = "Mercedes E-Class", 
-                DriveType = DriveTypes.RWD, 
-                SeatCount = 5, 
-                BodyType = BodyType.Sedan, 
-                VehicleClass = VehicleClass.Business 
+                Name = "Audi Q7", 
+                DriveType = DriveTypes.AWD, 
+                SeatCount = 7, 
+                BodyType = BodyType.SUV, 
+                VehicleClass = VehicleClass.Premium 
             },
             new() { 
                 Id = 5, 
-                Name = "Audi A4", 
-                DriveType = DriveTypes.AWD, 
+                Name = "Mercedes S-Class",
+                DriveType = DriveTypes.RWD, 
                 SeatCount = 5, 
                 BodyType = BodyType.Sedan, 
-                VehicleClass = VehicleClass.Business 
+                VehicleClass = VehicleClass.Luxury 
             },
             new() { 
                 Id = 6, 
@@ -65,14 +73,6 @@ public class CarRentalFixture
             },
             new() { 
                 Id = 7, 
-                Name = "Toyota RAV4", 
-                DriveType = DriveTypes.AWD, 
-                SeatCount = 5, 
-                BodyType = BodyType.SUV, 
-                VehicleClass = VehicleClass.Comfort 
-            },
-            new() { 
-                Id = 8, 
                 Name = "Ford Focus", 
                 DriveType = DriveTypes.FWD, 
                 SeatCount = 5, 
@@ -80,23 +80,32 @@ public class CarRentalFixture
                 VehicleClass = VehicleClass.Economy 
             },
             new() { 
+                Id = 8, 
+                Name = "Toyota RAV4", 
+                DriveType = DriveTypes.AWD, 
+                SeatCount = 5, 
+                BodyType = BodyType.SUV, 
+                VehicleClass = VehicleClass.Comfort 
+            },
+            new() { 
                 Id = 9, 
-                Name = "BMW 3 Series", 
-                DriveType = DriveTypes.RWD, 
-                SeatCount = 5,
-                BodyType = BodyType.Sedan, 
-                VehicleClass = VehicleClass.Business 
+                Name = "BMW X5", 
+                DriveType = DriveTypes.AWD, 
+                SeatCount = 5, 
+                BodyType = BodyType.SUV, 
+                VehicleClass = VehicleClass.Premium 
             },
             new() { 
                 Id = 10,
-                Name = "Mercedes S-Class", 
-                DriveType = DriveTypes.RWD, 
-                SeatCount = 5, 
-                BodyType = BodyType.Sedan, 
-                VehicleClass = VehicleClass.Luxury
+                Name = "Toyota Sienna", 
+                DriveType = DriveTypes.FWD, 
+                SeatCount = 8, 
+                BodyType = BodyType.Minivan, 
+                VehicleClass = VehicleClass.Comfort 
             }
         };
 
+        // Initialize Generations
         Generations = new List<ModelGeneration>
         {
             new() { 
@@ -110,7 +119,7 @@ public class CarRentalFixture
             new() { 
                 Id = 2, 
                 Year = 2023, 
-                EngineVolume = 3.0, 
+                EngineVolume = 2.0, 
                 TransmissionType = TransmissionType.Automatic, 
                 Model = CarModels[1], 
                 RentalCostPerHour = 45.00m 
@@ -121,66 +130,67 @@ public class CarRentalFixture
                 EngineVolume = 1.8, 
                 TransmissionType = TransmissionType.Manual, 
                 Model = CarModels[2], 
-                RentalCostPerHour = 18.00m 
+                RentalCostPerHour = 18.75m 
             },
             new() { 
                 Id = 4, 
                 Year = 2023, 
-                EngineVolume = 2.0, 
+                EngineVolume = 3.0, 
                 TransmissionType = TransmissionType.Automatic, 
                 Model = CarModels[3], 
-                RentalCostPerHour = 35.00m 
+                RentalCostPerHour = 65.00m 
             },
             new() { 
                 Id = 5, 
                 Year = 2022, 
-                EngineVolume = 2.0, 
+                EngineVolume = 3.5, 
                 TransmissionType = TransmissionType.Automatic, 
                 Model = CarModels[4], 
-                RentalCostPerHour = 32.00m 
+                RentalCostPerHour = 95.00m 
             },
             new() { 
                 Id = 6, 
                 Year = 2021, 
-                EngineVolume = 1.4, 
+                EngineVolume = 1.6, 
                 TransmissionType = TransmissionType.Manual, 
                 Model = CarModels[5], 
-                RentalCostPerHour = 15.00m 
+                RentalCostPerHour = 16.50m 
             },
             new() { 
                 Id = 7, 
-                Year = 2023, 
-                EngineVolume = 2.5, 
-                TransmissionType = TransmissionType.Automatic, 
-                Model = CarModels[6], 
-                RentalCostPerHour = 28.00m 
-            },
-            new() { 
-                Id = 8, 
                 Year = 2022, 
                 EngineVolume = 2.0, 
                 TransmissionType = TransmissionType.Automatic, 
+                Model = CarModels[6], 
+                RentalCostPerHour = 19.25m 
+            },
+            new() { 
+                Id = 8, 
+                Year = 2023, 
+                EngineVolume = 2.5, 
+                TransmissionType = TransmissionType.Automatic, 
                 Model = CarModels[7], 
-                RentalCostPerHour = 20.00m 
+                RentalCostPerHour = 28.00m 
             },
             new() { 
                 Id = 9, 
-                Year = 2023, 
-                EngineVolume = 2.0, 
+                Year = 2022, 
+                EngineVolume = 3.0, 
                 TransmissionType = TransmissionType.Automatic, 
                 Model = CarModels[8], 
-                RentalCostPerHour = 38.00m 
+                RentalCostPerHour = 72.50m 
             },
             new() { 
                 Id = 10,
-                Year = 2023, 
-                EngineVolume = 4.0, 
+                Year = 2021, 
+                EngineVolume = 3.5, 
                 TransmissionType = TransmissionType.Automatic, 
                 Model = CarModels[9], 
-                RentalCostPerHour = 75.00m 
+                RentalCostPerHour = 32.00m 
             }
         };
 
+        // Initialize Cars
         Cars = new List<Car>
         {
             new() { 
@@ -199,7 +209,7 @@ public class CarRentalFixture
                 Id = 3, 
                 Generation = Generations[2], 
                 LicensePlate = "GHI789", 
-                Colour = "Red" 
+                Colour = "Blue" 
             },
             new() { 
                 Id = 4, 
@@ -211,208 +221,198 @@ public class CarRentalFixture
                 Id = 5, 
                 Generation = Generations[4], 
                 LicensePlate = "MNO345", 
-                Colour = "Blue" 
+                Colour = "Black" 
             },
             new() { 
                 Id = 6, 
                 Generation = Generations[5], 
                 LicensePlate = "PQR678", 
-                Colour = "Gray" 
+                Colour = "Red" 
             },
             new() { 
                 Id = 7, 
                 Generation = Generations[6], 
                 LicensePlate = "STU901", 
-                Colour = "White" 
+                Colour = "Gray" 
             },
             new() { 
                 Id = 8, 
                 Generation = Generations[7], 
                 LicensePlate = "VWX234", 
-                Colour = "Black" 
+                Colour = "White" 
             },
             new() { 
                 Id = 9, 
                 Generation = Generations[8], 
                 LicensePlate = "YZA567", 
-                Colour = "Red" 
+                Colour = "Blue" 
             },
             new() { 
-                Id = 10, Generation = Generations[9], 
+                Id = 10, 
+                Generation = Generations[9], 
                 LicensePlate = "BCD890", 
                 Colour = "Silver" 
             }
         };
 
+        // Initialize Clients
         Clients = new List<Client>
         {
             new() { 
-                Id = 1, 
-                DriverLicenseNumber = "DL001", 
+                Id = 1,
+                DriverLicenseNumber = "DL12345678", 
                 FullName = "John Smith", 
                 DateOfBirth = new DateTime(1985, 5, 15) 
             },
             new() { 
-                Id = 2, 
-                DriverLicenseNumber = "DL002", 
-                FullName = "Emma Johnson", 
+                Id = 2,
+                DriverLicenseNumber = "DL23456789", 
+                FullName = "Maria Garcia", 
                 DateOfBirth = new DateTime(1990, 8, 22) 
             },
             new() { 
-                Id = 3, 
-                DriverLicenseNumber = "DL003", 
-                FullName = "Michael Brown", 
+                Id = 3,
+                DriverLicenseNumber = "DL34567890", 
+                FullName = "David Johnson", 
                 DateOfBirth = new DateTime(1988, 3, 10) 
             },
             new() { 
-                Id = 4, 
-                DriverLicenseNumber = "DL004", 
-                FullName = "Sarah Davis", 
+                Id = 4,
+                DriverLicenseNumber = "DL45678901", 
+                FullName = "Sarah Wilson", 
                 DateOfBirth = new DateTime(1992, 11, 5) 
             },
             new() { 
-                Id = 5, 
-                DriverLicenseNumber = "DL005", 
-                FullName = "David Wilson", 
-                DateOfBirth = new DateTime(1987, 7, 18) 
+                Id = 5,
+                DriverLicenseNumber = "DL56789012", 
+                FullName = "Michael Brown", 
+                DateOfBirth = new DateTime(1987, 7, 30) 
             },
             new() { 
-                Id = 6, 
-                DriverLicenseNumber = "DL006", 
-                FullName = "Lisa Miller", 
-                DateOfBirth = new DateTime(1991, 2, 28) 
+                Id = 6,
+                DriverLicenseNumber = "DL67890123", 
+                FullName = "Emily Davis", 
+                DateOfBirth = new DateTime(1995, 2, 14) 
             },
             new() { 
-                Id = 7, 
-                DriverLicenseNumber = "DL007", 
-                FullName = "Robert Taylor", 
-                DateOfBirth = new DateTime(1986, 9, 12) 
+                Id = 7,
+                DriverLicenseNumber = "DL78901234", 
+                FullName = "Robert Miller", 
+                DateOfBirth = new DateTime(1983, 9, 18) 
             },
             new() { 
-                Id = 8, 
-                DriverLicenseNumber = "DL008", 
-                FullName = "Jennifer Anderson", 
-                DateOfBirth = new DateTime(1993, 6, 25) 
+                Id = 8,
+                DriverLicenseNumber = "DL89012345", 
+                FullName = "Lisa Anderson", 
+                DateOfBirth = new DateTime(1991, 6, 25) 
             },
             new() { 
-                Id = 9, 
-                DriverLicenseNumber = "DL009", 
-                FullName = "Daniel Thomas", 
-                DateOfBirth = new DateTime(1989, 4, 8) 
+                Id = 9,
+                DriverLicenseNumber = "DL90123456", 
+                FullName = "James Taylor", 
+                DateOfBirth = new DateTime(1989, 12, 8) 
             },
             new() { 
-                Id = 10,
-                DriverLicenseNumber = "DL010", 
-                FullName = "Karen White", 
-                DateOfBirth = new DateTime(1994, 12, 15) 
+                Id = 10, 
+                DriverLicenseNumber = "DL01234567", 
+                FullName = "Jennifer Martinez", 
+                DateOfBirth = new DateTime(1993, 4, 20) 
             }
         };
 
+        // Initialize Rentals
+        var baseDate = new DateTime(2024, 1, 1);
         Rentals = new List<Rental>
         {
             new() { 
-                Id = 1, CarId = 1, 
-                ClientId = 1, 
-                IssueTime = DateTime.Now.AddDays(-10), 
-                RentalHours = 24 
+                Id = 1, 
+                IssueTime = baseDate.AddHours(2), 
+                RentalHours = 24, 
+                RentedCar = Cars[0], 
+                CarId = 1, 
+                Client = Clients[0], 
+                ClientId = 1 
             },
             new() { 
                 Id = 2, 
+                IssueTime = baseDate.AddHours(5),
+                RentalHours = 48, 
+                RentedCar = Cars[1], 
                 CarId = 2, 
-                ClientId = 2, 
-                IssueTime = DateTime.Now.AddDays(-5), 
-                RentalHours = 48 
+                Client = Clients[1], 
+                ClientId = 2 
             },
             new() { 
                 Id = 3, 
+                IssueTime = baseDate.AddHours(8),
+                RentalHours = 12,
+                RentedCar = Cars[2], 
                 CarId = 3, 
-                ClientId = 3, 
-                IssueTime = DateTime.Now.AddDays(-3),
-                RentalHours = 12 
+                Client = Clients[2], 
+                ClientId = 3 
             },
             new() { 
                 Id = 4, 
+                IssueTime = baseDate.AddHours(12), 
+                RentalHours = 72, 
+                RentedCar = Cars[3], 
                 CarId = 4, 
-                ClientId = 4, 
-                IssueTime = DateTime.Now.AddDays(-1),
-                RentalHours = 6 
+                Client = Clients[3], 
+                ClientId = 4 
             },
             new() { 
                 Id = 5, 
+                IssueTime = baseDate.AddHours(18), 
+                RentalHours = 6, 
+                RentedCar = Cars[4], 
                 CarId = 5, 
-                ClientId = 5, 
-                IssueTime = DateTime.Now.AddHours(-2), 
-                RentalHours = 8 
+                Client = Clients[4], 
+                ClientId = 5 
             },
             new() { 
                 Id = 6, 
+                IssueTime = baseDate.AddDays(1), 
+                RentalHours = 36, 
+                RentedCar = Cars[5], 
                 CarId = 6, 
-                ClientId = 6, 
-                IssueTime = DateTime.Now.AddDays(-7),
-                RentalHours = 72 
+                Client = Clients[5], 
+                ClientId = 6 
             },
             new() { 
                 Id = 7, 
+                IssueTime = baseDate.AddDays(1).AddHours(6), 
+                RentalHours = 24, 
+                RentedCar = Cars[6], 
                 CarId = 7, 
-                ClientId = 7, 
-                IssueTime = DateTime.Now.AddDays(-15), 
-                RentalHours = 24 
+                Client = Clients[6], 
+                ClientId = 7 
             },
             new() { 
                 Id = 8, 
+                IssueTime = baseDate.AddDays(2), 
+                RentalHours = 96, 
+                RentedCar = Cars[7], 
                 CarId = 8, 
-                ClientId = 8, 
-                IssueTime = DateTime.Now.AddDays(-20), 
-                RentalHours = 36 
+                Client = Clients[7], 
+                ClientId = 8 
             },
             new() { 
                 Id = 9, 
+                IssueTime = baseDate.AddDays(2).AddHours(4), 
+                RentalHours = 18, 
+                RentedCar = Cars[8], 
                 CarId = 9, 
-                ClientId = 9, 
-                IssueTime = DateTime.Now.AddDays(-2), 
-                RentalHours = 18 
+                Client = Clients[8], 
+                ClientId = 9 
             },
             new() { 
                 Id = 10,
-                CarId = 10,
-                ClientId = 10,
-                IssueTime = DateTime.Now.AddHours(-1), 
-                RentalHours = 4 
-            },
-            new() { 
-                Id = 11,
-                CarId = 1, 
-                ClientId = 2, 
-                IssueTime = DateTime.Now.AddDays(-25), 
-                RentalHours = 24 
-            },
-            new() { 
-                Id = 12,
-                CarId = 2, 
-                ClientId = 3, 
-                IssueTime = DateTime.Now.AddDays(-30), 
-                RentalHours = 48 
-            },
-            new() { 
-                Id = 13,
-                CarId = 3, 
-                ClientId = 4, 
-                IssueTime = DateTime.Now.AddDays(-35), 
-                RentalHours = 12 
-            },
-            new() { 
-                Id = 14,
-                CarId = 1, 
-                ClientId = 5, 
-                IssueTime = DateTime.Now.AddDays(-40), 
-                RentalHours = 24 
-            },
-            new() { 
-                Id = 15,
-                CarId = 2, 
-                ClientId = 6, 
-                IssueTime = DateTime.Now.AddDays(-45), 
-                RentalHours = 36 
+                IssueTime = baseDate.AddDays(3),
+                RentalHours = 60, 
+                RentedCar = Cars[9], 
+                CarId = 10, 
+                Client = Clients[9], 
+                ClientId = 10 
             }
         };
     }

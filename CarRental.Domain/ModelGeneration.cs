@@ -9,7 +9,7 @@ public class ModelGeneration
     /// <summary>
     /// Unique identifier for the model generation
     /// </summary>
-    public int Id { get; set; }
+    public required int Id { get; set; }
     /// <summary>
     /// The manufacturing year of this generation
     /// </summary>
