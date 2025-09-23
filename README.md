@@ -21,11 +21,11 @@
 * Вывести топ 5 клиентов по сумме аренды.
 
 # Классы:
-* [Car](https://github.com/Mishele123/enterprise-development/blob/main/CarRental.Domain/Car.cs) - описывает характеристику автомобиля
-* [CarModel](https://github.com/Mishele123/enterprise-development/blob/main/CarRental.Domain/CarModel.cs) - описывает модель автомобиля
-* [ModelGeneration](https://github.com/Mishele123/enterprise-development/blob/main/CarRental.Domain/ModelGeneration.cs) - описывает поколение модели
-* [RentalCar](https://github.com/Mishele123/enterprise-development/blob/main/CarRental.Domain/RentalCar.cs) - характеризует процесс выдачи автомобиля в аренду клиенту
-* [Client](https://github.com/Mishele123/enterprise-development/blob/main/CarRental.Domain/Client.cs)
+* [Car] - описывает характеристику автомобиля
+* [CarModel] - описывает модель автомобиля
+* [ModelGeneration] - описывает поколение модели
+* [RentalCar] - характеризует процесс выдачи автомобиля в аренду клиенту
+* [Client] - описывает клиента
 
 # Юнит тесты:
 * GetClientsByCarModel() - Вывести информацию обо всех клиентах, которые брали в аренду автомобили указанной модели, упорядочить по ФИО
