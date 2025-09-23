@@ -23,15 +23,7 @@ public class Rental
     /// </summary>
     public required Car RentedCar { get; set; }
     /// <summary>
-    /// Foreign key referencing the rented car
-    /// </summary>
-    public required int CarId { get; set; }
-    /// <summary>
     /// Client who rentering car
     /// </summary>
     public required Client Client { get; set; }
-    /// <summary>
-    /// Foreign key referencing the client who rented the car
-    /// </summary>
-    public required int ClientId { get; set; }
 }

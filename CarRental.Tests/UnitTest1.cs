@@ -4,8 +4,6 @@ namespace CarRental.Tests;
 
 public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFixture>
 {
-    private readonly CarRentalFixture _fixture = fixture;
-
 
     /// <summary>
     /// Display information about all customers who have rented cars of the specified model, 
@@ -16,9 +14,12 @@ public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFi
     {
         // Arrange
         var targetModel = "Toyota Camry";
+        var expectedCount = 3;
+        var expectedFirstClient = "David Johnson";
+        var expectedSecondClient = "John Smith";
 
         // Act
-        var result = _fixture.Rentals
+        var result = fixture.Rentals
             .Where(r => r.RentedCar.Generation.Model.Name == targetModel)
             .Select(r => r.Client)
             .Distinct()
@@ -26,42 +27,9 @@ public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFi
             .ToList();
 
         // Assert
-        Assert.Single(result);
-        Assert.Equal("John Smith", result[0].FullName);
-    }
-
-    /// <summary>
-    /// Display information about cars that are rented
-    /// </summary>
-    [Fact]
-    public void GetClientsByCarModelMultiply()
-    {
-        // Arrange - adding additional rentals for the test
-        var extraRental = new Rental
-        {
-            Id = 11,
-            IssueTime = new DateTime(2024, 1, 5),
-            RentalHours = 24,
-            RentedCar = _fixture.Cars[0], // Toyota Camry
-            CarId = 1,
-            Client = _fixture.Clients[1], // Maria Garcia
-            ClientId = 2
-        };
-        
-        var testRentals = _fixture.Rentals.Concat(new[] { extraRental }).ToList();
-
-        // Act
-        var result = testRentals
-            .Where(r => r.RentedCar.Generation.Model.Name == "Toyota Camry")
-            .Select(r => r.Client)
-            .Distinct()
-            .OrderBy(c => c.FullName)
-            .ToList();
-
-        // Assert
-        Assert.Equal(2, result.Count);
-        Assert.Equal("John Smith", result[0].FullName);
-        Assert.Equal("Maria Garcia", result[1].FullName);
+        Assert.Equal(expectedCount, result.Count);
+        Assert.Equal(expectedFirstClient, result[0].FullName);
+        Assert.Equal(expectedSecondClient, result[1].FullName);
     }
 
     /// <summary>
@@ -72,16 +40,17 @@ public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFi
     {
         // Arrange
         var currentTime = new DateTime(2024, 1, 1, 20, 0, 0);
+        var expectedRentedCarsCount = 9;
 
         // Act
-        var result = _fixture.Rentals
+        var result = fixture.Rentals
             .Where(r => r.IssueTime.AddHours(r.RentalHours) > currentTime)
             .Select(r => r.RentedCar)
             .Distinct()
             .ToList();
 
         // Assert
-        Assert.Equal(9, result.Count);
+        Assert.Equal(expectedRentedCarsCount, result.Count);
     }
 
     /// <summary>
@@ -91,40 +60,14 @@ public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFi
     public void GetTop5MostFrequentlyRentedCars()
     {
         // Arrange
-        var extraRentals = new List<Rental>
-            {
-                new() { 
-                    Id = 11, IssueTime = new DateTime(2024, 1, 5), 
-                    RentalHours = 24, 
-                    RentedCar = _fixture.Cars[0], 
-                    CarId = 1, 
-                    Client = _fixture.Clients[1],
-                    ClientId = 2 
-                },
-                new() { 
-                    Id = 12,
-                    IssueTime = new DateTime(2024, 1, 6),
-                    RentalHours = 48, 
-                    RentedCar = _fixture.Cars[0],
-                    CarId = 1, 
-                    Client = _fixture.Clients[2], 
-                    ClientId = 3 
-                },
-                new() { 
-                    Id = 13, 
-                    IssueTime = new DateTime(2024, 1, 7), 
-                    RentalHours = 12, 
-                    RentedCar = _fixture.Cars[1], 
-                    CarId = 2, 
-                    Client = _fixture.Clients[3], 
-                    ClientId = 4 
-                }
-            };
-
-        var testRentals = _fixture.Rentals.Concat(extraRentals).ToList();
+        var expectedCount = 5;
+        var expectedTopCarLicensePlate = "ABC123";
+        var expectedTopCarRentalCount = 3;
+        var expectedSecondCarLicensePlate = "DEF456";
+        var expectedSecondCarRentalCount = 2;
 
         // Act
-        var result = testRentals
+        var result = fixture.Rentals
             .GroupBy(r => r.RentedCar)
             .Select(g => new { Car = g.Key, RentalCount = g.Count() })
             .OrderByDescending(x => x.RentalCount)
@@ -132,11 +75,11 @@ public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFi
             .ToList();
 
         // Assert
-        Assert.Equal(5, result.Count);
-        Assert.Equal("ABC123", result[0].Car.LicensePlate); // Toyota Camry - 3
-        Assert.Equal(3, result[0].RentalCount);
-        Assert.Equal("DEF456", result[1].Car.LicensePlate); // BMW 3 Series - 2
-        Assert.Equal(2, result[1].RentalCount);
+        Assert.Equal(expectedCount, result.Count);
+        Assert.Equal(expectedTopCarLicensePlate, result[0].Car.LicensePlate);
+        Assert.Equal(expectedTopCarRentalCount, result[0].RentalCount);
+        Assert.Equal(expectedSecondCarLicensePlate, result[1].Car.LicensePlate);
+        Assert.Equal(expectedSecondCarRentalCount, result[1].RentalCount);
     }
 
     /// <summary>
@@ -145,23 +88,28 @@ public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFi
     [Fact]
     public void GetRentalCountPerCar()
     {
+        // Arrange
+        var toyotaCamryLicensePlate = "ABC123";
+        var expectedToyotaRentalCount = 3;
+        var bmw3SeriesLicensePlate = "DEF456";
+        var expectedBmwRentalCount = 2;
+
         // Act
-        var result = _fixture.Cars
+        var result = fixture.Cars
             .Select(car => new
             {
                 Car = car,
-                RentalCount = _fixture.Rentals.Count(r => r.RentedCar.Id == car.Id)
+                RentalCount = fixture.Rentals.Count(r => r.RentedCar.Id == car.Id)
             })
             .ToList();
 
         // Assert
-        var toyotaCamry = result.First(x => x.Car.LicensePlate == "ABC123");
-        Assert.Equal(1, toyotaCamry.RentalCount);
+        var toyotaCamry = result.First(x => x.Car.LicensePlate == toyotaCamryLicensePlate);
+        Assert.Equal(expectedToyotaRentalCount, toyotaCamry.RentalCount);
 
-        var bmw3Series = result.First(x => x.Car.LicensePlate == "DEF456");
-        Assert.Equal(1, bmw3Series.RentalCount);
+        var bmw3Series = result.First(x => x.Car.LicensePlate == bmw3SeriesLicensePlate);
+        Assert.Equal(expectedBmwRentalCount, bmw3Series.RentalCount);
     }
-
 
     /// <summary>
     /// top 5 clients by rental amount
@@ -170,23 +118,12 @@ public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFi
     public void GetTop5ClientsByRentalSum()
     {
         // Arrange
-        var extraRentals = new List<Rental>
-            {
-                new() {
-                    Id = 11,
-                    IssueTime = new DateTime(2024, 1, 5),
-                    RentalHours = 100,
-                    RentedCar = _fixture.Cars[4], // Mercedes S-Class (95.00/hour)
-                    CarId = 5,
-                    Client = _fixture.Clients[0], // John Smith
-                    ClientId = 1
-                }
-            };
-
-        var testRentals = _fixture.Rentals.Concat(extraRentals).ToList();
+        var johnSmithName = "John Smith";
+        var expectedJohnSum = 10112m;
+        var expectedTopClientsCount = 5;
 
         // Act
-        var result = testRentals
+        var result = fixture.Rentals
             .GroupBy(r => r.Client)
             .Select(g => new
             {
@@ -198,9 +135,8 @@ public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFi
             .ToList();
 
         // Assert
-        var johnSmith = result.First(x => x.Client.FullName == "John Smith");
-        var expectedJohnSum = (24 * 25.50m) + (100 * 95.00m); // Toyota Camry + Mercedes S-Class
+        Assert.Equal(expectedTopClientsCount, result.Count);
+        var johnSmith = result.First(x => x.Client.FullName == johnSmithName);
         Assert.Equal(expectedJohnSum, johnSmith.TotalRentalCost);
-        Assert.True(johnSmith.TotalRentalCost > result[1].TotalRentalCost); // John should be first
     }
 }

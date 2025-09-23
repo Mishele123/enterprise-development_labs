@@ -329,90 +329,98 @@ public class CarRentalFixture
                 IssueTime = baseDate.AddHours(2), 
                 RentalHours = 24, 
                 RentedCar = Cars[0], 
-                CarId = 1, 
                 Client = Clients[0], 
-                ClientId = 1 
             },
             new() { 
                 Id = 2, 
                 IssueTime = baseDate.AddHours(5),
                 RentalHours = 48, 
                 RentedCar = Cars[1], 
-                CarId = 2, 
                 Client = Clients[1], 
-                ClientId = 2 
             },
             new() { 
                 Id = 3, 
                 IssueTime = baseDate.AddHours(8),
                 RentalHours = 12,
                 RentedCar = Cars[2], 
-                CarId = 3, 
                 Client = Clients[2], 
-                ClientId = 3 
             },
             new() { 
                 Id = 4, 
                 IssueTime = baseDate.AddHours(12), 
                 RentalHours = 72, 
                 RentedCar = Cars[3], 
-                CarId = 4, 
                 Client = Clients[3], 
-                ClientId = 4 
             },
             new() { 
                 Id = 5, 
                 IssueTime = baseDate.AddHours(18), 
                 RentalHours = 6, 
                 RentedCar = Cars[4], 
-                CarId = 5, 
                 Client = Clients[4], 
-                ClientId = 5 
             },
             new() { 
                 Id = 6, 
                 IssueTime = baseDate.AddDays(1), 
                 RentalHours = 36, 
                 RentedCar = Cars[5], 
-                CarId = 6, 
                 Client = Clients[5], 
-                ClientId = 6 
             },
             new() { 
                 Id = 7, 
                 IssueTime = baseDate.AddDays(1).AddHours(6), 
                 RentalHours = 24, 
                 RentedCar = Cars[6], 
-                CarId = 7, 
                 Client = Clients[6], 
-                ClientId = 7 
             },
             new() { 
                 Id = 8, 
                 IssueTime = baseDate.AddDays(2), 
                 RentalHours = 96, 
                 RentedCar = Cars[7], 
-                CarId = 8, 
                 Client = Clients[7], 
-                ClientId = 8 
             },
             new() { 
                 Id = 9, 
                 IssueTime = baseDate.AddDays(2).AddHours(4), 
                 RentalHours = 18, 
                 RentedCar = Cars[8], 
-                CarId = 9, 
                 Client = Clients[8], 
-                ClientId = 9 
             },
             new() { 
                 Id = 10,
                 IssueTime = baseDate.AddDays(3),
                 RentalHours = 60, 
                 RentedCar = Cars[9], 
-                CarId = 10, 
                 Client = Clients[9], 
-                ClientId = 10 
+            },
+            new() {
+                Id = 11,
+                IssueTime = new DateTime(2024, 1, 5),
+                RentalHours = 24,
+                RentedCar = Cars[0],
+                Client = Clients[1],
+            },
+            new() {
+                Id = 12,
+                IssueTime = new DateTime(2024, 1, 6),
+                RentalHours = 48,
+                RentedCar = Cars[0],
+                Client = Clients[2],
+            },
+            new() {
+                Id = 13,
+                IssueTime = new DateTime(2024, 1, 7),
+                RentalHours = 12,
+                RentedCar = Cars[1],
+                Client = Clients[3],
+            },
+            new() {
+                Id = 14,
+                IssueTime = new DateTime(2024, 1, 5),
+                RentalHours = 100,
+                RentedCar = Cars[4],
+                Client = Clients[0],
             }
         ];
     }
