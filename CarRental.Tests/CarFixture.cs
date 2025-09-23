@@ -8,11 +8,11 @@ namespace CarRental.Tests;
 /// </summary>
 public class CarRentalFixture
 {
-    public List<CarModel> CarModels;
-    public List<ModelGeneration> Generations;
-    public List<Car> Cars;
-    public List<Client> Clients;
-    public List<Rental> Rentals;
+    public readonly List<CarModel> CarModels;
+    public readonly List<ModelGeneration> Generations;
+    public readonly List<Car> Cars;
+    public readonly List<Client> Clients;
+    public readonly List<Rental> Rentals;
 
     /// <summary>
     /// Initializing test data
@@ -20,8 +20,8 @@ public class CarRentalFixture
     public CarRentalFixture()
     {
         // Initialize CarModels
-        CarModels = new List<CarModel>
-        {
+        CarModels =
+        [
             new() { 
                 Id = 1, 
                 Name = "Toyota Camry", 
@@ -103,11 +103,11 @@ public class CarRentalFixture
                 BodyType = BodyType.Minivan, 
                 VehicleClass = VehicleClass.Comfort 
             }
-        };
+        ];
 
         // Initialize Generations
-        Generations = new List<ModelGeneration>
-        {
+        Generations =
+        [
             new() { 
                 Id = 1, 
                 Year = 2022, 
@@ -188,11 +188,11 @@ public class CarRentalFixture
                 Model = CarModels[9], 
                 RentalCostPerHour = 32.00m 
             }
-        };
+        ];
 
         // Initialize Cars
-        Cars = new List<Car>
-        {
+        Cars =
+        [
             new() { 
                 Id = 1, 
                 Generation = Generations[0], 
@@ -253,11 +253,11 @@ public class CarRentalFixture
                 LicensePlate = "BCD890", 
                 Colour = "Silver" 
             }
-        };
+        ];
 
         // Initialize Clients
-        Clients = new List<Client>
-        {
+        Clients =
+        [
             new() { 
                 Id = 1,
                 DriverLicenseNumber = "DL12345678", 
@@ -318,12 +318,12 @@ public class CarRentalFixture
                 FullName = "Jennifer Martinez", 
                 DateOfBirth = new DateTime(1993, 4, 20) 
             }
-        };
+        ];
 
         // Initialize Rentals
         var baseDate = new DateTime(2024, 1, 1);
-        Rentals = new List<Rental>
-        {
+        Rentals =
+        [
             new() { 
                 Id = 1, 
                 IssueTime = baseDate.AddHours(2), 
@@ -414,6 +414,6 @@ public class CarRentalFixture
                 Client = Clients[9], 
                 ClientId = 10 
             }
-        };
+        ];
     }
 }
