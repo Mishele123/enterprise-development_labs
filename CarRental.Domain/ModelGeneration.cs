@@ -21,7 +21,7 @@ public class ModelGeneration
     /// <summary>
     /// The type of transmission (Manual or Automatic)
     /// </summary>  
-    public required TransmissionType TransmissionType { get; set; }
+    public required TransmissionTypes TransmissionType { get; set; }
     /// <summary>
     /// Reference to the car model that this generation belongs to
     /// </summary>

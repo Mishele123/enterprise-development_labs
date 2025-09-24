@@ -27,81 +27,81 @@ public class CarRentalFixture
                 Name = "Toyota Camry", 
                 DriveType = DriveTypes.Fwd, 
                 SeatCount = 5, 
-                BodyType = BodyType.Sedan, 
-                VehicleClass = VehicleClass.Comfort 
+                BodyType = BodyTypes.Sedan, 
+                VehicleClass = VehicleClasses.Comfort 
             },
             new() { 
                 Id = 2, 
                 Name = "BMW 3 Series", 
                 DriveType = DriveTypes.Rwd, 
                 SeatCount = 5, 
-                BodyType = BodyType.Sedan, 
-                VehicleClass = VehicleClass.Business 
+                BodyType = BodyTypes.Sedan, 
+                VehicleClass = VehicleClasses.Business 
             },
             new() { 
                 Id = 3, 
                 Name = "Honda Civic", 
                 DriveType = DriveTypes.Fwd, 
                 SeatCount = 5, 
-                BodyType = BodyType.Sedan, 
+                BodyType = BodyTypes.Sedan, 
                 VehicleClass = 
-                VehicleClass.Economy 
+                VehicleClasses.Economy 
             },
             new() { 
                 Id = 4, 
                 Name = "Audi Q7", 
                 DriveType = DriveTypes.Awd, 
                 SeatCount = 7, 
-                BodyType = BodyType.Suv, 
-                VehicleClass = VehicleClass.Premium 
+                BodyType = BodyTypes.Suv, 
+                VehicleClass = VehicleClasses.Premium 
             },
             new() { 
                 Id = 5, 
                 Name = "Mercedes S-Class",
                 DriveType = DriveTypes.Rwd, 
                 SeatCount = 5, 
-                BodyType = BodyType.Sedan, 
-                VehicleClass = VehicleClass.Luxury 
+                BodyType = BodyTypes.Sedan, 
+                VehicleClass = VehicleClasses.Luxury 
             },
             new() { 
                 Id = 6, 
                 Name = "Volkswagen Golf", 
                 DriveType = DriveTypes.Fwd, 
                 SeatCount = 5, 
-                BodyType = BodyType.Hatchback, 
-                VehicleClass = VehicleClass.Economy 
+                BodyType = BodyTypes.Hatchback, 
+                VehicleClass = VehicleClasses.Economy 
             },
             new() { 
                 Id = 7, 
                 Name = "Ford Focus", 
                 DriveType = DriveTypes.Fwd, 
                 SeatCount = 5, 
-                BodyType = BodyType.Hatchback, 
-                VehicleClass = VehicleClass.Economy 
+                BodyType = BodyTypes.Hatchback, 
+                VehicleClass = VehicleClasses.Economy 
             },
             new() { 
                 Id = 8, 
                 Name = "Toyota RAV4", 
                 DriveType = DriveTypes.Awd, 
                 SeatCount = 5,
-                BodyType = BodyType.Suv, 
-                VehicleClass = VehicleClass.Comfort 
+                BodyType = BodyTypes.Suv, 
+                VehicleClass = VehicleClasses.Comfort 
             },
             new() { 
                 Id = 9, 
                 Name = "BMW X5", 
                 DriveType = DriveTypes.Awd, 
                 SeatCount = 5, 
-                BodyType = BodyType.Suv, 
-                VehicleClass = VehicleClass.Premium 
+                BodyType = BodyTypes.Suv, 
+                VehicleClass = VehicleClasses.Premium 
             },
             new() { 
                 Id = 10,
                 Name = "Toyota Sienna", 
                 DriveType = DriveTypes.Fwd, 
                 SeatCount = 8, 
-                BodyType = BodyType.Minivan, 
-                VehicleClass = VehicleClass.Comfort 
+                BodyType = BodyTypes.Minivan, 
+                VehicleClass = VehicleClasses.Comfort 
             }
         ];
 
@@ -112,7 +112,7 @@ public class CarRentalFixture
                 Id = 1, 
                 Year = 2022, 
                 EngineVolume = 2.5, 
-                TransmissionType = TransmissionType.Automatic, 
+                TransmissionType = TransmissionTypes.Automatic, 
                 Model = CarModels[0], 
                 RentalCostPerHour = 25.50m 
             },
@@ -120,7 +120,7 @@ public class CarRentalFixture
                 Id = 2, 
                 Year = 2023, 
                 EngineVolume = 2.0, 
-                TransmissionType = TransmissionType.Automatic, 
+                TransmissionType = TransmissionTypes.Automatic, 
                 Model = CarModels[1], 
                 RentalCostPerHour = 45.00m 
             },
@@ -128,7 +128,7 @@ public class CarRentalFixture
                 Id = 3, 
                 Year = 2021, 
                 EngineVolume = 1.8, 
-                TransmissionType = TransmissionType.Manual, 
+                TransmissionType = TransmissionTypes.Manual, 
                 Model = CarModels[2], 
                 RentalCostPerHour = 18.75m 
             },
@@ -136,7 +136,7 @@ public class CarRentalFixture
                 Id = 4, 
                 Year = 2023, 
                 EngineVolume = 3.0, 
-                TransmissionType = TransmissionType.Automatic, 
+                TransmissionType = TransmissionTypes.Automatic, 
                 Model = CarModels[3], 
                 RentalCostPerHour = 65.00m 
             },
@@ -144,7 +144,7 @@ public class CarRentalFixture
                 Id = 5, 
                 Year = 2022, 
                 EngineVolume = 3.5, 
-                TransmissionType = TransmissionType.Automatic, 
+                TransmissionType = TransmissionTypes.Automatic, 
                 Model = CarModels[4], 
                 RentalCostPerHour = 95.00m 
             },
@@ -152,7 +152,7 @@ public class CarRentalFixture
                 Id = 6, 
                 Year = 2021, 
                 EngineVolume = 1.6, 
-                TransmissionType = TransmissionType.Manual, 
+                TransmissionType = TransmissionTypes.Manual, 
                 Model = CarModels[5], 
                 RentalCostPerHour = 16.50m 
             },
@@ -160,7 +160,7 @@ public class CarRentalFixture
                 Id = 7, 
                 Year = 2022, 
                 EngineVolume = 2.0, 
-                TransmissionType = TransmissionType.Automatic, 
+                TransmissionType = TransmissionTypes.Automatic, 
                 Model = CarModels[6], 
                 RentalCostPerHour = 19.25m 
             },
@@ -168,7 +168,7 @@ public class CarRentalFixture
                 Id = 8, 
                 Year = 2023, 
                 EngineVolume = 2.5, 
-                TransmissionType = TransmissionType.Automatic, 
+                TransmissionType = TransmissionTypes.Automatic, 
                 Model = CarModels[7], 
                 RentalCostPerHour = 28.00m 
             },
@@ -176,7 +176,7 @@ public class CarRentalFixture
                 Id = 9, 
                 Year = 2022, 
                 EngineVolume = 3.0, 
-                TransmissionType = TransmissionType.Automatic, 
+                TransmissionType = TransmissionTypes.Automatic, 
                 Model = CarModels[8], 
                 RentalCostPerHour = 72.50m 
             },
@@ -184,7 +184,7 @@ public class CarRentalFixture
                 Id = 10,
                 Year = 2021, 
                 EngineVolume = 3.5, 
-                TransmissionType = TransmissionType.Automatic, 
+                TransmissionType = TransmissionTypes.Automatic, 
                 Model = CarModels[9], 
                 RentalCostPerHour = 32.00m 
             }

@@ -3,7 +3,7 @@
 /// <summary>
 /// Defines the transmission type of vehicles.
 /// </summary>
-public enum TransmissionType
+public enum TransmissionTypes
 {
     /// <summary>Manual transmission</summary>
     Manual,

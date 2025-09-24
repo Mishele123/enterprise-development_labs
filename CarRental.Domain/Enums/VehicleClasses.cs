@@ -3,7 +3,7 @@
 /// <summary>
 /// Defines the vehicle class for rental categorization and pricing.
 /// </summary>
-public enum VehicleClass
+public enum VehicleClasses
 {
     /// <summary>Economy class - basic, fuel-efficient vehicles</summary>
     Economy,

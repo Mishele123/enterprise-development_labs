@@ -3,7 +3,7 @@
 /// <summary>
 /// Defines the body type classification of vehicles
 /// </summary>
-public enum BodyType
+public enum BodyTypes
 {
     /// <summary>Standard sedan body type</summary>
     Sedan,
