@@ -10,7 +10,7 @@ public enum BodyType
     /// <summary>Hatchback body type with rear door</summary>
     Hatchback,
     /// <summary>Sport Utility Vehicle body type</summary>
-    SUV,
+    Suv,
     /// <summary>Multi-purpose vehicle body type</summary>
     Minivan,
     /// <summary>Two-door coupe body type</summary>

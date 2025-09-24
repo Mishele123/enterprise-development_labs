@@ -25,7 +25,7 @@ public class CarRentalFixture
             new() { 
                 Id = 1, 
                 Name = "Toyota Camry", 
-                DriveType = DriveTypes.FWD, 
+                DriveType = DriveTypes.Fwd, 
                 SeatCount = 5, 
                 BodyType = BodyType.Sedan, 
                 VehicleClass = VehicleClass.Comfort 
@@ -33,7 +33,7 @@ public class CarRentalFixture
             new() { 
                 Id = 2, 
                 Name = "BMW 3 Series", 
-                DriveType = DriveTypes.RWD, 
+                DriveType = DriveTypes.Rwd, 
                 SeatCount = 5, 
                 BodyType = BodyType.Sedan, 
                 VehicleClass = VehicleClass.Business 
@@ -41,7 +41,7 @@ public class CarRentalFixture
             new() { 
                 Id = 3, 
                 Name = "Honda Civic", 
-                DriveType = DriveTypes.FWD, 
+                DriveType = DriveTypes.Fwd, 
                 SeatCount = 5, 
                 BodyType = BodyType.Sedan, 
                 VehicleClass = 
@@ -50,15 +50,15 @@ public class CarRentalFixture
             new() { 
                 Id = 4, 
                 Name = "Audi Q7", 
-                DriveType = DriveTypes.AWD, 
+                DriveType = DriveTypes.Awd, 
                 SeatCount = 7, 
-                BodyType = BodyType.SUV, 
+                BodyType = BodyType.Suv, 
                 VehicleClass = VehicleClass.Premium 
             },
             new() { 
                 Id = 5, 
                 Name = "Mercedes S-Class",
-                DriveType = DriveTypes.RWD, 
+                DriveType = DriveTypes.Rwd, 
                 SeatCount = 5, 
                 BodyType = BodyType.Sedan, 
                 VehicleClass = VehicleClass.Luxury 
@@ -66,7 +66,7 @@ public class CarRentalFixture
             new() { 
                 Id = 6, 
                 Name = "Volkswagen Golf", 
-                DriveType = DriveTypes.FWD, 
+                DriveType = DriveTypes.Fwd, 
                 SeatCount = 5, 
                 BodyType = BodyType.Hatchback, 
                 VehicleClass = VehicleClass.Economy 
@@ -74,7 +74,7 @@ public class CarRentalFixture
             new() { 
                 Id = 7, 
                 Name = "Ford Focus", 
-                DriveType = DriveTypes.FWD, 
+                DriveType = DriveTypes.Fwd, 
                 SeatCount = 5, 
                 BodyType = BodyType.Hatchback, 
                 VehicleClass = VehicleClass.Economy 
@@ -82,23 +82,23 @@ public class CarRentalFixture
             new() { 
                 Id = 8, 
                 Name = "Toyota RAV4", 
-                DriveType = DriveTypes.AWD, 
-                SeatCount = 5, 
-                BodyType = BodyType.SUV, 
+                DriveType = DriveTypes.Awd, 
+                SeatCount = 5,
+                BodyType = BodyType.Suv, 
                 VehicleClass = VehicleClass.Comfort 
             },
             new() { 
                 Id = 9, 
                 Name = "BMW X5", 
-                DriveType = DriveTypes.AWD, 
+                DriveType = DriveTypes.Awd, 
                 SeatCount = 5, 
-                BodyType = BodyType.SUV, 
+                BodyType = BodyType.Suv, 
                 VehicleClass = VehicleClass.Premium 
             },
             new() { 
                 Id = 10,
                 Name = "Toyota Sienna", 
-                DriveType = DriveTypes.FWD, 
+                DriveType = DriveTypes.Fwd, 
                 SeatCount = 8, 
                 BodyType = BodyType.Minivan, 
                 VehicleClass = VehicleClass.Comfort 

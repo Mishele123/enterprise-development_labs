@@ -6,9 +6,9 @@
 public enum DriveTypes
 {
     /// <summary>Front-Wheel Drive</summary>
-    FWD,
+    Fwd,
     /// <summary>Rear-Wheel Drive</summary>
-    RWD,
+    Rwd,
     /// <summary>All-Wheel Drive</summary>
-    AWD
+    Awd
 }
