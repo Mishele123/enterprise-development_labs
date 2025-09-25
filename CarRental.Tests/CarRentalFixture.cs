@@ -12,7 +12,7 @@ public class CarRentalFixture
     public readonly List<ModelGeneration> Generations;
     public readonly List<Car> Cars;
     public readonly List<Client> Clients;
-    public readonly List<Rental> Rentals;
+    public readonly List<RentalCar> Rentals;
 
     /// <summary>
     /// Initializing test data

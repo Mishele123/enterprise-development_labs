@@ -4,7 +4,7 @@
 /// Represents a car rental transaction between a client and a car
 /// Tracks the rental period and associated entities
 /// </summary>
-public class Rental
+public class RentalCar
 {
     /// <summary>
     /// Unique identifier for the rental transaction

@@ -1,5 +1,3 @@
-using CarRental.Domain;
-
 namespace CarRental.Tests;
 
 public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFixture>
