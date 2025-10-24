@@ -17,19 +17,19 @@ public interface IRepository<T>
     /// <param name="entity">updatable entity</param>
     public void Update(T entity);
     /// <summary>
-    /// delete entity
+    /// delete entity by id
     /// </summary>
-    /// <param name="entity">the entity what will be deleted</param>
-    public void Delete(T entity);
+    /// <param name="entity">the entity index what will be deleted</param>
+    public void Delete(int id);
     /// <summary>
     /// read entity by id
     /// </summary>
     /// <param name="Id">entity id</param>
     /// <returns></returns>
-    public T Read(int Id);
+    public T? Read(int Id);
     /// <summary>
     /// read all
     /// </summary>
     /// <returns>return all datas</returns>
-    public IEnumerable<T> ReadAll();
+    public IEnumerable<T>? ReadAll();
 }

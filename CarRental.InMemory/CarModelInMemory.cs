@@ -1,0 +1,59 @@
+﻿using CarRental.Domain.Entities;
+using CarRental.Domain.Interfaces;
+using CarRental.InMemory.Seed;
+namespace CarRental.InMemory;
+
+/// <summary>
+/// implementaion ICarModel Repository
+/// </summary>
+public class CarModelInMemory(InMemoryData seed) : ICarModelRepository
+{
+    /// <summary>
+    /// create entity
+    /// </summary>
+    /// <param name="entity">CarModel entity</param>
+    public void Create(CarModel entity)
+    {
+        if (entity.Id == 0)
+        {
+            entity.Id = seed.CarModels.Count > 0 ? seed.CarModels.Max(cm => cm.Id) + 1 : 1;
+        }
+        seed.CarModels.Add(entity);
+    }
+    public void Update(CarModel entity)
+    {
+        var index = entity.Id;
+    }
+
+    /// <summary>
+    /// read entity by id
+    /// </summary>
+    /// <param name="Id">entity id</param>
+    /// <returns></returns>
+    public CarModel? Read(int Id)
+    {
+        return seed.CarModels.FirstOrDefault(cm => cm.Id == Id);
+    }
+
+    /// <summary>
+    /// delete entity by id
+    /// </summary>
+    /// <param name="entity">the entity index what will be deleted</param>
+    public void Delete(int id)
+    {
+        var deletableEntity = Read(id);
+        if (deletableEntity != null)
+        {
+            seed.CarModels.Remove(deletableEntity);
+        }
+    }
+
+    /// <summary>
+    /// read all
+    /// </summary>
+    /// <returns>return all datas</returns>
+    public IEnumerable<CarModel>? ReadAll()
+    {
+        return [.. seed.CarModels];
+    }
+}
