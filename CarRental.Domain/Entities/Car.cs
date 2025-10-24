@@ -1,4 +1,4 @@
-﻿namespace CarRental.Domain;
+﻿namespace CarRental.Domain.Entities;
 
 /// <summary>
 /// The class describes the characteristics of the car

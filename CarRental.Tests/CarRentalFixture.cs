@@ -1,4 +1,4 @@
-﻿using CarRental.Domain;
+﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Enums;
 
 namespace CarRental.Tests;

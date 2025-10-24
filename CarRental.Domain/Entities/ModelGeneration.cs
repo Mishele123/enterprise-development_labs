@@ -1,6 +1,6 @@
 ﻿using CarRental.Domain.Enums;
+namespace CarRental.Domain.Entities;
 
-namespace CarRental.Domain;
 /// <summary>
 /// The class describes the model Generation 👍
 /// </summary>

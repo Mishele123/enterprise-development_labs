@@ -1,6 +1,5 @@
 ﻿using CarRental.Domain.Enums;
-
-namespace CarRental.Domain;
+namespace CarRental.Domain.Entities;
 
 /// <summary>
 /// Represents a car model with its general characteristics and classification

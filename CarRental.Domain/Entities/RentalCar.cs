@@ -1,4 +1,4 @@
-﻿namespace CarRental.Domain;
+﻿namespace CarRental.Domain.Entities;
 
 /// <summary>
 /// Represents a car rental transaction between a client and a car
