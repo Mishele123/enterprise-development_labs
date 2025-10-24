@@ -30,6 +30,6 @@ public interface IRepository<T>
     /// <summary>
     /// read all
     /// </summary>
-    /// <returns>return all datas</returns>
+    /// <returns>return all entites</returns>
     public IEnumerable<T>? ReadAll();
 }

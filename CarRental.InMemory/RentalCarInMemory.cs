@@ -3,29 +3,30 @@ using CarRental.Domain.Interfaces;
 using CarRental.InMemory.Seed;
 namespace CarRental.InMemory;
 
+
 /// <summary>
-/// implementaion ICarModel Repository
+/// implementaion IRentalCar Repository
 /// </summary>
-public class CarModelInMemory(InMemoryData seed) : ICarModelRepository
+public class RentalCarInMemory(InMemoryData seed) : IRentalCarRepository
 {
     /// <summary>
     /// create entity
     /// </summary>
-    /// <param name="entity">CarModel entity</param>
-    public void Create(CarModel entity)
+    /// <param name="entity">RentalCar entity</param>
+    public void Create(RentalCar entity)
     {
         if (entity.Id == 0)
         {
-            entity.Id = seed.CarModels.Count > 0 ? seed.CarModels.Max(cm => cm.Id) + 1 : 1;
+            entity.Id = seed.Rentals.Count > 0 ? seed.Rentals.Max(cm => cm.Id) + 1 : 1;
         }
-        seed.CarModels.Add(entity);
+        seed.Rentals.Add(entity);
     }
 
     /// <summary>
     /// Update entity
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public void Update(CarModel entity)
+    public void Update(RentalCar entity)
     {
         Delete(entity.Id);
         Create(entity);
@@ -36,9 +37,9 @@ public class CarModelInMemory(InMemoryData seed) : ICarModelRepository
     /// </summary>
     /// <param name="Id">entity id</param>
     /// <returns></returns>
-    public CarModel? Read(int Id)
+    public RentalCar? Read(int Id)
     {
-        return seed.CarModels.FirstOrDefault(cm => cm.Id == Id);
+        return seed.Rentals.FirstOrDefault(cm => cm.Id == Id);
     }
 
     /// <summary>
@@ -50,7 +51,7 @@ public class CarModelInMemory(InMemoryData seed) : ICarModelRepository
         var deletableEntity = Read(id);
         if (deletableEntity != null)
         {
-            seed.CarModels.Remove(deletableEntity);
+            seed.Rentals.Remove(deletableEntity);
         }
     }
 
@@ -58,8 +59,8 @@ public class CarModelInMemory(InMemoryData seed) : ICarModelRepository
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<CarModel>? ReadAll()
+    public IEnumerable<RentalCar>? ReadAll()
     {
-        return [.. seed.CarModels];
+        return [.. seed.Rentals];
     }
 }
