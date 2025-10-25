@@ -1,37 +1,35 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 using CarRental.InMemory.Seed;
-using System.Reflection.PortableExecutable;
 namespace CarRental.InMemory;
 
-
 /// <summary>
-/// implementaion IRentalCar Repository
+/// implementaion ICarModel Repository
 /// </summary>
-public class RentalCarInMemory(InMemoryData seed) : IRentalCarRepository
+public class CarModelsInMemory(InMemoryData seed) : ICarModelRepository
 {
     /// <summary>
     /// create entity
     /// </summary>
-    /// <param name="entity">RentalCar entity</param>
-    public void Create(RentalCar entity)
+    /// <param name="entity">CarModel entity</param>
+    public void Create(CarModel entity)
     {
         if (entity.Id == 0)
         {
-            entity.Id = seed.Rentals.Count > 0 ? seed.Rentals.Max(cm => cm.Id) + 1 : 1;
+            entity.Id = seed.CarModels.Count > 0 ? seed.CarModels.Max(cm => cm.Id) + 1 : 1;
         }
-        seed.Rentals.Add(entity);
+        seed.CarModels.Add(entity);
     }
 
     /// <summary>
     /// Update entity
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public void Update(RentalCar entity)
+    public void Update(CarModel entity)
     {
-        var idx = seed.Rentals.FindIndex(x => x.Id == entity.Id);
+        var idx = seed.CarModels.FindIndex(x => x.Id == entity.Id);
         if (idx < 0) return;
-        seed.Rentals[idx] = entity;
+        seed.CarModels[idx] = entity;
     }
 
     /// <summary>
@@ -39,9 +37,9 @@ public class RentalCarInMemory(InMemoryData seed) : IRentalCarRepository
     /// </summary>
     /// <param name="Id">entity id</param>
     /// <returns></returns>
-    public RentalCar? Read(int Id)
+    public CarModel? Read(int Id)
     {
-        return seed.Rentals.FirstOrDefault(cm => cm.Id == Id);
+        return seed.CarModels.FirstOrDefault(cm => cm.Id == Id);
     }
 
     /// <summary>
@@ -53,7 +51,7 @@ public class RentalCarInMemory(InMemoryData seed) : IRentalCarRepository
         var deletableEntity = Read(id);
         if (deletableEntity != null)
         {
-            seed.Rentals.Remove(deletableEntity);
+            seed.CarModels.Remove(deletableEntity);
         }
     }
 
@@ -61,8 +59,8 @@ public class RentalCarInMemory(InMemoryData seed) : IRentalCarRepository
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<RentalCar>? ReadAll()
+    public IEnumerable<CarModel>? ReadAll()
     {
-        return [.. seed.Rentals];
+        return [.. seed.CarModels];
     }
 }

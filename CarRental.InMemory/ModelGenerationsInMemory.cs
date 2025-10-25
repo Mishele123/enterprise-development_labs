@@ -4,32 +4,32 @@ using CarRental.InMemory.Seed;
 namespace CarRental.InMemory;
 
 /// <summary>
-/// implementaion ICar Repository
+/// implementaion IModelGeneration Repository
 /// </summary>
-public class CarInMemory(InMemoryData seed) : ICarRepository
+public class ModelGenerationsInMemory(InMemoryData seed) : IModelGenerationRepository
 {
     /// <summary>
     /// create entity
     /// </summary>
-    /// <param name="entity">Car entity</param>
-    public void Create(Car entity)
+    /// <param name="entity">ModelGeneration entity</param>
+    public void Create(ModelGeneration entity)
     {
         if (entity.Id == 0)
         {
-            entity.Id = seed.Cars.Count > 0 ? seed.Cars.Max(cm => cm.Id) + 1 : 1;
+            entity.Id = seed.Generations.Count > 0 ? seed.Generations.Max(cm => cm.Id) + 1 : 1;
         }
-        seed.Cars.Add(entity);
+        seed.Generations.Add(entity);
     }
 
     /// <summary>
     /// Update entity
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public void Update(Car entity)
+    public void Update(ModelGeneration entity)
     {
-        var idx = seed.Cars.FindIndex(x => x.Id == entity.Id);
+        var idx = seed.Generations.FindIndex(x => x.Id == entity.Id);
         if (idx < 0) return;
-        seed.Cars[idx] = entity;
+        seed.Generations[idx] = entity;
     }
 
     /// <summary>
@@ -37,9 +37,9 @@ public class CarInMemory(InMemoryData seed) : ICarRepository
     /// </summary>
     /// <param name="Id">entity id</param>
     /// <returns></returns>
-    public Car? Read(int Id)
+    public ModelGeneration? Read(int Id)
     {
-        return seed.Cars.FirstOrDefault(cm => cm.Id == Id);
+        return seed.Generations.FirstOrDefault(cm => cm.Id == Id);
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ public class CarInMemory(InMemoryData seed) : ICarRepository
         var deletableEntity = Read(id);
         if (deletableEntity != null)
         {
-            seed.Cars.Remove(deletableEntity);
+            seed.Generations.Remove(deletableEntity);
         }
     }
 
@@ -59,8 +59,8 @@ public class CarInMemory(InMemoryData seed) : ICarRepository
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<Car>? ReadAll()
+    public IEnumerable<ModelGeneration>? ReadAll()
     {
-        return [.. seed.Cars];
+        return [.. seed.Generations];
     }
 }

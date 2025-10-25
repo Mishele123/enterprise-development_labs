@@ -4,32 +4,32 @@ using CarRental.InMemory.Seed;
 namespace CarRental.InMemory;
 
 /// <summary>
-/// implementaion IModelGeneration Repository
+/// implementaion IClient Repository
 /// </summary>
-public class ModelGenerationInMemory(InMemoryData seed) : IModelGenerationRepository
+public class ClientsInMemory(InMemoryData seed) : IClientRepository
 {
     /// <summary>
     /// create entity
     /// </summary>
-    /// <param name="entity">ModelGeneration entity</param>
-    public void Create(ModelGeneration entity)
+    /// <param name="entity">Client entity</param>
+    public void Create(Client entity)
     {
         if (entity.Id == 0)
         {
-            entity.Id = seed.Generations.Count > 0 ? seed.Generations.Max(cm => cm.Id) + 1 : 1;
+            entity.Id = seed.Clients.Count > 0 ? seed.Clients.Max(cm => cm.Id) + 1 : 1;
         }
-        seed.Generations.Add(entity);
+        seed.Clients.Add(entity);
     }
 
     /// <summary>
     /// Update entity
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public void Update(ModelGeneration entity)
+    public void Update(Client entity)
     {
-        var idx = seed.Generations.FindIndex(x => x.Id == entity.Id);
+        var idx = seed.Clients.FindIndex(x => x.Id == entity.Id);
         if (idx < 0) return;
-        seed.Generations[idx] = entity;
+        seed.Clients[idx] = entity;
     }
 
     /// <summary>
@@ -37,9 +37,9 @@ public class ModelGenerationInMemory(InMemoryData seed) : IModelGenerationReposi
     /// </summary>
     /// <param name="Id">entity id</param>
     /// <returns></returns>
-    public ModelGeneration? Read(int Id)
+    public Client? Read(int Id)
     {
-        return seed.Generations.FirstOrDefault(cm => cm.Id == Id);
+        return seed.Clients.FirstOrDefault(cm => cm.Id == Id);
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ public class ModelGenerationInMemory(InMemoryData seed) : IModelGenerationReposi
         var deletableEntity = Read(id);
         if (deletableEntity != null)
         {
-            seed.Generations.Remove(deletableEntity);
+            seed.Clients.Remove(deletableEntity);
         }
     }
 
@@ -59,8 +59,8 @@ public class ModelGenerationInMemory(InMemoryData seed) : IModelGenerationReposi
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<ModelGeneration>? ReadAll()
+    public IEnumerable<Client>? ReadAll()
     {
-        return [.. seed.Generations];
+        return [.. seed.Clients];
     }
 }

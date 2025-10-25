@@ -3,33 +3,34 @@ using CarRental.Domain.Interfaces;
 using CarRental.InMemory.Seed;
 namespace CarRental.InMemory;
 
+
 /// <summary>
-/// implementaion IClient Repository
+/// implementaion IRentalCar Repository
 /// </summary>
-public class ClienModelInMemory(InMemoryData seed) : IClientRepository
+public class RentalCarsInMemory(InMemoryData seed) : IRentalCarRepository
 {
     /// <summary>
     /// create entity
     /// </summary>
-    /// <param name="entity">Client entity</param>
-    public void Create(Client entity)
+    /// <param name="entity">RentalCar entity</param>
+    public void Create(RentalCar entity)
     {
         if (entity.Id == 0)
         {
-            entity.Id = seed.Clients.Count > 0 ? seed.Clients.Max(cm => cm.Id) + 1 : 1;
+            entity.Id = seed.Rentals.Count > 0 ? seed.Rentals.Max(cm => cm.Id) + 1 : 1;
         }
-        seed.Clients.Add(entity);
+        seed.Rentals.Add(entity);
     }
 
     /// <summary>
     /// Update entity
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public void Update(Client entity)
+    public void Update(RentalCar entity)
     {
-        var idx = seed.Clients.FindIndex(x => x.Id == entity.Id);
+        var idx = seed.Rentals.FindIndex(x => x.Id == entity.Id);
         if (idx < 0) return;
-        seed.Clients[idx] = entity;
+        seed.Rentals[idx] = entity;
     }
 
     /// <summary>
@@ -37,9 +38,9 @@ public class ClienModelInMemory(InMemoryData seed) : IClientRepository
     /// </summary>
     /// <param name="Id">entity id</param>
     /// <returns></returns>
-    public Client? Read(int Id)
+    public RentalCar? Read(int Id)
     {
-        return seed.Clients.FirstOrDefault(cm => cm.Id == Id);
+        return seed.Rentals.FirstOrDefault(cm => cm.Id == Id);
     }
 
     /// <summary>
@@ -51,7 +52,7 @@ public class ClienModelInMemory(InMemoryData seed) : IClientRepository
         var deletableEntity = Read(id);
         if (deletableEntity != null)
         {
-            seed.Clients.Remove(deletableEntity);
+            seed.Rentals.Remove(deletableEntity);
         }
     }
 
@@ -59,8 +60,8 @@ public class ClienModelInMemory(InMemoryData seed) : IClientRepository
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<Client>? ReadAll()
+    public IEnumerable<RentalCar>? ReadAll()
     {
-        return [.. seed.Clients];
+        return [.. seed.Rentals];
     }
 }
