@@ -27,8 +27,9 @@ public class CarModelInMemory(InMemoryData seed) : ICarModelRepository
     /// <param name="entity">updatable entity</param>
     public void Update(CarModel entity)
     {
-        Delete(entity.Id);
-        Create(entity);
+        var idx = seed.CarModels.FindIndex(x => x.Id == entity.Id);
+        if (idx < 0) return;
+        seed.CarModels[idx] = entity;
     }
 
     /// <summary>

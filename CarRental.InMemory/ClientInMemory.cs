@@ -27,8 +27,9 @@ public class ClienModelInMemory(InMemoryData seed) : IClientRepository
     /// <param name="entity">updatable entity</param>
     public void Update(Client entity)
     {
-        Delete(entity.Id);
-        Create(entity);
+        var idx = seed.Clients.FindIndex(x => x.Id == entity.Id);
+        if (idx < 0) return;
+        seed.Clients[idx] = entity;
     }
 
     /// <summary>

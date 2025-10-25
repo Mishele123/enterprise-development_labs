@@ -1,6 +1,7 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 using CarRental.InMemory.Seed;
+using System.Reflection.PortableExecutable;
 namespace CarRental.InMemory;
 
 
@@ -28,8 +29,9 @@ public class RentalCarInMemory(InMemoryData seed) : IRentalCarRepository
     /// <param name="entity">updatable entity</param>
     public void Update(RentalCar entity)
     {
-        Delete(entity.Id);
-        Create(entity);
+        var idx = seed.Rentals.FindIndex(x => x.Id == entity.Id);
+        if (idx < 0) return;
+        seed.Rentals[idx] = entity;
     }
 
     /// <summary>
