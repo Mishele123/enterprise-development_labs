@@ -4,6 +4,6 @@
 /// DTO for updating a model generation
 /// </summary>
 /// <param name="RentalCostPerHour">The rental cost per hour for this specific model generation</param>
-public record ModelGeneratoinsUpdateDto(
+public record ModelGenerationsUpdateDto(
     decimal RentalCostPerHour
 );
