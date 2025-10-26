@@ -5,9 +5,10 @@ using CarRental.Domain.Interfaces;
 namespace CarRental.Application.Services;
 
 /// <summary>
-/// CRUD Car operations 
+/// Crud car operations
 /// </summary>
-/// <param name="repo"></param>
+/// <param name="CarRepo"></param>
+/// <param name="ModelGenerationRepo"></param>
 /// <param name="mapper"></param>
 public class CarService(
     ICarRepository CarRepo,
@@ -26,10 +27,10 @@ public class CarService(
     /// </summary>
     /// <param name="id">Car id</param>
     /// <returns>Car</returns>
-    public CarsDto? Read(int Id)
+    public CarsDto? Read(int id)
     {
-        var car = CarRepo.Read(Id)
-            ?? throw new InvalidOperationException($"Car with ID: {Id} not found");
+        var car = CarRepo.Read(id)
+            ?? throw new InvalidOperationException($"Car with id: {id} not found");
         return mapper.Map<CarsDto>(car);
     }
 

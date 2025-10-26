@@ -14,8 +14,8 @@ public record CarModelsCreateDto(
     [StringLength(50, MinimumLength = 2, ErrorMessage = "Model name must be between 2 and 50 characters")]
     string Name,
     DriveTypes DriveType,
-    [Range(1, 20, ErrorMessage = "Seat count must be between 1 and 20")]
-    int SeatsCount,
+    [Range(1, 20, ErrorMessage = "Seats count must be between 1 and 20")]
+    int SeatCount,
     BodyTypes BodyType,
     VehicleClasses VehicleClass
 );

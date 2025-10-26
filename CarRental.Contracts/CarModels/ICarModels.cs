@@ -21,16 +21,16 @@ public interface ICarModels
     /// <summary>
     /// create new CarModel
     /// </summary>
-    /// <param name="model">CarModel data to create</param>
+    /// <param name="modelDto">CarModel data to create</param>
     /// <returns>Created dto</returns>
-    public CarModelDto Create(CarModelDto model);
+    public CarModelDto Create(CarModelsCreateDto modelDto);
 
     /// <summary>
     /// update an existing CarModel
     /// </summary>
     /// <param name="id">CarModel id</param>
-    /// <param name="model">updated CarModel data</param>
-    public bool Update(int id, CarModelDto model);
+    /// <param name="modelDto">updated CarModel data</param>
+    public bool Update(int id, CarModelsUpdateDto modelDto);
     
     /// <summary>
     /// delete CarModel by its id 
