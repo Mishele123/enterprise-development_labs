@@ -12,24 +12,26 @@ public class ModelGenerationsInMemory(InMemoryData seed) : IModelGenerationRepos
     /// create entity
     /// </summary>
     /// <param name="entity">ModelGeneration entity</param>
-    public void Create(ModelGeneration entity)
+    public ModelGeneration Create(ModelGeneration entity)
     {
         if (entity.Id == 0)
         {
             entity.Id = seed.Generations.Count > 0 ? seed.Generations.Max(cm => cm.Id) + 1 : 1;
         }
         seed.Generations.Add(entity);
+        return entity;
     }
 
     /// <summary>
     /// Update entity
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public void Update(ModelGeneration entity)
+    public bool Update(ModelGeneration entity)
     {
         var idx = seed.Generations.FindIndex(x => x.Id == entity.Id);
-        if (idx < 0) return;
+        if (idx < 0) return false;
         seed.Generations[idx] = entity;
+        return true;
     }
 
     /// <summary>
@@ -46,13 +48,15 @@ public class ModelGenerationsInMemory(InMemoryData seed) : IModelGenerationRepos
     /// delete entity by id
     /// </summary>
     /// <param name="entity">the entity index what will be deleted</param>
-    public void Delete(int id)
+    public bool Delete(int id)
     {
         var deletableEntity = Read(id);
         if (deletableEntity != null)
         {
             seed.Generations.Remove(deletableEntity);
+            return true;
         }
+        return false;
     }
 
     /// <summary>

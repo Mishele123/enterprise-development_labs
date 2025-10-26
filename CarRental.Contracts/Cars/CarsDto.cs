@@ -10,6 +10,7 @@
 public record CarsDto(
     int Id,
     int GenerationId,
+    int ModelId,
     string LicensePlate,
     string Colour
 );

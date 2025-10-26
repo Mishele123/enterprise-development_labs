@@ -12,24 +12,26 @@ public class ClientsInMemory(InMemoryData seed) : IClientRepository
     /// create entity
     /// </summary>
     /// <param name="entity">Client entity</param>
-    public void Create(Client entity)
+    public Client Create(Client entity)
     {
         if (entity.Id == 0)
         {
             entity.Id = seed.Clients.Count > 0 ? seed.Clients.Max(cm => cm.Id) + 1 : 1;
         }
         seed.Clients.Add(entity);
+        return entity;
     }
 
     /// <summary>
     /// Update entity
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public void Update(Client entity)
+    public bool Update(Client entity)
     {
         var idx = seed.Clients.FindIndex(x => x.Id == entity.Id);
-        if (idx < 0) return;
+        if (idx < 0) return false;
         seed.Clients[idx] = entity;
+        return true;
     }
 
     /// <summary>
@@ -46,13 +48,15 @@ public class ClientsInMemory(InMemoryData seed) : IClientRepository
     /// delete entity by id
     /// </summary>
     /// <param name="entity">the entity index what will be deleted</param>
-    public void Delete(int id)
+    public bool Delete(int id)
     {
         var deletableEntity = Read(id);
         if (deletableEntity != null)
         {
             seed.Clients.Remove(deletableEntity);
+            return true;
         }
+        return false;
     }
 
     /// <summary>

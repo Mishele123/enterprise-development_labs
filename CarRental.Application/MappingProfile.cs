@@ -7,6 +7,9 @@ using CarRental.Application.Contracts.RentalCars;
 using CarRental.Domain.Entities;
 namespace CarRental.Application;
 
+/// <summary>
+/// Configuration for mapping contracts and domain entities
+/// </summary>
 public class MappingProfile : Profile
 {
     public MappingProfile()
