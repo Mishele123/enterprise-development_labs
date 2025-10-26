@@ -4,8 +4,12 @@ using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 namespace CarRental.Application.Services;
 
-
-public class CarModelsService(ICarModelRepository CarModelsRepo, IMapper mapper) : ICarModels
+/// <summary>
+/// Crud car models operations
+/// </summary>
+/// <param name="CarModelsRepo"></param>
+/// <param name="mapper"></param>
+public class CarModelService(ICarModelRepository CarModelsRepo, IMapper mapper) : ICarModels
 {
     /// <summary>
     /// return all CarModels

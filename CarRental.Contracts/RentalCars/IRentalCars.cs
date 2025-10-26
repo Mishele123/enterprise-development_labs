@@ -23,14 +23,14 @@ public interface IRentalCars
     /// </summary>
     /// <param name="model">RentalCar data to create</param>
     /// <returns>Created dto</returns>
-    public RentalCarsDto Create(RentalCarsDto model);
+    public RentalCarsDto Create(RentalCarsCreateDto model);
 
     /// <summary>
     /// update an existing RentalCar
     /// </summary>
     /// <param name="id">RentalCar id</param>
     /// <param name="model">updated RentalCar data</param>
-    public bool Update(int id, RentalCarsDto model);
+    public bool Update(int id, RentalCarsUpdateDto model);
 
     /// <summary>
     /// delete RentalCar by its id 

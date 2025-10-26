@@ -5,7 +5,7 @@ using CarRental.Domain.Interfaces;
 namespace CarRental.Application.Services;
 
 /// <summary>
-/// Crud car operations
+/// Crud client operations
 /// </summary>
 /// <param name="CarRepo"></param>
 /// <param name="ModelGenerationRepo"></param>
@@ -17,13 +17,13 @@ public class CarService(
 ) : ICars
 {
     /// <summary>
-    /// return all Cars
+    /// Return all Cars
     /// </summary>
     /// <returns>sequence of</returns>
     public IEnumerable<CarsDto> ReadAll() => CarRepo.ReadAll().Select(mapper.Map<CarsDto>);
 
     /// <summary>
-    /// return single Car by id
+    /// Return single Car by id
     /// </summary>
     /// <param name="id">Car id</param>
     /// <returns>Car</returns>
@@ -35,7 +35,7 @@ public class CarService(
     }
 
     /// <summary>
-    /// create new Car
+    /// Create new Car
     /// </summary>
     /// <param name="model">Car data to create</param>
     /// <returns>Created dto</returns>
@@ -50,7 +50,7 @@ public class CarService(
     }
 
     /// <summary>
-    /// update an existing Car
+    /// Update an existing Car
     /// </summary>
     /// <param name="id">Car id</param>
     /// <param name="model">updated Car data</param>
@@ -64,7 +64,7 @@ public class CarService(
     }
 
     /// <summary>
-    /// delete Car by its id 
+    /// Delete Car by its id 
     /// </summary>
     /// <param name="id">Car id</param>
     public bool Delete(int id) => CarRepo.Delete(id);

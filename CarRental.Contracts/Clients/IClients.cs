@@ -23,14 +23,14 @@ public interface IClients
     /// </summary>
     /// <param name="model">Client data to create</param>
     /// <returns>Created dto</returns>
-    public ClientsDto Create(ClientsDto model);
+    public ClientsDto Create(ClientsCreateDto modelDto);
 
     /// <summary>
     /// update an existing Client
     /// </summary>
     /// <param name="id">Client id</param>
     /// <param name="model">updated Client data</param>
-    public bool Update(int id, ClientsDto model);
+    public bool Update(int id, ClientsUpdateDto modelDto);
 
     /// <summary>
     /// delete Client by its id 

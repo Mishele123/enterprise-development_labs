@@ -23,14 +23,14 @@ public interface IModelGenerations
     /// </summary>
     /// <param name="model">ModelGeneration data to create</param>
     /// <returns>Created dto</returns>
-    public ModelGenerationsDto Create(ModelGenerationsDto model);
+    public ModelGenerationsDto Create(ModelGenerationsCreateDto model);
 
     /// <summary>
     /// update an existing ModelGeneration
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
     /// <param name="model">updated ModelGeneration data</param>
-    public bool Update(int id, ModelGenerationsDto model);
+    public bool Update(int id, ModelGenerationsUpdateDto model);
 
     /// <summary>
     /// delete ModelGeneration by its id 
