@@ -31,5 +31,5 @@ public interface IRepository<T>
     /// read all
     /// </summary>
     /// <returns>return all entites</returns>
-    public IEnumerable<T>? ReadAll();
+    public IEnumerable<T> ReadAll();
 }

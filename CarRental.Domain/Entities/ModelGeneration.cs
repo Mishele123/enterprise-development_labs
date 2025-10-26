@@ -1,4 +1,5 @@
 ﻿using CarRental.Domain.Enums;
+
 namespace CarRental.Domain.Entities;
 
 /// <summary>

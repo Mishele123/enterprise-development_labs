@@ -9,7 +9,7 @@ public interface IModelGenerations
     /// return all ModelGenerations
     /// </summary>
     /// <returns>sequence of</returns>
-    public IEnumerable<ModelGenerationsDto>? ReadAll();
+    public IEnumerable<ModelGenerationsDto> ReadAll();
 
     /// <summary>
     /// return single ModelGeneration by id
@@ -30,11 +30,11 @@ public interface IModelGenerations
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
     /// <param name="model">updated ModelGeneration data</param>
-    public void Update(int id, ModelGenerationsDto model);
+    public bool Update(int id, ModelGenerationsDto model);
 
     /// <summary>
     /// delete ModelGeneration by its id 
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
-    public void Delete(int id);
+    public bool Delete(int id);
 }

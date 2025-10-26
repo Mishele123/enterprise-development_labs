@@ -63,7 +63,7 @@ public class CarsInMemory(InMemoryData seed) : ICarRepository
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<Car>? ReadAll()
+    public IEnumerable<Car> ReadAll()
     {
         return [.. seed.Cars];
     }

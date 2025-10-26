@@ -9,7 +9,7 @@ public interface ICars
     /// return all Cars
     /// </summary>
     /// <returns>sequence of</returns>
-    public IEnumerable<CarsDto>? ReadAll();
+    public IEnumerable<CarsDto> ReadAll();
 
     /// <summary>
     /// return single Car by id
@@ -21,20 +21,20 @@ public interface ICars
     /// <summary>
     /// create new Car
     /// </summary>
-    /// <param name="model">Car data to create</param>
+    /// <param name="modelDto">Car data to create</param>
     /// <returns>Created dto</returns>
-    public CarsDto Create(CarsDto model);
+    public CarsDto Create(CarsCreateDto modelDto);
 
     /// <summary>
     /// update an existing Car
     /// </summary>
     /// <param name="id">Car id</param>
     /// <param name="model">updated Car data</param>
-    public void Update(int id, CarsDto model);
+    public bool Update(int id, CarsUpdateDto modelDto);
 
     /// <summary>
     /// delete Car by its id 
     /// </summary>
     /// <param name="id">Car id</param>
-    public void Delete(int id);
+    public bool Delete(int id);
 }

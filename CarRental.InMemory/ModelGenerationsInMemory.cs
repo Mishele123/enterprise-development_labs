@@ -63,7 +63,7 @@ public class ModelGenerationsInMemory(InMemoryData seed) : IModelGenerationRepos
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<ModelGeneration>? ReadAll()
+    public IEnumerable<ModelGeneration> ReadAll()
     {
         return [.. seed.Generations];
     }

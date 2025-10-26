@@ -64,7 +64,7 @@ public class RentalCarsInMemory(InMemoryData seed) : IRentalCarRepository
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<RentalCar>? ReadAll()
+    public IEnumerable<RentalCar> ReadAll()
     {
         return [.. seed.Rentals];
     }

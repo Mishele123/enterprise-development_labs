@@ -9,7 +9,7 @@ public interface IClients
     /// return all Clients
     /// </summary>
     /// <returns>sequence of</returns>
-    public IEnumerable<ClientsDto>? ReadAll();
+    public IEnumerable<ClientsDto> ReadAll();
 
     /// <summary>
     /// return single Client by id
@@ -30,11 +30,11 @@ public interface IClients
     /// </summary>
     /// <param name="id">Client id</param>
     /// <param name="model">updated Client data</param>
-    public void Update(int id, ClientsDto model);
+    public bool Update(int id, ClientsDto model);
 
     /// <summary>
     /// delete Client by its id 
     /// </summary>
     /// <param name="id">Client id</param>
-    public void Delete(int id);
+    public bool Delete(int id);
 }

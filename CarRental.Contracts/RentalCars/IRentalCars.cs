@@ -9,7 +9,7 @@ public interface IRentalCars
     /// return all RentalCars
     /// </summary>
     /// <returns>sequence of</returns>
-    public IEnumerable<RentalCarsDto>? ReadAll();
+    public IEnumerable<RentalCarsDto> ReadAll();
 
     /// <summary>
     /// return single RentalCar by id
@@ -30,11 +30,11 @@ public interface IRentalCars
     /// </summary>
     /// <param name="id">RentalCar id</param>
     /// <param name="model">updated RentalCar data</param>
-    public void Update(int id, RentalCarsDto model);
+    public bool Update(int id, RentalCarsDto model);
 
     /// <summary>
     /// delete RentalCar by its id 
     /// </summary>
     /// <param name="id">RentalCar id</param>
-    public void Delete(int id);
+    public bool Delete(int id);
 }

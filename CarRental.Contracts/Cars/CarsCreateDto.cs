@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-namespace CarRental.Application.Contracts.Cars;
+﻿namespace CarRental.Application.Contracts.Cars;
 
 /// <summary>
 /// DTO for creating Car

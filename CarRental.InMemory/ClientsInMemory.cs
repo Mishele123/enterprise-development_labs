@@ -63,7 +63,7 @@ public class ClientsInMemory(InMemoryData seed) : IClientRepository
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<Client>? ReadAll()
+    public IEnumerable<Client> ReadAll()
     {
         return [.. seed.Clients];
     }
