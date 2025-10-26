@@ -19,7 +19,7 @@ public class CarService(
     /// return all Cars
     /// </summary>
     /// <returns>sequence of</returns>
-    public IEnumerable<CarsDto>? ReadAll() => CarRepo.ReadAll().Select(mapper.Map<CarsDto>);
+    public IEnumerable<CarsDto> ReadAll() => CarRepo.ReadAll().Select(mapper.Map<CarsDto>);
 
     /// <summary>
     /// return single Car by id
