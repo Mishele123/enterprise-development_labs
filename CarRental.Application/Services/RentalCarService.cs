@@ -45,6 +45,22 @@ public class RentalCarService(
             ?? throw new InvalidOperationException($"car with id: {modelDto.RentedCarId} not found");
         var client = ClientRepo.Read(modelDto.ClientId)
             ?? throw new InvalidOperationException($"client with id: {modelDto.ClientId} not found");
+
+        var newRentalStart = modelDto.IssueTime;
+        var newRentalEnd = modelDto.IssueTime.AddHours(modelDto.RentalHours);
+        var hasOverlappingRentals = RentalCarRepo.ReadAll()
+            .Where(r => r.RentedCar.Id == modelDto.RentedCarId)
+            .Any(r =>
+            {
+                var existingRentalEnd = r.IssueTime.AddHours(r.RentalHours);
+                return newRentalStart < existingRentalEnd && newRentalEnd > r.IssueTime;
+            });
+
+        if (hasOverlappingRentals)
+        {
+            throw new InvalidOperationException($"car with id: {modelDto.RentedCarId} is not available for the requested period");
+        }
+
         var newRentalCar = mapper.Map<RentalCar>(modelDto);
         newRentalCar.RentedCar = car;
         newRentalCar.Client = client;
@@ -61,13 +77,26 @@ public class RentalCarService(
     {
         var existingRentalCar = RentalCarRepo.Read(id);
         if (existingRentalCar is null) return false;
-        if (modelDto.RentalHours > 0 && CanUpdateRentalDuration(existingRentalCar) 
-            && modelDto.RentalHours >= existingRentalCar.RentalHours)
+        var originalRentalEnd = existingRentalCar.IssueTime.AddHours(existingRentalCar.RentalHours);
+        var updatedRentalEnd = existingRentalCar.IssueTime.AddHours(modelDto.RentalHours);
+        if (modelDto.RentalHours > existingRentalCar.RentalHours)
         {
-            existingRentalCar.RentalHours = modelDto.RentalHours;
-            return RentalCarRepo.Update(existingRentalCar);
+            var hasOverlappingRentals = RentalCarRepo.ReadAll()
+                .Where(r => r.RentedCar.Id == existingRentalCar.RentedCar.Id && r.Id != id)
+                .Any(r =>
+                {
+                    var existingRentalEnd = r.IssueTime.AddHours(r.RentalHours);
+                    return updatedRentalEnd > r.IssueTime && existingRentalCar.IssueTime < existingRentalEnd;
+                });
+
+            if (hasOverlappingRentals)
+            {
+                throw new InvalidOperationException($"Cannot extend rental: " +
+                    $"car is booked by another customer after the original end time");
+            }
         }
-        return false;
+        existingRentalCar.RentalHours = modelDto.RentalHours;
+        return RentalCarRepo.Update(existingRentalCar);
     }
 
     /// <summary>
