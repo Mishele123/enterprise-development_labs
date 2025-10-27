@@ -4,7 +4,6 @@ using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 namespace CarRental.Application.Services;
 
-
 /// <summary>
 /// Crud Client operations
 /// </summary>

@@ -5,7 +5,6 @@ using CarRental.Application.Contracts.Clients;
 using CarRental.Application.Contracts.ModelGenerations;
 using CarRental.Application.Contracts.RentalCars;
 using CarRental.Domain.Entities;
-
 namespace CarRental.Application;
 
 /// <summary>
