@@ -1,7 +1,7 @@
-using CarRental.Application.Contracts;
 using CarRental.Application.Contracts.Cars;
 using CarRental.Application.Contracts.Clients;
 using CarRental.Application.Contracts.RentalCars;
+using CarRental.Application.Contracts.Reports;
 using Microsoft.AspNetCore.Mvc;
 namespace CarRental.Api.Host.Controllers;
 
@@ -11,7 +11,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="reports">Reports service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/reports")]
 public class ReportsController(IReports reports, ILogger<ReportsController> logger) : ControllerBase
 {
     /// <summary>
@@ -51,7 +51,7 @@ public class ReportsController(IReports reports, ILogger<ReportsController> logg
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<(CarsDto Car, RentalCarsDto Rental)>> GetCarsCurrentlyRented()
+    public ActionResult<IEnumerable<CurrentlyRentedCarDto>> GetCarsCurrentlyRented()
     {
         logger.LogInformation("{method} method of {controller} is called",
             nameof(GetCarsCurrentlyRented), GetType().Name);
@@ -82,7 +82,7 @@ public class ReportsController(IReports reports, ILogger<ReportsController> logg
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<(CarsDto Car, int RentalCount)>> GetTop5MostFrequentlyRentedCars()
+    public ActionResult<IEnumerable<CarWithRentalCountDto>> GetTop5MostFrequentlyRentedCars()
     {
         logger.LogInformation("{method} method of {controller} is called",
             nameof(GetTop5MostFrequentlyRentedCars), GetType().Name);
@@ -144,7 +144,7 @@ public class ReportsController(IReports reports, ILogger<ReportsController> logg
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<(ClientsDto Client, decimal TotalSpent)>> GetTop5ClientsByRentalSum()
+    public ActionResult<IEnumerable<ClientWithSpendingDto>> GetTop5ClientsByRentalSum()
     {
             logger.LogInformation("{method} method of {controller} is called",
             nameof(GetTop5ClientsByRentalSum), GetType().Name);

@@ -8,7 +8,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="cars">clients service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/clients")]
 public class ClientsController(IClients clients, ILogger<ClientsController> logger) : ControllerBase
 {
     /// <summary>

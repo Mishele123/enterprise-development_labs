@@ -7,6 +7,8 @@ namespace CarRental.Api.Host.Controllers;
 /// </summary>
 /// <param name="cars">model generations service</param>
 /// <param name="logger">Logger for recording information</param>
+[ApiController]
+[Route("api/model-generations")]
 public class ModelGenerationsController(IModelGenerations modelGenerations, 
     ILogger<ModelGenerationsController> logger) : ControllerBase
 {

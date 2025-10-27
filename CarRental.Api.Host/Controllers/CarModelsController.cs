@@ -1,6 +1,5 @@
 ﻿using CarRental.Application.Contracts.CarModels;
 using Microsoft.AspNetCore.Mvc;
-
 namespace CarRental.Api.Host.Controllers;
 
 /// <summary>
@@ -9,7 +8,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="carModels">car models service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/car-models")]
 public class CarModelsController(ICarModels carModels, ILogger<CarModelsController> logger) : Controller
 {
     /// <summary>

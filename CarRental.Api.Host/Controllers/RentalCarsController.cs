@@ -1,5 +1,4 @@
 ﻿using CarRental.Application.Contracts.RentalCars;
-using CarRental.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 namespace CarRental.Api.Host.Controllers;
 
@@ -8,6 +7,8 @@ namespace CarRental.Api.Host.Controllers;
 /// </summary>
 /// <param name="rentalCars">rental cars service</param>
 /// <param name="logger">Logger for recording information</param>
+[ApiController]
+[Route("api/rental-cars")]
 public class RentalCarsController(IRentalCars rentalCars, 
     ILogger<RentalCarsController> logger) : ControllerBase
 {

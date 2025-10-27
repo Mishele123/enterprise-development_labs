@@ -8,7 +8,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="cars">cars service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/cars")]
 public class CarsController(ICars cars, ILogger<CarsController> logger) : ControllerBase
 {
     /// <summary>
@@ -178,5 +178,4 @@ public class CarsController(ICars cars, ILogger<CarsController> logger) : Contro
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
     }
-}
 }

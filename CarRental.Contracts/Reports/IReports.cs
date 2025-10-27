@@ -1,7 +1,7 @@
 ﻿using CarRental.Application.Contracts.Cars;
 using CarRental.Application.Contracts.Clients;
 using CarRental.Application.Contracts.RentalCars;
-namespace CarRental.Application.Contracts;
+namespace CarRental.Application.Contracts.Reports;
 
 /// <summary>
 /// Provides analytical operations
@@ -18,12 +18,12 @@ public interface IReports
     /// <summary>
     /// Display information about cars that are rented with rental details
     /// </summary>
-    public IEnumerable<(CarsDto Car, RentalCarsDto Rental)> GetCarsCurrentlyRented();
+    public IEnumerable<CurrentlyRentedCarDto> GetCarsCurrentlyRented();
 
     /// <summary>
     /// top 5 most frequently rented cars with rental counts
     /// </summary>
-    public IEnumerable<(CarsDto Car, int RentalCount)> GetTop5MostFrequentlyRentedCars();
+    public IEnumerable<CarWithRentalCountDto> GetTop5MostFrequentlyRentedCars();
 
     /// <summary>
     /// For each car, number of rents
@@ -33,5 +33,5 @@ public interface IReports
     /// <summary>
     /// top 5 clients by rental amount with spending info
     /// </summary>
-    public IEnumerable<(ClientsDto Client, decimal TotalSpent)> GetTop5ClientsByRentalSum();
+    public IEnumerable<ClientWithSpendingDto> GetTop5ClientsByRentalSum();
 }

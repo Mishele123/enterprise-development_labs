@@ -320,107 +320,107 @@ public class InMemoryData
         ];
 
         // Initialize Rentals
-        var baseDate = new DateTime(2024, 1, 1);
+        var baseDate = new DateTime(2025, 10, 27);
         Rentals =
         [
-            new() {
-                Id = 1,
-                IssueTime = baseDate.AddHours(2),
-                RentalHours = 24,
-                RentedCar = Cars[0],
-                Client = Clients[0],
-            },
-            new() {
-                Id = 2,
-                IssueTime = baseDate.AddHours(5),
-                RentalHours = 48,
-                RentedCar = Cars[1],
-                Client = Clients[1],
-            },
-            new() {
-                Id = 3,
-                IssueTime = baseDate.AddHours(8),
-                RentalHours = 12,
-                RentedCar = Cars[2],
-                Client = Clients[2],
-            },
-            new() {
-                Id = 4,
-                IssueTime = baseDate.AddHours(12),
-                RentalHours = 72,
-                RentedCar = Cars[3],
-                Client = Clients[3],
-            },
-            new() {
-                Id = 5,
-                IssueTime = baseDate.AddHours(18),
-                RentalHours = 6,
-                RentedCar = Cars[4],
-                Client = Clients[4],
-            },
-            new() {
-                Id = 6,
-                IssueTime = baseDate.AddDays(1),
-                RentalHours = 36,
-                RentedCar = Cars[5],
-                Client = Clients[5],
-            },
-            new() {
-                Id = 7,
-                IssueTime = baseDate.AddDays(1).AddHours(6),
-                RentalHours = 24,
-                RentedCar = Cars[6],
-                Client = Clients[6],
-            },
-            new() {
-                Id = 8,
-                IssueTime = baseDate.AddDays(2),
-                RentalHours = 96,
-                RentedCar = Cars[7],
-                Client = Clients[7],
-            },
-            new() {
-                Id = 9,
-                IssueTime = baseDate.AddDays(2).AddHours(4),
-                RentalHours = 18,
-                RentedCar = Cars[8],
-                Client = Clients[8],
-            },
-            new() {
-                Id = 10,
-                IssueTime = baseDate.AddDays(3),
-                RentalHours = 60,
-                RentedCar = Cars[9],
-                Client = Clients[9],
-            },
-            new() {
-                Id = 11,
-                IssueTime = new DateTime(2024, 1, 5),
-                RentalHours = 24,
-                RentedCar = Cars[0],
-                Client = Clients[1],
-            },
-            new() {
-                Id = 12,
-                IssueTime = new DateTime(2024, 1, 6),
-                RentalHours = 48,
-                RentedCar = Cars[0],
-                Client = Clients[2],
-            },
-            new() {
-                Id = 13,
-                IssueTime = new DateTime(2024, 1, 7),
-                RentalHours = 12,
-                RentedCar = Cars[1],
-                Client = Clients[3],
-            },
-            new() {
-                Id = 14,
-                IssueTime = new DateTime(2024, 1, 5),
-                RentalHours = 100,
-                RentedCar = Cars[4],
-                Client = Clients[0],
-            }
+        new() {
+            Id = 1,
+            IssueTime = baseDate.AddHours(2),
+            RentalHours = 24,
+            RentedCar = Cars[0],
+            Client = Clients[0],
+        },
+        new() {
+            Id = 2,
+            IssueTime = baseDate.AddHours(5),
+            RentalHours = 48,
+            RentedCar = Cars[1],
+            Client = Clients[1],
+        },
+        new() {
+            Id = 3,
+            IssueTime = baseDate.AddHours(8),
+            RentalHours = 12,
+            RentedCar = Cars[2],
+            Client = Clients[2],
+        },
+        new() {
+            Id = 4,
+            IssueTime = baseDate.AddHours(12),
+            RentalHours = 72,
+            RentedCar = Cars[3],
+            Client = Clients[3],
+        },
+        new() {
+            Id = 5,
+            IssueTime = baseDate.AddHours(18),
+            RentalHours = 6,
+            RentedCar = Cars[4],
+            Client = Clients[4],
+        },
+        new() {
+            Id = 6,
+            IssueTime = baseDate.AddDays(1),
+            RentalHours = 36,
+            RentedCar = Cars[5],
+            Client = Clients[5],
+        },
+        new() {
+            Id = 7,
+            IssueTime = baseDate.AddDays(1).AddHours(6),
+            RentalHours = 24,
+            RentedCar = Cars[6],
+            Client = Clients[6],
+        },
+        new() {
+            Id = 8,
+            IssueTime = baseDate.AddDays(2),
+            RentalHours = 96,
+            RentedCar = Cars[7],
+            Client = Clients[7],
+        },
+        new() {
+            Id = 9,
+            IssueTime = baseDate.AddDays(2).AddHours(4),
+            RentalHours = 18,
+            RentedCar = Cars[8],
+            Client = Clients[8],
+        },
+        new() {
+            Id = 10,
+            IssueTime = baseDate.AddDays(3),
+            RentalHours = 60,
+            RentedCar = Cars[9],
+            Client = Clients[9],
+        },
+        new() {
+            Id = 11,
+            IssueTime = new DateTime(2025, 10, 29),
+            RentalHours = 24,
+            RentedCar = Cars[0],
+            Client = Clients[1],
+        },
+        new() {
+            Id = 12,
+            IssueTime = new DateTime(2025, 10, 30),
+            RentalHours = 48,
+            RentedCar = Cars[0],
+            Client = Clients[2],
+        },
+        new() {
+            Id = 13,
+            IssueTime = new DateTime(2025, 10, 31),
+            RentalHours = 12,
+            RentedCar = Cars[1],
+            Client = Clients[3],
+        },
+        new() {
+            Id = 14,
+            IssueTime = new DateTime(2025, 10, 29),
+            RentalHours = 100,
+            RentedCar = Cars[4],
+            Client = Clients[0],
+        }
         ];
     }
 }

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using CarRental.Application.Contracts;
 using CarRental.Application.Contracts.Cars;
 using CarRental.Application.Contracts.Clients;
 using CarRental.Application.Contracts.RentalCars;
+using CarRental.Application.Contracts.Reports;
 using CarRental.Domain.Interfaces;
 namespace CarRental.Application.Services;
 
@@ -28,7 +28,6 @@ public class ReportService(
         return RentalCarRepo.ReadAll()
             .Where(r => r.RentedCar.Generation.Model.Name == modelName)
             .Select(r => r.Client)
-            .Distinct()
             .OrderBy(c => c.FullName)
             .Select(mapper.Map<ClientsDto>);
     }
@@ -36,29 +35,29 @@ public class ReportService(
     /// <summary>
     /// Display information about cars that are rented with rental details
     /// </summary>
-    public IEnumerable<(CarsDto Car, RentalCarsDto Rental)> GetCarsCurrentlyRented()
+    public IEnumerable<CurrentlyRentedCarDto> GetCarsCurrentlyRented()
     {
         var currentTime = DateTime.Now;
 
+
         return RentalCarRepo.ReadAll()
             .Where(r => r.IssueTime.AddHours(r.RentalHours) > currentTime)
-            .Select(r => (
-                Car: mapper.Map<CarsDto>(r.RentedCar),
-                Rental: mapper.Map<RentalCarsDto>(r)
-            ))
-            .Distinct();
+            .Select(r => new CurrentlyRentedCarDto(
+                mapper.Map<CarsDto>(r.RentedCar),
+                mapper.Map<RentalCarsDto>(r)
+            ));
     }
 
     /// <summary>
     /// top 5 most frequently rented cars with rental counts
     /// </summary>
-    public IEnumerable<(CarsDto Car, int RentalCount)> GetTop5MostFrequentlyRentedCars()
+    public IEnumerable<CarWithRentalCountDto> GetTop5MostFrequentlyRentedCars()
     {
         return RentalCarRepo.ReadAll()
             .GroupBy(r => r.RentedCar)
-            .Select(g => (
-                Car: mapper.Map<CarsDto>(g.Key),
-                RentalCount: g.Count()
+            .Select(g => new CarWithRentalCountDto(
+                mapper.Map<CarsDto>(g.Key),
+                g.Count()
             ))
             .OrderByDescending(x => x.RentalCount)
             .Take(5);
@@ -81,13 +80,13 @@ public class ReportService(
     /// <summary>
     /// top 5 clients by rental amount with spending info
     /// </summary>
-    public IEnumerable<(ClientsDto Client, decimal TotalSpent)> GetTop5ClientsByRentalSum()
+    public IEnumerable<ClientWithSpendingDto> GetTop5ClientsByRentalSum()
     {
         return RentalCarRepo.ReadAll()
             .GroupBy(r => r.Client)
-            .Select(g => (
-                Client: mapper.Map<ClientsDto>(g.Key),
-                TotalSpent: g.Sum(r => r.RentalHours * r.RentedCar.Generation.RentalCostPerHour)
+            .Select(g => new ClientWithSpendingDto(
+                mapper.Map<ClientsDto>(g.Key),
+                g.Sum(r => r.RentalHours * r.RentedCar.Generation.RentalCostPerHour)
             ))
             .OrderByDescending(x => x.TotalSpent)
             .Take(5);
