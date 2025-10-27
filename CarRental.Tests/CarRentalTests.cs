@@ -36,7 +36,7 @@ public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFi
     public void GetCarsCurrentlyRented()
     {
         // Arrange
-        var currentTime = new DateTime(2024, 1, 1, 20, 0, 0);
+        var currentTime = new DateTime(2025, 10, 27, 20, 0, 0);
         var expectedRentedCarsCount = 9;
 
         // Act
