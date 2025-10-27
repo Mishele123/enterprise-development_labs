@@ -61,11 +61,23 @@ public class RentalCarService(
     {
         var existingRentalCar = RentalCarRepo.Read(id);
         if (existingRentalCar is null) return false;
-        mapper.Map(modelDto, existingRentalCar);
-
-        return RentalCarRepo.Update(existingRentalCar);
+        if (modelDto.RentalHours > 0 && CanUpdateRentalDuration(existingRentalCar) 
+            && modelDto.RentalHours >= existingRentalCar.RentalHours)
+        {
+            existingRentalCar.RentalHours = modelDto.RentalHours;
+            return RentalCarRepo.Update(existingRentalCar);
+        }
+        return false;
     }
 
+    /// <summary>
+    /// check to valid
+    /// </summary>
+    /// <param name="rental"></param>
+    /// <returns></returns>
+    private bool CanUpdateRentalDuration(RentalCar rental) => 
+        rental.IssueTime.AddHours(rental.RentalHours) > DateTime.Now;
+    
     /// <summary>
     /// Delete RentalCar by its id 
     /// </summary>

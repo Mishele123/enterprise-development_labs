@@ -11,6 +11,5 @@ public record ClientsUpdateDto(
     string DriverLicenseNumber,
     [StringLength(50, MinimumLength = 2, ErrorMessage = "Full name must be between 2 and 50 characters")]
     string FullName,
-    [Range(1960, 2007, ErrorMessage = "Birth Date must be between 1960 and 2007")]
     DateTime DateOfBirth
 );
