@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarRental.Domain\CarRental.Domain.csproj" />
+    <ProjectReference Include="..\CarRental.InMemory\CarRental.InMemory.csproj" />
 	<ProjectReference Include="..\CarRental.Contracts\CarRental.Application.Contracts.csproj" />
   </ItemGroup>
 
