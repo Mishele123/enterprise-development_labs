@@ -30,9 +30,8 @@ public class CarService(
     /// <returns>Car</returns>
     public CarsDto? Read(int id)
     {
-        var car = CarRepo.Read(id)
-            ?? throw new InvalidOperationException($"Car with id: {id} not found");
-        return mapper.Map<CarsDto>(car);
+        var car = CarRepo.Read(id);
+        return car is null ? null : mapper.Map<CarsDto>(car);
     }
 
     /// <summary>
@@ -68,5 +67,10 @@ public class CarService(
     /// Delete Car by its id 
     /// </summary>
     /// <param name="id">Car id</param>
-    public bool Delete(int id) => CarRepo.Delete(id);
+    public bool Delete(int id)
+    {
+        var existingCar = CarRepo.Read(id);
+        if (existingCar is null) return false;
+        return CarRepo.Delete(id);
+    }
 }

@@ -31,9 +31,8 @@ public class RentalCarService(
     /// <returns>RentalCar</returns>
     public RentalCarsDto? Read(int id)
     {
-        var rentalCar = RentalCarRepo.Read(id)
-            ?? throw new InvalidOperationException($"rental car with id: {id} not found");
-        return mapper.Map<RentalCarsDto>(rentalCar);
+        var rentalCar = RentalCarRepo.Read(id);
+        return rentalCar is null ? null : mapper.Map<RentalCarsDto>(rentalCar);
     }
 
     /// <summary>
@@ -79,6 +78,12 @@ public class RentalCarService(
     {
         var existingRentalCar = RentalCarRepo.Read(id);
         if (existingRentalCar is null) return false;
+
+        if (!CanUpdateRentalDuration(existingRentalCar))
+        {
+            throw new InvalidOperationException("Cannot update rental: rental period has already ended");
+        }
+
         var originalRentalEnd = existingRentalCar.IssueTime.AddHours(existingRentalCar.RentalHours);
         var updatedRentalEnd = existingRentalCar.IssueTime.AddHours(modelDto.RentalHours);
         if (modelDto.RentalHours > existingRentalCar.RentalHours)
@@ -108,10 +113,15 @@ public class RentalCarService(
     /// <returns></returns>
     private bool CanUpdateRentalDuration(RentalCar rental) => 
         rental.IssueTime.AddHours(rental.RentalHours) > DateTime.Now;
-    
+
     /// <summary>
     /// Delete RentalCar by its id 
     /// </summary>
     /// <param name="id">RentalCar id</param>
-    public bool Delete(int id) => RentalCarRepo.Delete(id);
+    public bool Delete(int id)
+    {
+        var existingRentalCar = RentalCarRepo.Read(id);
+        if (existingRentalCar is null) return false;
+        return RentalCarRepo.Delete(id);
+    }
 }

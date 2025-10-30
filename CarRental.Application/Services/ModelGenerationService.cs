@@ -30,9 +30,8 @@ public class ModelGenerationService(
     /// <returns>ModelGeneration</returns>
     public ModelGenerationsDto? Read(int id)
     {
-        var modelGeneration = ModelGenerationRepo.Read(id)
-            ?? throw new InvalidOperationException($"ModelGeneration with id: {id} not found");
-        return mapper.Map<ModelGenerationsDto>(modelGeneration);
+        var modelGeneration = ModelGenerationRepo.Read(id);
+        return modelGeneration is null ? null : mapper.Map<ModelGenerationsDto>(modelGeneration);
     }
 
     /// <summary>
@@ -68,5 +67,10 @@ public class ModelGenerationService(
     /// Delete ModelGeneration by its id 
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
-    public bool Delete(int id) => ModelGenerationRepo.Delete(id);
+    public bool Delete(int id)
+    {
+        var existingModelGeneration = ModelGenerationRepo.Read(id);
+        if (existingModelGeneration is null) return false;
+        return ModelGenerationRepo.Delete(id);
+    }
 }

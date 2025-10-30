@@ -25,9 +25,8 @@ public class CarModelService(ICarModelRepository CarModelsRepo, IMapper mapper) 
     /// <returns>CarModel</returns>
     public CarModelDto? Read(int id)
     {
-        var carModel = CarModelsRepo.Read(id)
-            ?? throw new InvalidOperationException($"Car model with ID: {id}");
-        return mapper.Map<CarModelDto>(carModel);
+        var carModel = CarModelsRepo.Read(id);
+        return carModel is null ? null : mapper.Map<CarModelDto>(carModel);
     }
 
     /// <summary>

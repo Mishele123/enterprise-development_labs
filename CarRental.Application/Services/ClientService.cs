@@ -28,9 +28,8 @@ public class ClientService(
     /// <returns>Client</returns>
     public ClientsDto? Read(int id)
     {
-        var client = ClientRepo.Read(id)
-            ?? throw new InvalidOperationException($"Client with id: {id} not found");
-        return mapper.Map<ClientsDto>(client);
+        var client = ClientRepo.Read(id);
+        return client is null ? null : mapper.Map<ClientsDto>(client);
     }
 
     /// <summary>
@@ -63,5 +62,10 @@ public class ClientService(
     /// delete Client by its id 
     /// </summary>
     /// <param name="id">Client id</param>
-    public bool Delete(int id) => ClientRepo.Delete(id);
+    public bool Delete(int id)
+    {
+        var existingClient = ClientRepo.Read(id);
+        if (existingClient is null) return false;
+        return ClientRepo.Delete(id);
+    }
 }
