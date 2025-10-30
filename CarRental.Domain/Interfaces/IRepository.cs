@@ -19,7 +19,7 @@ public interface IRepository<T>
     /// <summary>
     /// delete entity by id
     /// </summary>
-    /// <param name="entity">the entity index what will be deleted</param>
+    /// <param name="id">the entity index what will be deleted</param>
     public bool Delete(int id);
     /// <summary>
     /// read entity by id

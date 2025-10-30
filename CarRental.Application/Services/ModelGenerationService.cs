@@ -37,7 +37,7 @@ public class ModelGenerationService(
     /// <summary>
     /// Create new ModelGeneration
     /// </summary>
-    /// <param name="model">ModelGeneration data to create</param>
+    /// <param name="modelDto">ModelGeneration data to create</param>
     /// <returns>Created dto</returns>
     public ModelGenerationsDto Create(ModelGenerationsCreateDto modelDto)
     {
@@ -53,7 +53,7 @@ public class ModelGenerationService(
     /// Update an existing ModelGeneration
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
-    /// <param name="model">updated ModelGeneration data</param>
+    /// <param name="modelDto">updated ModelGeneration data</param>
     public bool Update(int id, ModelGenerationsUpdateDto modelDto)
     {
         var existingModelGeneration = ModelGenerationRepo.Read(id);

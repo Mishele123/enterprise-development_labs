@@ -29,7 +29,7 @@ public interface ICarsService
     /// update an existing Car
     /// </summary>
     /// <param name="id">Car id</param>
-    /// <param name="model">updated Car data</param>
+    /// <param name="modelDto">updated Car data</param>
     public bool Update(int id, CarsUpdateDto modelDto);
 
     /// <summary>

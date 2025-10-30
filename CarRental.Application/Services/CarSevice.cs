@@ -37,7 +37,7 @@ public class CarService(
     /// <summary>
     /// Create new Car
     /// </summary>
-    /// <param name="model">Car data to create</param>
+    /// <param name="modelDto">Car data to create</param>
     /// <returns>Created dto</returns>
     public CarsDto Create(CarsCreateDto modelDto)
     {
@@ -53,7 +53,7 @@ public class CarService(
     /// Update an existing Car
     /// </summary>
     /// <param name="id">Car id</param>
-    /// <param name="model">updated Car data</param>
+    /// <param name="modelDto">updated Car data</param>
     public bool Update(int id, CarsUpdateDto modelDto)
     {
         var existingCar = CarRepo.Read(id);

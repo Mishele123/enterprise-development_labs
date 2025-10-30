@@ -21,7 +21,7 @@ public interface IClientsService
     /// <summary>
     /// create new Client
     /// </summary>
-    /// <param name="model">Client data to create</param>
+    /// <param name="modelDto">Client data to create</param>
     /// <returns>Created dto</returns>
     public ClientsDto Create(ClientsCreateDto modelDto);
 
@@ -29,7 +29,7 @@ public interface IClientsService
     /// update an existing Client
     /// </summary>
     /// <param name="id">Client id</param>
-    /// <param name="model">updated Client data</param>
+    /// <param name="modelDto">updated Client data</param>
     public bool Update(int id, ClientsUpdateDto modelDto);
 
     /// <summary>
