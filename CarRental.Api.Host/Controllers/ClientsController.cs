@@ -6,7 +6,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <summary>
 /// Provides API methods for clients
 /// </summary>
-/// <param name="cars">clients service</param>
+/// <param name="clientsService">clients service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/clients")]

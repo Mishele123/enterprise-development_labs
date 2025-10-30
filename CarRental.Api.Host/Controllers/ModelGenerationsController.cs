@@ -6,7 +6,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <summary>
 /// Provides API methods for model generations
 /// </summary>
-/// <param name="cars">model generations service</param>
+/// <param name="modelGenerationsService">model generations service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/model-generations")]

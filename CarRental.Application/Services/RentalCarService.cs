@@ -11,6 +11,7 @@ namespace CarRental.Application.Services;
 /// <param name="RentalCarRepo"></param>
 /// <param name="CarRepo"></param>
 /// <param name="ClientRepo"></param>
+/// <param name="mapper"></param>
 public class RentalCarService(
     IRentalCarRepository RentalCarRepo,
     ICarRepository CarRepo,
@@ -38,7 +39,7 @@ public class RentalCarService(
     /// <summary>
     /// Create new RentalCar
     /// </summary>
-    /// <param name="model">RentalCar data to create</param>
+    /// <param name="modelDto">RentalCar data to create</param>
     /// <returns>Created dto</returns>
     public RentalCarsDto Create(RentalCarsCreateDto modelDto)
     {
@@ -73,7 +74,7 @@ public class RentalCarService(
     /// Update an existing RentalCar
     /// </summary>
     /// <param name="id">RentalCar id</param>
-    /// <param name="model">updated RentalCar data</param>
+    /// <param name="modelDto">updated RentalCar data</param>
     public bool Update(int id, RentalCarsUpdateDto modelDto)
     {
         var existingRentalCar = RentalCarRepo.Read(id);
