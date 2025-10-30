@@ -21,7 +21,6 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     /// <returns>all customers who have rented cars of the specified model</returns>
     [HttpGet("clients-by-model/{modelName}")]
     [ProducesResponseType(200)]
-    [ProducesResponseType(204)]
     [ProducesResponseType(500)]
     public ActionResult<IEnumerable<ClientsDto>> GetClientsByCarModel(string modelName)
     {
@@ -32,7 +31,7 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
             var clients = reportsService.GetClientsByCarModel(modelName);
             logger.LogInformation("{method} method of {controller} executed successfully",
             nameof(GetClientsByCarModel), GetType().Name);
-            return clients.Any() ? Ok(clients) : NoContent();
+            return Ok(clients);
         }
         catch (Exception ex)
         {
@@ -48,7 +47,6 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     /// <returns>List of currently rented cars with rental details</returns>
     [HttpGet("currently-rented")]
     [ProducesResponseType(200)]
-    [ProducesResponseType(204)]
     [ProducesResponseType(500)]
     public ActionResult<IEnumerable<CurrentlyRentedCarDto>> GetCarsCurrentlyRented()
     {
@@ -62,7 +60,7 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(GetCarsCurrentlyRented), GetType().Name);
 
-            return rentedCars.Any() ? Ok(rentedCars) : NoContent();
+            return Ok(rentedCars);
         }
         catch (Exception ex)
         {
@@ -79,7 +77,6 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     /// <returns>Top 5 cars with rental counts</returns>
     [HttpGet("top-5-rented-cars")]
     [ProducesResponseType(200)]
-    [ProducesResponseType(204)]
     [ProducesResponseType(500)]
     public ActionResult<IEnumerable<CarWithRentalCountDto>> GetTop5MostFrequentlyRentedCars()
     {
@@ -93,7 +90,7 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(GetTop5MostFrequentlyRentedCars), GetType().Name);
 
-            return topCars.Any() ? Ok(topCars) : NoContent();
+            return Ok(topCars);
         }
         catch (Exception ex)
         {
@@ -110,7 +107,6 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     /// <returns>Dictionary with car ID and rental count</returns>
     [HttpGet("rental-count-per-car")]
     [ProducesResponseType(200)]
-    [ProducesResponseType(204)]
     [ProducesResponseType(500)]
     public ActionResult<Dictionary<int, int>> GetRentalCountPerCar()
     {
@@ -124,7 +120,7 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(GetRentalCountPerCar), GetType().Name);
 
-            return rentalCounts.Any() ? Ok(rentalCounts) : NoContent();
+            return Ok(rentalCounts);
         }
         catch (Exception ex)
         {
@@ -141,7 +137,6 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     /// <returns>Top 5 clients with total spent amount</returns>
     [HttpGet("top-5-clients-by-spending")]
     [ProducesResponseType(200)]
-    [ProducesResponseType(204)]
     [ProducesResponseType(500)]
     public ActionResult<IEnumerable<ClientWithSpendingDto>> GetTop5ClientsByRentalSum()
     {
@@ -155,7 +150,7 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(GetTop5ClientsByRentalSum), GetType().Name);
 
-            return topClients.Any() ? Ok(topClients) : NoContent();
+            return Ok(topClients);
         }
         catch (Exception ex)
         {

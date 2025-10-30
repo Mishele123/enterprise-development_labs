@@ -18,13 +18,11 @@ public class CarModelsController(ICarModelsService carModelsService, ILogger<Car
     /// <returns>Sequence of car models</returns>
     [HttpGet]
     [ProducesResponseType(200)]
-    [ProducesResponseType(204)]
     [ProducesResponseType(500)]
     public ActionResult<IEnumerable<CarModelDto>> ReadAll()
     {
         logger.LogInformation("{method} method of {controller} is called",
             nameof(ReadAll), GetType().Name);
-
         try
         {
             var result = carModelsService.ReadAll();
@@ -32,7 +30,7 @@ public class CarModelsController(ICarModelsService carModelsService, ILogger<Car
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(ReadAll), GetType().Name);
 
-            return result.Any() ? Ok(result) : NoContent();
+            return Ok(result);
         }
         catch (Exception ex)
         {
@@ -99,7 +97,14 @@ public class CarModelsController(ICarModelsService carModelsService, ILogger<Car
     {
         logger.LogInformation("{method} method of {controller} is called",
             nameof(Create), GetType().Name);
-
+        if (!ModelState.IsValid)
+        {
+            logger.LogWarning("Validation failed: {Errors}",
+                string.Join("; ", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)));
+            return BadRequest(ModelState);
+        }
         try
         {
             var result = carModelsService.Create(modelDto);
@@ -125,13 +130,21 @@ public class CarModelsController(ICarModelsService carModelsService, ILogger<Car
     /// <param name="modelDto">Updated CarModel data</param>
     [HttpPut("{id}")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public ActionResult Update(int id, CarModelsUpdateDto modelDto)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
             nameof(Update), GetType().Name, id);
-
+        if (!ModelState.IsValid)
+        {
+            logger.LogWarning("Validation failed: {Errors}",
+                string.Join("; ", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)));
+            return BadRequest(ModelState);
+        }
         try
         {
             var result = carModelsService.Update(id, modelDto);

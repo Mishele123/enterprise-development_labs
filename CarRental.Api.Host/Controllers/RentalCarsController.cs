@@ -19,21 +19,17 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
     /// <returns>Sequence of rental cars</returns>
     [HttpGet]
     [ProducesResponseType(200)]
-    [ProducesResponseType(204)]
     [ProducesResponseType(500)]
     public ActionResult<IEnumerable<RentalCarsDto>> ReadAll()
     {
         logger.LogInformation("{method} method of {controller} is called",
             nameof(ReadAll), GetType().Name);
-
         try
         {
             var result = rentalCarsService.ReadAll();
-
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(ReadAll), GetType().Name);
-
-            return result.Any() ? Ok(result) : NoContent();
+            return Ok(result);
         }
         catch (Exception ex)
         {
@@ -100,7 +96,14 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
     {
         logger.LogInformation("{method} method of {controller} is called",
             nameof(Create), GetType().Name);
-
+        if (!ModelState.IsValid)
+        {
+            logger.LogWarning("Validation failed: {Errors}",
+                string.Join("; ", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)));
+            return BadRequest(ModelState);
+        }
         try
         {
             var result = rentalCarsService.Create(model);
@@ -131,13 +134,21 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
     /// <param name="model">Updated RentalCar data</param>
     [HttpPut("{id}")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public ActionResult Update(int id, RentalCarsUpdateDto model)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
             nameof(Update), GetType().Name, id);
-
+        if (!ModelState.IsValid)
+        {
+            logger.LogWarning("Validation failed: {Errors}",
+                string.Join("; ", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)));
+            return BadRequest(ModelState);
+        }
         try
         {
             var result = rentalCarsService.Update(id, model);
