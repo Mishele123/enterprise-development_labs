@@ -3,7 +3,7 @@
 /// <summary>
 /// Application service that provide CRUD operations for Clients
 /// </summary>
-public interface IClients
+public interface IClientsService
 {
     /// <summary>
     /// return all Clients

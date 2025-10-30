@@ -1,6 +1,6 @@
 ﻿using CarRental.Domain.Entities;
-namespace CarRental.Domain.Interfaces;
 
+namespace CarRental.Domain.Interfaces;
 public interface IRentalCarRepository : IRepository<RentalCar>
 {
 }

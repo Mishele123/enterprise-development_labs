@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace CarRental.Application.Contracts.Clients;
 
 /// <summary>

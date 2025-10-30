@@ -2,6 +2,7 @@
 using CarRental.Application.Contracts.Clients;
 using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
+
 namespace CarRental.Application.Services;
 
 /// <summary>
@@ -12,7 +13,7 @@ namespace CarRental.Application.Services;
 public class ClientService(
     IClientRepository ClientRepo,
     IMapper mapper
-) : IClients
+) : IClientsService
 {
     /// <summary>
     /// return all Clients

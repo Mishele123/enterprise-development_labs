@@ -3,7 +3,7 @@
 /// <summary>
 /// Apolication service that provide CRUD operations for ModelGenerations
 /// </summary>
-public interface IModelGenerations
+public interface IModelGenerationsService
 {
     /// <summary>
     /// return all ModelGenerations

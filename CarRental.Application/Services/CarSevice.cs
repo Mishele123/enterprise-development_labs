@@ -2,6 +2,7 @@
 using CarRental.Application.Contracts.Cars;
 using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
+
 namespace CarRental.Application.Services;
 
 /// <summary>
@@ -14,7 +15,7 @@ public class CarService(
     ICarRepository CarRepo,
     IModelGenerationRepository ModelGenerationRepo,
     IMapper mapper
-) : ICars
+) : ICarsService
 {
     /// <summary>
     /// Return all Cars

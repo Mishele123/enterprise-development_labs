@@ -3,6 +3,7 @@ using CarRental.Application.Contracts.Clients;
 using CarRental.Application.Contracts.RentalCars;
 using CarRental.Application.Contracts.Reports;
 using Microsoft.AspNetCore.Mvc;
+
 namespace CarRental.Api.Host.Controllers;
 
 /// <summary>

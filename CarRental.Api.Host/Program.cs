@@ -37,11 +37,11 @@ builder.Services.AddScoped<IModelGenerationRepository, ModelGenerationsInMemory>
 builder.Services.AddScoped<IClientRepository, ClientsInMemory>();
 builder.Services.AddScoped<IRentalCarRepository, RentalCarsInMemory>();
 
-builder.Services.AddScoped<ICars, CarService>();
-builder.Services.AddScoped<ICarModels, CarModelService>();
-builder.Services.AddScoped<IModelGenerations, ModelGenerationService>();
-builder.Services.AddScoped<IClients, ClientService>();
-builder.Services.AddScoped<IRentalCars, RentalCarService>();
+builder.Services.AddScoped<ICarsService, CarService>();
+builder.Services.AddScoped<ICarModelsService, CarModelService>();
+builder.Services.AddScoped<IModelGenerationsService, ModelGenerationService>();
+builder.Services.AddScoped<IClientsService, ClientService>();
+builder.Services.AddScoped<IRentalCarsService, RentalCarService>();
 builder.Services.AddScoped<IReports, ReportService>();
 
 var app = builder.Build();

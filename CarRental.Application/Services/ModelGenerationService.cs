@@ -3,6 +3,8 @@ using CarRental.Application.Contracts.ModelGenerations;
 using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 
+namespace CarRental.Application.Services;
+
 /// <summary>
 /// Crud model generation operations
 /// </summary>
@@ -13,7 +15,7 @@ public class ModelGenerationService(
     IModelGenerationRepository ModelGenerationRepo,
     ICarModelRepository CarModelRepo,
     IMapper mapper
-) : IModelGenerations
+) : IModelGenerationsService
 {
     /// <summary>
     /// Return all ModelGenerations

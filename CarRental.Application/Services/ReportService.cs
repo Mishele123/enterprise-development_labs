@@ -4,6 +4,7 @@ using CarRental.Application.Contracts.Clients;
 using CarRental.Application.Contracts.RentalCars;
 using CarRental.Application.Contracts.Reports;
 using CarRental.Domain.Interfaces;
+
 namespace CarRental.Application.Services;
 
 /// <summary>

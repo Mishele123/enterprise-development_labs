@@ -1,5 +1,6 @@
 ﻿using CarRental.Application.Contracts.RentalCars;
 using Microsoft.AspNetCore.Mvc;
+
 namespace CarRental.Api.Host.Controllers;
 
 /// <summary>
@@ -9,7 +10,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/rental-cars")]
-public class RentalCarsController(IRentalCars rentalCars, 
+public class RentalCarsController(IRentalCarsService rentalCars, 
     ILogger<RentalCarsController> logger) : ControllerBase
 {
     /// <summary>

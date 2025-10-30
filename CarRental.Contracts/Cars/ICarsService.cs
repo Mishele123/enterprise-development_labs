@@ -3,7 +3,7 @@
 /// <summary>
 /// Application service that provide CRUD operations for Cars
 /// </summary>
-public interface ICars
+public interface ICarsService
 {
     /// <summary>
     /// return all Cars

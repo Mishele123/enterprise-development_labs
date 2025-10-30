@@ -1,5 +1,6 @@
 ﻿using CarRental.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
+
 namespace CarRental.Application.Contracts.ModelGenerations;
 
 /// <summary>

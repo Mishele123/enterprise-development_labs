@@ -1,5 +1,6 @@
 ﻿using CarRental.Application.Contracts.ModelGenerations;
 using Microsoft.AspNetCore.Mvc;
+
 namespace CarRental.Api.Host.Controllers;
 
 /// <summary>
@@ -9,7 +10,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/model-generations")]
-public class ModelGenerationsController(IModelGenerations modelGenerations, 
+public class ModelGenerationsController(IModelGenerationsService modelGenerations, 
     ILogger<ModelGenerationsController> logger) : ControllerBase
 {
     /// <summary>

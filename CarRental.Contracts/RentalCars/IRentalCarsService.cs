@@ -3,7 +3,7 @@
 /// <summary>
 /// Apolication service that provide CRUD operations for RentalCars
 /// </summary>
-public interface IRentalCars
+public interface IRentalCarsService
 {
     /// <summary>
     /// return all RentalCars

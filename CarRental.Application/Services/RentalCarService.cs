@@ -3,6 +3,8 @@ using CarRental.Application.Contracts.RentalCars;
 using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
 
+namespace CarRental.Application.Services;
+
 /// <summary>
 /// Crud operations for rental car
 /// </summary>
@@ -14,7 +16,7 @@ public class RentalCarService(
     ICarRepository CarRepo,
     IClientRepository ClientRepo,
     IMapper mapper
-) : IRentalCars
+) : IRentalCarsService
 {
     /// <summary>
     /// Return all RentalCars
