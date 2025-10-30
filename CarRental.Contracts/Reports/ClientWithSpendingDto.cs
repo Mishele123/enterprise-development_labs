@@ -1,4 +1,5 @@
 ﻿using CarRental.Application.Contracts.Clients;
+
 namespace CarRental.Application.Contracts.Reports;
 
 /// <summary>

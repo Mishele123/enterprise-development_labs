@@ -13,7 +13,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/reports")]
-public class ReportsController(IReports reports, ILogger<ReportsController> logger) : ControllerBase
+public class ReportsController(IReportsService reports, ILogger<ReportsController> logger) : ControllerBase
 {
     /// <summary>
     /// Display information about all customers who have rented cars of the specified model, 

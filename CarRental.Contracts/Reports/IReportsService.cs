@@ -1,13 +1,14 @@
 ﻿using CarRental.Application.Contracts.Cars;
 using CarRental.Application.Contracts.Clients;
 using CarRental.Application.Contracts.RentalCars;
+
 namespace CarRental.Application.Contracts.Reports;
 
 /// <summary>
 /// Provides analytical operations
 /// Returns aggregated and filtered data for reporting purposes
 /// </summary>
-public interface IReports
+public interface IReportsService
 {
     /// <summary>
     /// Display information about all customers who have rented cars of the specified model, 

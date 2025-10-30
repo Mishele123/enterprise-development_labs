@@ -18,7 +18,7 @@ public class ReportService(
     ICarRepository CarRepo,
     IRentalCarRepository RentalCarRepo,
     IMapper mapper
-) : IReports
+) : IReportsService
 {
     /// <summary>
     /// Display information about all customers who have rented cars of the specified model, 

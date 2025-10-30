@@ -42,7 +42,7 @@ builder.Services.AddScoped<ICarModelsService, CarModelService>();
 builder.Services.AddScoped<IModelGenerationsService, ModelGenerationService>();
 builder.Services.AddScoped<IClientsService, ClientService>();
 builder.Services.AddScoped<IRentalCarsService, RentalCarService>();
-builder.Services.AddScoped<IReports, ReportService>();
+builder.Services.AddScoped<IReportsService, ReportService>();
 
 var app = builder.Build();
 
