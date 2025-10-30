@@ -11,6 +11,7 @@ using CarRental.Domain.Interfaces;
 using CarRental.InMemory;
 using CarRental.InMemory.Seed;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,9 +25,55 @@ builder.Services.AddSingleton(mapper);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarRental API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "CarRental API",
+        Version = "v1",
+    });
+    
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+    if (File.Exists(xmlPath))
+    {
+        c.IncludeXmlComments(xmlPath);
+    }
+    try
+    {
+        var applicationAssembly = typeof(CarService).Assembly;
+        var applicationXmlFile = $"{applicationAssembly.GetName().Name}.xml";
+        var applicationXmlPath = Path.Combine(AppContext.BaseDirectory, applicationXmlFile);
+        if (File.Exists(applicationXmlPath))
+        {
+            c.IncludeXmlComments(applicationXmlPath);
+        }
+    }
+    catch (Exception) {}
+    try
+    {
+        var contractsAssembly = typeof(CarsCreateDto).Assembly;
+        var contractsXmlFile = $"{contractsAssembly.GetName().Name}.xml";
+        var contractsXmlPath = Path.Combine(AppContext.BaseDirectory, contractsXmlFile);
+        if (File.Exists(contractsXmlPath))
+        {
+            c.IncludeXmlComments(contractsXmlPath);
+        }
+    }
+    catch (Exception) {}
+    try
+    {
+        var domainAssembly = typeof(ICarRepository).Assembly;
+        var domainXmlFile = $"{domainAssembly.GetName().Name}.xml";
+        var domainXmlPath = Path.Combine(AppContext.BaseDirectory, domainXmlFile);
+        if (File.Exists(domainXmlPath))
+        {
+            c.IncludeXmlComments(domainXmlPath);
+        }
+    }
+    catch (Exception) {}
 });
 
 builder.Services.AddSingleton<InMemoryData>();
