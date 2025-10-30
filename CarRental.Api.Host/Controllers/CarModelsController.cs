@@ -6,11 +6,11 @@ namespace CarRental.Api.Host.Controllers;
 /// <summary>
 /// Provides API methods for car models
 /// </summary>
-/// <param name="carModels">car models service</param>
+/// <param name="carModelsService">car models service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/car-models")]
-public class CarModelsController(ICarModelsService carModels, ILogger<CarModelsController> logger) : Controller
+public class CarModelsController(ICarModelsService carModelsService, ILogger<CarModelsController> logger) : Controller
 {
     /// <summary>
     /// Return all CarModels
@@ -27,7 +27,7 @@ public class CarModelsController(ICarModelsService carModels, ILogger<CarModelsC
 
         try
         {
-            var result = carModels.ReadAll();
+            var result = carModelsService.ReadAll();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(ReadAll), GetType().Name);
@@ -59,7 +59,7 @@ public class CarModelsController(ICarModelsService carModels, ILogger<CarModelsC
 
         try
         {
-            var result = carModels.Read(id);
+            var result = carModelsService.Read(id);
 
             if (result == null)
             {
@@ -102,7 +102,7 @@ public class CarModelsController(ICarModelsService carModels, ILogger<CarModelsC
 
         try
         {
-            var result = carModels.Create(modelDto);
+            var result = carModelsService.Create(modelDto);
 
             logger.LogInformation("{method} method of {controller} executed successfully with id {id}",
                 nameof(Create), GetType().Name, result.Id);
@@ -134,7 +134,7 @@ public class CarModelsController(ICarModelsService carModels, ILogger<CarModelsC
 
         try
         {
-            var result = carModels.Update(id, modelDto);
+            var result = carModelsService.Update(id, modelDto);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Update), GetType().Name);
@@ -165,7 +165,7 @@ public class CarModelsController(ICarModelsService carModels, ILogger<CarModelsC
 
         try
         {
-            var result = carModels.Delete(id);
+            var result = carModelsService.Delete(id);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Delete), GetType().Name);

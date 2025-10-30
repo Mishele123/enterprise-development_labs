@@ -10,7 +10,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/clients")]
-public class ClientsController(IClientsService clients, ILogger<ClientsController> logger) : ControllerBase
+public class ClientsController(IClientsService clientsService, ILogger<ClientsController> logger) : ControllerBase
 {
     /// <summary>
     /// Return all Clients
@@ -27,7 +27,7 @@ public class ClientsController(IClientsService clients, ILogger<ClientsControlle
 
         try
         {
-            var result = clients.ReadAll();
+            var result = clientsService.ReadAll();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(ReadAll), GetType().Name);
@@ -59,7 +59,7 @@ public class ClientsController(IClientsService clients, ILogger<ClientsControlle
 
         try
         {
-            var result = clients.Read(id);
+            var result = clientsService.Read(id);
 
             if (result == null)
             {
@@ -102,7 +102,7 @@ public class ClientsController(IClientsService clients, ILogger<ClientsControlle
 
         try
         {
-            var result = clients.Create(model);
+            var result = clientsService.Create(model);
 
             logger.LogInformation("{method} method of {controller} executed successfully with id {id}",
                 nameof(Create), GetType().Name, result.Id);
@@ -134,7 +134,7 @@ public class ClientsController(IClientsService clients, ILogger<ClientsControlle
 
         try
         {
-            var result = clients.Update(id, model);
+            var result = clientsService.Update(id, model);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Update), GetType().Name);
@@ -165,7 +165,7 @@ public class ClientsController(IClientsService clients, ILogger<ClientsControlle
 
         try
         {
-            var result = clients.Delete(id);
+            var result = clientsService.Delete(id);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Delete), GetType().Name);

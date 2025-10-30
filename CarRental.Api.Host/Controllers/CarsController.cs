@@ -6,11 +6,11 @@ namespace CarRental.Api.Host.Controllers;
 /// <summary>
 /// Provides API methods for cars
 /// </summary>
-/// <param name="cars">cars service</param>
+/// <param name="carsService">cars service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/cars")]
-public class CarsController(ICarsService cars, ILogger<CarsController> logger) : ControllerBase
+public class CarsController(ICarsService carsService, ILogger<CarsController> logger) : ControllerBase
 {
     /// <summary>
     /// Get all cars
@@ -27,7 +27,7 @@ public class CarsController(ICarsService cars, ILogger<CarsController> logger) :
 
         try
         {
-            var result = cars.ReadAll();
+            var result = carsService.ReadAll();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(ReadAll), GetType().Name);
@@ -58,7 +58,7 @@ public class CarsController(ICarsService cars, ILogger<CarsController> logger) :
             nameof(Read), GetType().Name, id);
         try
         {
-            var result = cars.Read(id);
+            var result = carsService.Read(id);
 
             if (result == null)
             {
@@ -96,7 +96,7 @@ public class CarsController(ICarsService cars, ILogger<CarsController> logger) :
 
         try
         {
-            var result = cars.Create(modelDto);
+            var result = carsService.Create(modelDto);
 
             logger.LogInformation("{method} method of {controller} executed successfully with id {id}",
                 nameof(Create), GetType().Name, result.Id);
@@ -133,7 +133,7 @@ public class CarsController(ICarsService cars, ILogger<CarsController> logger) :
 
         try
         {
-            var result = cars.Update(id, modelDto);
+            var result = carsService.Update(id, modelDto);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Update), GetType().Name);
@@ -164,7 +164,7 @@ public class CarsController(ICarsService cars, ILogger<CarsController> logger) :
 
         try
         {
-            var result = cars.Delete(id);
+            var result = carsService.Delete(id);
             
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Delete), GetType().Name);

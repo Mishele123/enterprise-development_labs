@@ -10,7 +10,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/model-generations")]
-public class ModelGenerationsController(IModelGenerationsService modelGenerations, 
+public class ModelGenerationsController(IModelGenerationsService modelGenerationsService, 
     ILogger<ModelGenerationsController> logger) : ControllerBase
 {
     /// <summary>
@@ -28,7 +28,7 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
 
         try
         {
-            var result = modelGenerations.ReadAll();
+            var result = modelGenerationsService.ReadAll();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(ReadAll), GetType().Name);
@@ -60,7 +60,7 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
 
         try
         {
-            var result = modelGenerations.Read(id);
+            var result = modelGenerationsService.Read(id);
 
             if (result == null)
             {
@@ -103,7 +103,7 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
 
         try
         {
-            var result = modelGenerations.Create(model);
+            var result = modelGenerationsService.Create(model);
 
             logger.LogInformation("{method} method of {controller} executed successfully with id {id}",
                 nameof(Create), GetType().Name, result.Id);
@@ -140,7 +140,7 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
 
         try
         {
-            var result = modelGenerations.Update(id, model);
+            var result = modelGenerationsService.Update(id, model);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Update), GetType().Name);
@@ -171,7 +171,7 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
 
         try
         {
-            var result = modelGenerations.Delete(id);
+            var result = modelGenerationsService.Delete(id);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Delete), GetType().Name);

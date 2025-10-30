@@ -1,6 +1,4 @@
-using CarRental.Application.Contracts.Cars;
 using CarRental.Application.Contracts.Clients;
-using CarRental.Application.Contracts.RentalCars;
 using CarRental.Application.Contracts.Reports;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +7,11 @@ namespace CarRental.Api.Host.Controllers;
 /// <summary>
 /// Provides API methods for analytical queries
 /// </summary>
-/// <param name="reports">Reports service</param>
+/// <param name="reportsService">Reports service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/reports")]
-public class ReportsController(IReportsService reports, ILogger<ReportsController> logger) : ControllerBase
+public class ReportsController(IReportsService reportsService, ILogger<ReportsController> logger) : ControllerBase
 {
     /// <summary>
     /// Display information about all customers who have rented cars of the specified model, 
@@ -31,7 +29,7 @@ public class ReportsController(IReportsService reports, ILogger<ReportsControlle
         nameof(GetClientsByCarModel), GetType().Name, modelName);
         try
         {
-            var clients = reports.GetClientsByCarModel(modelName);
+            var clients = reportsService.GetClientsByCarModel(modelName);
             logger.LogInformation("{method} method of {controller} executed successfully",
             nameof(GetClientsByCarModel), GetType().Name);
             return clients.Any() ? Ok(clients) : NoContent();
@@ -59,7 +57,7 @@ public class ReportsController(IReportsService reports, ILogger<ReportsControlle
 
         try
         {
-            var rentedCars = reports.GetCarsCurrentlyRented();
+            var rentedCars = reportsService.GetCarsCurrentlyRented();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(GetCarsCurrentlyRented), GetType().Name);
@@ -90,7 +88,7 @@ public class ReportsController(IReportsService reports, ILogger<ReportsControlle
 
         try
         {
-            var topCars = reports.GetTop5MostFrequentlyRentedCars();
+            var topCars = reportsService.GetTop5MostFrequentlyRentedCars();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(GetTop5MostFrequentlyRentedCars), GetType().Name);
@@ -121,7 +119,7 @@ public class ReportsController(IReportsService reports, ILogger<ReportsControlle
 
         try
         {
-            var rentalCounts = reports.GetRentalCountPerCar();
+            var rentalCounts = reportsService.GetRentalCountPerCar();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(GetRentalCountPerCar), GetType().Name);
@@ -152,7 +150,7 @@ public class ReportsController(IReportsService reports, ILogger<ReportsControlle
 
         try
         {
-            var topClients = reports.GetTop5ClientsByRentalSum();
+            var topClients = reportsService.GetTop5ClientsByRentalSum();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(GetTop5ClientsByRentalSum), GetType().Name);

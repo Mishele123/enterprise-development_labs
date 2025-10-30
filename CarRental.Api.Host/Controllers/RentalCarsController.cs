@@ -6,11 +6,11 @@ namespace CarRental.Api.Host.Controllers;
 /// <summary>
 /// Provides API methods for rental cars
 /// </summary>
-/// <param name="rentalCars">rental cars service</param>
+/// <param name="rentalCarsService">rental cars service</param>
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/rental-cars")]
-public class RentalCarsController(IRentalCarsService rentalCars, 
+public class RentalCarsController(IRentalCarsService rentalCarsService, 
     ILogger<RentalCarsController> logger) : ControllerBase
 {
     /// <summary>
@@ -28,7 +28,7 @@ public class RentalCarsController(IRentalCarsService rentalCars,
 
         try
         {
-            var result = rentalCars.ReadAll();
+            var result = rentalCarsService.ReadAll();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(ReadAll), GetType().Name);
@@ -60,7 +60,7 @@ public class RentalCarsController(IRentalCarsService rentalCars,
 
         try
         {
-            var result = rentalCars.Read(id);
+            var result = rentalCarsService.Read(id);
 
             if (result == null)
             {
@@ -103,7 +103,7 @@ public class RentalCarsController(IRentalCarsService rentalCars,
 
         try
         {
-            var result = rentalCars.Create(model);
+            var result = rentalCarsService.Create(model);
 
             logger.LogInformation("{method} method of {controller} executed successfully with id {id}",
                 nameof(Create), GetType().Name, result.Id);
@@ -140,7 +140,7 @@ public class RentalCarsController(IRentalCarsService rentalCars,
 
         try
         {
-            var result = rentalCars.Update(id, model);
+            var result = rentalCarsService.Update(id, model);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Update), GetType().Name);
@@ -171,7 +171,7 @@ public class RentalCarsController(IRentalCarsService rentalCars,
 
         try
         {
-            var result = rentalCars.Delete(id);
+            var result = rentalCarsService.Delete(id);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
                 nameof(Delete), GetType().Name);
