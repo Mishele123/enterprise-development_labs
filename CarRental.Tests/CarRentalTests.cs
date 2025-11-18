@@ -1,6 +1,6 @@
 namespace CarRental.Tests;
 
-public class CarRentalTests(CarRentalFixture fixture): IClassFixture<CarRentalFixture>
+public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalFixture>
 {
     /// <summary>
     /// Display information about all customers who have rented cars of the specified model, 

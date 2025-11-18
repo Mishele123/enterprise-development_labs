@@ -112,7 +112,7 @@ public class RentalCarService(
     /// </summary>
     /// <param name="rental"></param>
     /// <returns></returns>
-    private static bool CanUpdateRentalDuration(RentalCar rental) => 
+    private static bool CanUpdateRentalDuration(RentalCar rental) =>
         rental.IssueTime.AddHours(rental.RentalHours) > DateTime.Now;
 
     /// <summary>

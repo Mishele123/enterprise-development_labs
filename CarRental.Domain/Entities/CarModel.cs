@@ -30,5 +30,5 @@ public class CarModel
     /// <summary>
     /// The vehicle class determining rental category and pricing tier
     /// </summary>
-    public required VehicleClasses VehicleClass { get; set; } 
+    public required VehicleClasses VehicleClass { get; set; }
 }

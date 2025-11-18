@@ -8,13 +8,15 @@ using CarRental.Application.Contracts.RentalCars;
 using CarRental.Application.Contracts.Reports;
 using CarRental.Application.Services;
 using CarRental.Domain.Interfaces;
-using CarRental.InMemory;
-using CarRental.InMemory.Seed;
+using CarRental.EFCore;
+using CarRental.EFCore.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 var mapperConfig = new MapperConfiguration(
     config => config.AddProfile(new MappingProfile()),
@@ -33,7 +35,7 @@ builder.Services.AddSwaggerGen(c =>
         Title = "CarRental API",
         Version = "v1",
     });
-    
+
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
@@ -51,7 +53,7 @@ builder.Services.AddSwaggerGen(c =>
             c.IncludeXmlComments(applicationXmlPath);
         }
     }
-    catch (Exception) {}
+    catch (Exception) { }
     try
     {
         var contractsAssembly = typeof(CarsCreateDto).Assembly;
@@ -62,7 +64,7 @@ builder.Services.AddSwaggerGen(c =>
             c.IncludeXmlComments(contractsXmlPath);
         }
     }
-    catch (Exception) {}
+    catch (Exception) { }
     try
     {
         var domainAssembly = typeof(ICarRepository).Assembly;
@@ -73,16 +75,15 @@ builder.Services.AddSwaggerGen(c =>
             c.IncludeXmlComments(domainXmlPath);
         }
     }
-    catch (Exception) {}
+    catch (Exception) { }
 });
 
-builder.Services.AddSingleton<InMemoryData>();
 
-builder.Services.AddScoped<ICarRepository, CarsInMemory>();
-builder.Services.AddScoped<ICarModelRepository, CarModelsInMemory>();
-builder.Services.AddScoped<IModelGenerationRepository, ModelGenerationsInMemory>();
-builder.Services.AddScoped<IClientRepository, ClientsInMemory>();
-builder.Services.AddScoped<IRentalCarRepository, RentalCarsInMemory>();
+builder.Services.AddScoped<ICarRepository, CarsEfCoreRepository>();
+builder.Services.AddScoped<ICarModelRepository, CarModelsEfCoreRepository>();
+builder.Services.AddScoped<IModelGenerationRepository, ModelGenerationsEfCoreRepository>();
+builder.Services.AddScoped<IClientRepository, ClientsEfCoreRepository>();
+builder.Services.AddScoped<IRentalCarRepository, RentalCarsEfCoreRepository>();
 
 builder.Services.AddScoped<ICarsService, CarService>();
 builder.Services.AddScoped<ICarModelsService, CarModelService>();
@@ -91,10 +92,25 @@ builder.Services.AddScoped<IClientsService, ClientService>();
 builder.Services.AddScoped<IRentalCarsService, RentalCarService>();
 builder.Services.AddScoped<IReportsService, ReportService>();
 
+
+var cs = builder.Configuration.GetConnectionString("CarRentalDb");
+builder.Services.AddDbContext<CarRentalDbContext>(opt =>
+{
+    opt.UseMySql(cs, ServerVersion.AutoDetect(cs));
+});
+
+builder.Services.AddTransient<DbSeederService>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<CarRentalDbContext>();
+    db.Database.Migrate();
+    var seeder = scope.ServiceProvider.GetRequiredService<DbSeederService>();
+    seeder.Seed(forceReset: false);
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

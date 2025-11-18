@@ -46,6 +46,15 @@ public class ClientsEfCoreRepository(CarRentalDbContext db) : IClientRepository
     {
         var entity = db.Clients.Find(id);
         if (entity is null) return false;
+
+        var hasRental = db.Rentals.Any(r => r.Client.Id == entity.Id);
+
+        if (hasRental)
+        {
+            throw new InvalidOperationException(
+                $"Cannot delete client '{entity.Id}' because it has in rentals table");
+        }
+
         db.Clients.Remove(entity);
         db.SaveChanges();
         return true;

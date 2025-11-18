@@ -19,19 +19,11 @@ public class RentalCar
     /// </summary>
     public required int RentalHours { get; set; }
     /// <summary>
-    /// Renter car id
-    /// </summary>
-    public required int RentedCarId { get; set; }
-    /// <summary>
     /// Renter car
     /// </summary>
-    public Car? RentedCar { get; set; }
-    /// <summary>
-    /// Client id, who rentering car
-    /// </summary>
-    public required int ClientId { get; set; }
+    public required Car RentedCar { get; set; }
     /// <summary>
     /// Client who rentering car
     /// </summary>
-    public Client? Client { get; set; }
+    public required Client Client { get; set; }
 }

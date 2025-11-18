@@ -1,5 +1,6 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.EFCore.Repositories;
 
@@ -57,6 +58,9 @@ public class RentalCarsEfCoreRepository(CarRentalDbContext db) : IRentalCarRepos
     /// <returns>return all entities</returns>
     public IEnumerable<RentalCar> ReadAll()
     {
-        return [.. db.Rentals];
+        return [.. db.Rentals.Include(r => r.RentedCar)
+            .ThenInclude(c => c.Generation)
+            .ThenInclude(g => g.Model)
+            .Include(r => r.Client)];
     }
 }

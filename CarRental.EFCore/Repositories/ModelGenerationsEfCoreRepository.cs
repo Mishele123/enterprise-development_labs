@@ -1,5 +1,6 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.EFCore.Repositories;
 
@@ -46,6 +47,15 @@ public class ModelGenerationsEfCoreRepository(CarRentalDbContext db) : IModelGen
     {
         var entity = db.Generations.Find(id);
         if (entity is null) return false;
+
+        var hasCar = db.Cars.Any(c => c.Generation.Id == entity.Id);
+
+        if (hasCar)
+        {
+            throw new InvalidOperationException(
+                $"Cannot delete generation '{entity.Id}' because it has in cars table");
+        }
+
         db.Generations.Remove(entity);
         db.SaveChanges();
         return true;
@@ -57,6 +67,6 @@ public class ModelGenerationsEfCoreRepository(CarRentalDbContext db) : IModelGen
     /// <returns>return all entities</returns>
     public IEnumerable<ModelGeneration> ReadAll()
     {
-        return [.. db.Generations];
+        return [.. db.Generations.Include(g => g.Model)];
     }
 }

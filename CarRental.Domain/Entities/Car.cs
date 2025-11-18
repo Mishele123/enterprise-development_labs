@@ -10,13 +10,9 @@ public class Car
     /// </summary>
     public required int Id { get; set; }
     /// <summary>
-    /// The model generation id
-    /// </summary>
-    public required int GenerationId { get; set; }
-    /// <summary>
     /// The model generation details including year, engine, and specifications
     /// </summary>
-    public ModelGeneration? Generation { get; set; }
+    public required ModelGeneration Generation { get; set; }
     /// <summary>
     /// The license plate number of the car
     /// </summary>

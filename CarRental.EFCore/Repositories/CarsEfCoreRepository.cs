@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.EFCore.Repositories;
 
+/// <summary>
+/// implementaion ICar Repository
+/// </summary>
 public class CarsEfCoreRepository(CarRentalDbContext db) : ICarRepository
 {
     /// <summary>
@@ -23,7 +26,7 @@ public class CarsEfCoreRepository(CarRentalDbContext db) : ICarRepository
     /// <param name="entity">updatable entity</param>
     public bool Update(Car entity)
     {
-        if (!db.Cars.Any(c => c.Id == entity.Id)) return false;
+        if (!db.CarModels.Any(c => c.Id == entity.Id)) return false;
         db.Cars.Update(entity);
         db.SaveChanges();
         return true;
@@ -47,6 +50,12 @@ public class CarsEfCoreRepository(CarRentalDbContext db) : ICarRepository
     {
         var entity = db.Cars.Find(id);
         if (entity is null) return false;
+        var hasCar = db.Rentals.Any(r => r.RentedCar.Id == entity.Id);
+        if (hasCar)
+        {
+            throw new InvalidOperationException(
+                $"Cannot delete car '{entity.Id}' because it has in rented table");
+        }
         db.Cars.Remove(entity);
         db.SaveChanges();
         return true;
@@ -58,6 +67,6 @@ public class CarsEfCoreRepository(CarRentalDbContext db) : ICarRepository
     /// <returns>return all entities</returns>
     public IEnumerable<Car> ReadAll()
     {
-        return [.. db.Cars];
+        return [.. db.Cars.Include(c => c.Generation).ThenInclude(g => g.Model)];
     }
 }
