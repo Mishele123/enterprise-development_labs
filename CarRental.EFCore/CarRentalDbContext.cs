@@ -1,8 +1,9 @@
 ﻿using CarRental.Domain.Entities;
+using CarRental.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.EFCore;
-public class CarRentalDBContext(DbContextOptions options) : DbContext(options)
+public class CarRentalDbContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<CarModel> CarModels { get; set; }
     public DbSet<ModelGeneration> Generations { get; set; }
@@ -63,105 +64,11 @@ public class CarRentalDBContext(DbContextOptions options) : DbContext(options)
                    .OnDelete(DeleteBehavior.Restrict)
                    .IsRequired();
         });
+        Seed(modelBuilder);
     }
 
     private static void Seed(ModelBuilder b)
     {
-        // CarModels
-        b.Entity<CarModel>().HasData(
-            new()
-            {
-                Id = 1,
-                Name = "Toyota Camry",
-                DriveType = DriveTypes.Fwd,
-                SeatCount = 5,
-                BodyType = BodyTypes.Sedan,
-                VehicleClass = VehicleClasses.Comfort
-            },
-            new()
-            {
-                Id = 2,
-                Name = "BMW 3 Series",
-                DriveType = DriveTypes.Rwd,
-                SeatCount = 5,
-                BodyType = BodyTypes.Sedan,
-                VehicleClass = VehicleClasses.Business
-            },
-            new()
-            {
-                Id = 3,
-                Name = "Honda Civic",
-                DriveType = DriveTypes.Fwd,
-                SeatCount = 5,
-                BodyType = BodyTypes.Sedan,
-                VehicleClass = VehicleClasses.Economy
-            },
-            new()
-            {
-                Id = 4,
-                Name = "Audi Q7",
-                DriveType = DriveTypes.Awd,
-                SeatCount = 7,
-                BodyType = BodyTypes.Suv,
-                VehicleClass = VehicleClasses.Premium
-            },
-            new()
-            {
-                Id = 5,
-                Name = "Mercedes S-Class",
-                DriveType = DriveTypes.Rwd,
-                SeatCount = 5,
-                BodyType = BodyTypes.Sedan,
-                VehicleClass = VehicleClasses.Luxury
-            },
-            new()
-            {
-                Id = 6,
-                Name = "Volkswagen Golf",
-                DriveType = DriveTypes.Fwd,
-                SeatCount = 5,
-                BodyType = BodyTypes.Hatchback,
-                VehicleClass = VehicleClasses.Economy
-            },
-            new()
-            {
-                Id = 7,
-                Name = "Ford Focus",
-                DriveType = DriveTypes.Fwd,
-                SeatCount = 5,
-                BodyType = BodyTypes.Hatchback,
-                VehicleClass = VehicleClasses.Economy
-            },
-            new()
-            {
-                Id = 8,
-                Name = "Toyota RAV4",
-                DriveType = DriveTypes.Awd,
-                SeatCount = 5,
-                BodyType = BodyTypes.Suv,
-                VehicleClass = VehicleClasses.Comfort
-            },
-            new()
-            {
-                Id = 9,
-                Name = "BMW X5",
-                DriveType = DriveTypes.Awd,
-                SeatCount = 5,
-                BodyType = BodyTypes.Suv,
-                VehicleClass = VehicleClasses.Premium
-            },
-            new()
-            {
-                Id = 10,
-                Name = "Toyota Sienna",
-                DriveType = DriveTypes.Fwd,
-                SeatCount = 8,
-                BodyType = BodyTypes.Minivan,
-                VehicleClass = VehicleClasses.Comfort
-            }
-        );
-
-        // Generations
         b.Entity<ModelGeneration>().HasData(
             new()
             {
@@ -255,7 +162,6 @@ public class CarRentalDBContext(DbContextOptions options) : DbContext(options)
             }
         );
 
-        // Cars
         b.Entity<Car>().HasData(
             new()
             {
@@ -329,7 +235,6 @@ public class CarRentalDBContext(DbContextOptions options) : DbContext(options)
             }
         );
 
-        // Clients
         b.Entity<Client>().HasData(
             new()
             {
@@ -403,7 +308,6 @@ public class CarRentalDBContext(DbContextOptions options) : DbContext(options)
             }
         );
 
-        // Rentals
         var baseDate = new DateTime(2025, 11, 18);
         b.Entity<RentalCar>().HasData(
             new()
