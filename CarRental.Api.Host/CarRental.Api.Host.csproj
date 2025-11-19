@@ -19,6 +19,8 @@
   <ItemGroup>
 	<ProjectReference Include="..\CarRental.Application\CarRental.Application.csproj" />
 	<ProjectReference Include="..\CarRental.EFCore\CarRental.EFCore.csproj" />
+	<ProjectReference Include="..\CarRental.ServiceDefaults\CarRental.ServiceDefaults.csproj" />
+
   </ItemGroup>
 	
 </Project>

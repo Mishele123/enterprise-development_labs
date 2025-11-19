@@ -10,6 +10,7 @@ using CarRental.Application.Services;
 using CarRental.Domain.Interfaces;
 using CarRental.EFCore;
 using CarRental.EFCore.Repositories;
+using CarRental.ServiceDefaults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -17,6 +18,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
 
 var mapperConfig = new MapperConfiguration(
     config => config.AddProfile(new MappingProfile()),
@@ -102,6 +104,8 @@ builder.Services.AddDbContext<CarRentalDbContext>(opt =>
 builder.Services.AddTransient<DbSeederService>();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
