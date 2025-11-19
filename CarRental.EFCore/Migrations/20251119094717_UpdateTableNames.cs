@@ -1,0 +1,284 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace CarRental.EFCore.Migrations
+{
+    /// <inheritdoc />
+    public partial class UpdateTableNames : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Cars_Generations_GenerationId",
+                table: "Cars");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Generations_CarModels_ModelId",
+                table: "Generations");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Rentals_Cars_RentedCarId",
+                table: "Rentals");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Rentals_Clients_ClientId",
+                table: "Rentals");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Rentals",
+                table: "Rentals");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Clients",
+                table: "Clients");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Cars",
+                table: "Cars");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Generations",
+                table: "Generations");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_CarModels",
+                table: "CarModels");
+
+            migrationBuilder.RenameTable(
+                name: "Rentals",
+                newName: "rentals");
+
+            migrationBuilder.RenameTable(
+                name: "Clients",
+                newName: "clients");
+
+            migrationBuilder.RenameTable(
+                name: "Cars",
+                newName: "cars");
+
+            migrationBuilder.RenameTable(
+                name: "Generations",
+                newName: "model_generations");
+
+            migrationBuilder.RenameTable(
+                name: "CarModels",
+                newName: "car_models");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Rentals_RentedCarId",
+                table: "rentals",
+                newName: "IX_rentals_RentedCarId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Rentals_ClientId",
+                table: "rentals",
+                newName: "IX_rentals_ClientId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Cars_GenerationId",
+                table: "cars",
+                newName: "IX_cars_GenerationId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_Generations_ModelId",
+                table: "model_generations",
+                newName: "IX_model_generations_ModelId");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_rentals",
+                table: "rentals",
+                column: "Id");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_clients",
+                table: "clients",
+                column: "Id");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_cars",
+                table: "cars",
+                column: "Id");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_model_generations",
+                table: "model_generations",
+                column: "Id");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_car_models",
+                table: "car_models",
+                column: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_cars_model_generations_GenerationId",
+                table: "cars",
+                column: "GenerationId",
+                principalTable: "model_generations",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_model_generations_car_models_ModelId",
+                table: "model_generations",
+                column: "ModelId",
+                principalTable: "car_models",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_rentals_cars_RentedCarId",
+                table: "rentals",
+                column: "RentedCarId",
+                principalTable: "cars",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_rentals_clients_ClientId",
+                table: "rentals",
+                column: "ClientId",
+                principalTable: "clients",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_cars_model_generations_GenerationId",
+                table: "cars");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_model_generations_car_models_ModelId",
+                table: "model_generations");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_rentals_cars_RentedCarId",
+                table: "rentals");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_rentals_clients_ClientId",
+                table: "rentals");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_rentals",
+                table: "rentals");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_clients",
+                table: "clients");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_cars",
+                table: "cars");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_model_generations",
+                table: "model_generations");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_car_models",
+                table: "car_models");
+
+            migrationBuilder.RenameTable(
+                name: "rentals",
+                newName: "Rentals");
+
+            migrationBuilder.RenameTable(
+                name: "clients",
+                newName: "Clients");
+
+            migrationBuilder.RenameTable(
+                name: "cars",
+                newName: "Cars");
+
+            migrationBuilder.RenameTable(
+                name: "model_generations",
+                newName: "Generations");
+
+            migrationBuilder.RenameTable(
+                name: "car_models",
+                newName: "CarModels");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_rentals_RentedCarId",
+                table: "Rentals",
+                newName: "IX_Rentals_RentedCarId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_rentals_ClientId",
+                table: "Rentals",
+                newName: "IX_Rentals_ClientId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_cars_GenerationId",
+                table: "Cars",
+                newName: "IX_Cars_GenerationId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_model_generations_ModelId",
+                table: "Generations",
+                newName: "IX_Generations_ModelId");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Rentals",
+                table: "Rentals",
+                column: "Id");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Clients",
+                table: "Clients",
+                column: "Id");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Cars",
+                table: "Cars",
+                column: "Id");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Generations",
+                table: "Generations",
+                column: "Id");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_CarModels",
+                table: "CarModels",
+                column: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Cars_Generations_GenerationId",
+                table: "Cars",
+                column: "GenerationId",
+                principalTable: "Generations",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Generations_CarModels_ModelId",
+                table: "Generations",
+                column: "ModelId",
+                principalTable: "CarModels",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Rentals_Cars_RentedCarId",
+                table: "Rentals",
+                column: "RentedCarId",
+                principalTable: "Cars",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Rentals_Clients_ClientId",
+                table: "Rentals",
+                column: "ClientId",
+                principalTable: "Clients",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+        }
+    }
+}

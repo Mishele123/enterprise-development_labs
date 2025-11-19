@@ -14,6 +14,12 @@ public class CarRentalDbContext(DbContextOptions options) : DbContext(options)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<CarModel>().ToTable("car_models");
+        modelBuilder.Entity<ModelGeneration>().ToTable("model_generations");
+        modelBuilder.Entity<Car>().ToTable("cars");
+        modelBuilder.Entity<Client>().ToTable("clients");
+        modelBuilder.Entity<RentalCar>().ToTable("rentals");
+
         modelBuilder.Entity<CarModel>(builder =>
         {
             builder.HasKey(cm => cm.Id);

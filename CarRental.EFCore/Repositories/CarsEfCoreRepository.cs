@@ -39,7 +39,10 @@ public class CarsEfCoreRepository(CarRentalDbContext db) : ICarRepository
     /// <returns></returns>
     public Car? Read(int Id)
     {
-        return db.Cars.Find(Id);
+        return db.Cars
+            .Include(c => c.Generation)
+                .ThenInclude(g => g.Model)
+            .FirstOrDefault(c => c.Id == Id);
     }
 
     /// <summary>

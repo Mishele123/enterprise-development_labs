@@ -36,7 +36,12 @@ public class RentalCarsEfCoreRepository(CarRentalDbContext db) : IRentalCarRepos
     /// <returns></returns>
     public RentalCar? Read(int Id)
     {
-        return db.Rentals.Find(Id);
+        return db.Rentals
+            .Include(r => r.RentedCar)
+                .ThenInclude(c => c.Generation)
+                .ThenInclude(g => g.Model)
+            .Include(r => r.Client)
+            .FirstOrDefault(r => r.Id == Id);
     }
 
     /// <summary>

@@ -36,7 +36,9 @@ public class ModelGenerationsEfCoreRepository(CarRentalDbContext db) : IModelGen
     /// <returns></returns>
     public ModelGeneration? Read(int Id)
     {
-        return db.Generations.Find(Id);
+        return db.Generations
+            .Include(g => g.Model)
+            .FirstOrDefault(g => g.Id == Id);
     }
 
     /// <summary>
