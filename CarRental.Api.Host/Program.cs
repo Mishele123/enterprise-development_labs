@@ -1,4 +1,5 @@
 using AutoMapper;
+using CarRental.Api.Host;
 using CarRental.Application;
 using CarRental.Application.Contracts.CarModels;
 using CarRental.Application.Contracts.Cars;
@@ -38,46 +39,8 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
     });
 
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-
-    if (File.Exists(xmlPath))
-    {
-        c.IncludeXmlComments(xmlPath);
-    }
-    try
-    {
-        var applicationAssembly = typeof(CarService).Assembly;
-        var applicationXmlFile = $"{applicationAssembly.GetName().Name}.xml";
-        var applicationXmlPath = Path.Combine(AppContext.BaseDirectory, applicationXmlFile);
-        if (File.Exists(applicationXmlPath))
-        {
-            c.IncludeXmlComments(applicationXmlPath);
-        }
-    }
-    catch (Exception) { }
-    try
-    {
-        var contractsAssembly = typeof(CarsCreateDto).Assembly;
-        var contractsXmlFile = $"{contractsAssembly.GetName().Name}.xml";
-        var contractsXmlPath = Path.Combine(AppContext.BaseDirectory, contractsXmlFile);
-        if (File.Exists(contractsXmlPath))
-        {
-            c.IncludeXmlComments(contractsXmlPath);
-        }
-    }
-    catch (Exception) { }
-    try
-    {
-        var domainAssembly = typeof(ICarRepository).Assembly;
-        var domainXmlFile = $"{domainAssembly.GetName().Name}.xml";
-        var domainXmlPath = Path.Combine(AppContext.BaseDirectory, domainXmlFile);
-        if (File.Exists(domainXmlPath))
-        {
-            c.IncludeXmlComments(domainXmlPath);
-        }
-    }
-    catch (Exception) { }
+    c.IncludeAllXmlComments(Assembly.GetExecutingAssembly());
+    
 });
 
 
