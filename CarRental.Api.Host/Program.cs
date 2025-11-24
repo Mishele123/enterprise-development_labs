@@ -14,12 +14,15 @@ using CarRental.EFCore.Repositories;
 using CarRental.ServiceDefaults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MySqlConnector;
 using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+
+builder.AddMySqlDataSource("CarRentalDb");
 
 var mapperConfig = new MapperConfiguration(
     config => config.AddProfile(new MappingProfile()),
@@ -38,9 +41,7 @@ builder.Services.AddSwaggerGen(c =>
         Title = "CarRental API",
         Version = "v1",
     });
-
     c.IncludeAllXmlComments(Assembly.GetExecutingAssembly());
-    
 });
 
 
@@ -58,10 +59,10 @@ builder.Services.AddScoped<IRentalCarsService, RentalCarService>();
 builder.Services.AddScoped<IReportsService, ReportService>();
 
 
-var cs = builder.Configuration.GetConnectionString("CarRentalDb");
-builder.Services.AddDbContext<CarRentalDbContext>(opt =>
+builder.Services.AddDbContext<CarRentalDbContext>((serviceProvider, options) =>
 {
-    opt.UseMySql(cs, ServerVersion.AutoDetect(cs));
+    var dataSource = serviceProvider.GetRequiredService<MySqlDataSource>();
+    options.UseMySql(dataSource, ServerVersion.AutoDetect(dataSource.ConnectionString));
 });
 
 builder.Services.AddTransient<DbSeederService>();

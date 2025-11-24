@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Aspire.MySqlConnector" Version="13.0.0" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,7 +21,6 @@
 	<ProjectReference Include="..\CarRental.Application\CarRental.Application.csproj" />
 	<ProjectReference Include="..\CarRental.EFCore\CarRental.EFCore.csproj" />
 	<ProjectReference Include="..\CarRental.ServiceDefaults\CarRental.ServiceDefaults.csproj" />
-
   </ItemGroup>
 	
 </Project>
