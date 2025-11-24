@@ -20,37 +20,43 @@ public class RentalCarService(
 ) : IRentalCarsService
 {
     /// <summary>
-    /// Return all RentalCars
+    /// Return all RentalCars asynchronously
     /// </summary>
-    /// <returns>sequence of</returns>
-    public IEnumerable<RentalCarsDto> ReadAll() => RentalCarRepo.ReadAll().Select(mapper.Map<RentalCarsDto>);
+    /// <returns>sequence of RentalCarsDto</returns>
+    public async Task<IEnumerable<RentalCarsDto>> ReadAllAsync()
+    {
+        var rentalCars = await RentalCarRepo.ReadAllAsync();
+        return rentalCars.Select(mapper.Map<RentalCarsDto>);
+    }
 
     /// <summary>
-    /// Return single RentalCar by id
+    /// Return single RentalCar by id asynchronously
     /// </summary>
     /// <param name="id">RentalCar id</param>
-    /// <returns>RentalCar</returns>
-    public RentalCarsDto? Read(int id)
+    /// <returns>RentalCarsDto</returns>
+    public async Task<RentalCarsDto?> ReadAsync(int id)
     {
-        var rentalCar = RentalCarRepo.Read(id);
+        var rentalCar = await RentalCarRepo.ReadAsync(id);
         return rentalCar is null ? null : mapper.Map<RentalCarsDto>(rentalCar);
     }
 
     /// <summary>
-    /// Create new RentalCar
+    /// Create new RentalCar asynchronously
     /// </summary>
     /// <param name="modelDto">RentalCar data to create</param>
     /// <returns>Created dto</returns>
-    public RentalCarsDto Create(RentalCarsCreateDto modelDto)
+    public async Task<RentalCarsDto> CreateAsync(RentalCarsCreateDto modelDto)
     {
-        var car = CarRepo.Read(modelDto.RentedCarId)
+        var car = await CarRepo.ReadAsync(modelDto.RentedCarId)
             ?? throw new InvalidOperationException($"car with id: {modelDto.RentedCarId} not found");
-        var client = ClientRepo.Read(modelDto.ClientId)
+        var client = await ClientRepo.ReadAsync(modelDto.ClientId)
             ?? throw new InvalidOperationException($"client with id: {modelDto.ClientId} not found");
 
         var newRentalStart = modelDto.IssueTime;
         var newRentalEnd = modelDto.IssueTime.AddHours(modelDto.RentalHours);
-        var hasOverlappingRentals = RentalCarRepo.ReadAll()
+
+        var allRentals = await RentalCarRepo.ReadAllAsync();
+        var hasOverlappingRentals = allRentals
             .Where(r => r.RentedCar.Id == modelDto.RentedCarId)
             .Any(r =>
             {
@@ -66,18 +72,18 @@ public class RentalCarService(
         var newRentalCar = mapper.Map<RentalCar>(modelDto);
         newRentalCar.RentedCar = car;
         newRentalCar.Client = client;
-        RentalCarRepo.Create(newRentalCar);
+        await RentalCarRepo.CreateAsync(newRentalCar);
         return mapper.Map<RentalCarsDto>(newRentalCar);
     }
 
     /// <summary>
-    /// Update an existing RentalCar
+    /// Update an existing RentalCar asynchronously
     /// </summary>
     /// <param name="id">RentalCar id</param>
     /// <param name="modelDto">updated RentalCar data</param>
-    public bool Update(int id, RentalCarsUpdateDto modelDto)
+    public async Task<bool> UpdateAsync(int id, RentalCarsUpdateDto modelDto)
     {
-        var existingRentalCar = RentalCarRepo.Read(id);
+        var existingRentalCar = await RentalCarRepo.ReadAsync(id);
         if (existingRentalCar is null) return false;
 
         if (!CanUpdateRentalDuration(existingRentalCar))
@@ -87,9 +93,11 @@ public class RentalCarService(
 
         var originalRentalEnd = existingRentalCar.IssueTime.AddHours(existingRentalCar.RentalHours);
         var updatedRentalEnd = existingRentalCar.IssueTime.AddHours(modelDto.RentalHours);
+
         if (modelDto.RentalHours > existingRentalCar.RentalHours)
         {
-            var hasOverlappingRentals = RentalCarRepo.ReadAll()
+            var allRentals = await RentalCarRepo.ReadAllAsync();
+            var hasOverlappingRentals = allRentals
                 .Where(r => r.RentedCar.Id == existingRentalCar.RentedCar.Id && r.Id != id)
                 .Any(r =>
                 {
@@ -103,26 +111,28 @@ public class RentalCarService(
                     $"car is booked by another customer after the original end time");
             }
         }
+
         existingRentalCar.RentalHours = modelDto.RentalHours;
-        return RentalCarRepo.Update(existingRentalCar);
+        return await RentalCarRepo.UpdateAsync(existingRentalCar);
     }
 
     /// <summary>
-    /// check to valid
+    /// Check if rental duration can be updated
     /// </summary>
-    /// <param name="rental"></param>
-    /// <returns></returns>
+    /// <param name="rental">Rental car entity</param>
+    /// <returns>True if rental can be updated</returns>
     private static bool CanUpdateRentalDuration(RentalCar rental) =>
         rental.IssueTime.AddHours(rental.RentalHours) > DateTime.Now;
 
     /// <summary>
-    /// Delete RentalCar by its id 
+    /// Delete RentalCar by its id asynchronously
     /// </summary>
     /// <param name="id">RentalCar id</param>
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var existingRentalCar = RentalCarRepo.Read(id);
+        var existingRentalCar = await RentalCarRepo.ReadAsync(id);
         if (existingRentalCar is null) return false;
-        return RentalCarRepo.Delete(id);
+
+        return await RentalCarRepo.DeleteAsync(id);
     }
 }

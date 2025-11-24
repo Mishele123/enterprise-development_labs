@@ -1,6 +1,4 @@
 ﻿using CarRental.Domain.Entities;
-using CarRental.Domain.Enums;
-using CarRental.EFCore.Seed;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.EFCore;

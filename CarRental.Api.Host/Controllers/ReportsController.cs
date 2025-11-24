@@ -22,21 +22,21 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     [HttpGet("clients-by-model/{modelName}")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<ClientsDto>> GetClientsByCarModel(string modelName)
+    public async Task<ActionResult<IEnumerable<ClientsDto>>> GetClientsByCarModelAsync(string modelName)
     {
         logger.LogInformation("{method} method of {controller} is called with {modelName} parameter",
-        nameof(GetClientsByCarModel), GetType().Name, modelName);
+        nameof(GetClientsByCarModelAsync), GetType().Name, modelName);
         try
         {
-            var clients = reportsService.GetClientsByCarModel(modelName);
+            var clients = await reportsService.GetClientsByCarModelAsync(modelName);
             logger.LogInformation("{method} method of {controller} executed successfully",
-            nameof(GetClientsByCarModel), GetType().Name);
+            nameof(GetClientsByCarModelAsync), GetType().Name);
             return Ok(clients);
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-            nameof(GetClientsByCarModel), GetType().Name, ex);
+            nameof(GetClientsByCarModelAsync), GetType().Name, ex);
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
     }
@@ -48,24 +48,24 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     [HttpGet("currently-rented")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<CurrentlyRentedCarDto>> GetCarsCurrentlyRented()
+    public async Task<ActionResult<IEnumerable<CurrentlyRentedCarDto>>> GetCarsCurrentlyRentedAsync()
     {
         logger.LogInformation("{method} method of {controller} is called",
-            nameof(GetCarsCurrentlyRented), GetType().Name);
+            nameof(GetCarsCurrentlyRentedAsync), GetType().Name);
 
         try
         {
-            var rentedCars = reportsService.GetCarsCurrentlyRented();
+            var rentedCars = await reportsService.GetCarsCurrentlyRentedAsync();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(GetCarsCurrentlyRented), GetType().Name);
+                nameof(GetCarsCurrentlyRentedAsync), GetType().Name);
 
             return Ok(rentedCars);
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(GetCarsCurrentlyRented), GetType().Name, ex);
+                nameof(GetCarsCurrentlyRentedAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -78,24 +78,24 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     [HttpGet("top-5-rented-cars")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<CarWithRentalCountDto>> GetTop5MostFrequentlyRentedCars()
+    public async Task<ActionResult<IEnumerable<CarWithRentalCountDto>>> GetTop5MostFrequentlyRentedCarsAsync()
     {
         logger.LogInformation("{method} method of {controller} is called",
-            nameof(GetTop5MostFrequentlyRentedCars), GetType().Name);
+            nameof(GetTop5MostFrequentlyRentedCarsAsync), GetType().Name);
 
         try
         {
-            var topCars = reportsService.GetTop5MostFrequentlyRentedCars();
+            var topCars = await reportsService.GetTop5MostFrequentlyRentedCarsAsync();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(GetTop5MostFrequentlyRentedCars), GetType().Name);
+                nameof(GetTop5MostFrequentlyRentedCarsAsync), GetType().Name);
 
             return Ok(topCars);
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(GetTop5MostFrequentlyRentedCars), GetType().Name, ex);
+                nameof(GetTop5MostFrequentlyRentedCarsAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -108,24 +108,24 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     [HttpGet("rental-count-per-car")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<Dictionary<int, int>> GetRentalCountPerCar()
+    public async Task<ActionResult<Dictionary<int, int>>> GetRentalCountPerCarAsync()
     {
         logger.LogInformation("{method} method of {controller} is called",
-            nameof(GetRentalCountPerCar), GetType().Name);
+            nameof(GetRentalCountPerCarAsync), GetType().Name);
 
         try
         {
-            var rentalCounts = reportsService.GetRentalCountPerCar();
+            var rentalCounts = await reportsService.GetRentalCountPerCarAsync();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(GetRentalCountPerCar), GetType().Name);
+                nameof(GetRentalCountPerCarAsync), GetType().Name);
 
             return Ok(rentalCounts);
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(GetRentalCountPerCar), GetType().Name, ex);
+                nameof(GetRentalCountPerCarAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -138,24 +138,24 @@ public class ReportsController(IReportsService reportsService, ILogger<ReportsCo
     [HttpGet("top-5-clients-by-spending")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<ClientWithSpendingDto>> GetTop5ClientsByRentalSum()
+    public async Task<ActionResult<IEnumerable<ClientWithSpendingDto>>> GetTop5ClientsByRentalSumAsync()
     {
-            logger.LogInformation("{method} method of {controller} is called",
-            nameof(GetTop5ClientsByRentalSum), GetType().Name);
+        logger.LogInformation("{method} method of {controller} is called",
+        nameof(GetTop5ClientsByRentalSumAsync), GetType().Name);
 
         try
         {
-            var topClients = reportsService.GetTop5ClientsByRentalSum();
+            var topClients = await reportsService.GetTop5ClientsByRentalSumAsync();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(GetTop5ClientsByRentalSum), GetType().Name);
+                nameof(GetTop5ClientsByRentalSumAsync), GetType().Name);
 
             return Ok(topClients);
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(GetTop5ClientsByRentalSum), GetType().Name, ex);
+                nameof(GetTop5ClientsByRentalSumAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }

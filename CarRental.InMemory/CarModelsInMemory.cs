@@ -1,38 +1,38 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
-using CarRental.InMemory.Seed;
+using CarRental.Domain.Seed;
 
 namespace CarRental.InMemory;
 
 /// <summary>
 /// implementaion ICarModel Repository
 /// </summary>
-public class CarModelsInMemory(InMemoryData seed) : ICarModelRepository
+public class CarModelsInMemory(Seeder seed) : ICarModelRepository
 {
     /// <summary>
     /// create entity
     /// </summary>
     /// <param name="entity">CarModel entity</param>
-    public CarModel Create(CarModel entity)
+    public async Task<CarModel> CreateAsync(CarModel entity)
     {
         if (entity.Id == 0)
         {
             entity.Id = seed.CarModels.Count > 0 ? seed.CarModels.Max(cm => cm.Id) + 1 : 1;
         }
         seed.CarModels.Add(entity);
-        return entity;    
+        return await Task.FromResult(entity);    
     }
 
     /// <summary>
     /// Update entity
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public bool Update(CarModel entity)
+    public async Task<bool> UpdateAsync(CarModel entity)
     {
         var idx = seed.CarModels.FindIndex(x => x.Id == entity.Id);
-        if (idx < 0) return false;
+        if (idx < 0) return await Task.FromResult(false);
         seed.CarModels[idx] = entity;
-        return true;
+        return await Task.FromResult(true);
     }
 
     /// <summary>
@@ -40,32 +40,33 @@ public class CarModelsInMemory(InMemoryData seed) : ICarModelRepository
     /// </summary>
     /// <param name="Id">entity id</param>
     /// <returns></returns>
-    public CarModel? Read(int Id)
+    public async Task<CarModel?> ReadAsync(int id)
     {
-        return seed.CarModels.FirstOrDefault(cm => cm.Id == Id);
+        var result = seed.CarModels.FirstOrDefault(cm => cm.Id == id);
+        return await Task.FromResult(result);
     }
 
     /// <summary>
     /// delete entity by id
     /// </summary>
     /// <param name="entity">the entity index what will be deleted</param>
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var deletableEntity = Read(id);
+        var deletableEntity = seed.CarModels.FirstOrDefault(cm => cm.Id == id);
         if (deletableEntity != null)
         {
             seed.CarModels.Remove(deletableEntity);
-            return true;
+            return await Task.FromResult(true);
         }
-        return false;
+        return await Task.FromResult(false);
     }
 
     /// <summary>
     /// read all
     /// </summary>
     /// <returns>return all entities</returns>
-    public IEnumerable<CarModel> ReadAll()
+    public async  Task<IEnumerable<CarModel>> ReadAllAsync()
     {
-        return [.. seed.CarModels];
+        return await Task.FromResult(seed.CarModels.AsEnumerable());
     }
 }

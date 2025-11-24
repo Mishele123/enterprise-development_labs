@@ -1,6 +1,8 @@
+using CarRental.Domain.Seed;
+
 namespace CarRental.Tests;
 
-public class CarRentalTests(CarRentalFixture fixture) : IClassFixture<CarRentalFixture>
+public class CarRentalTests(Seeder fixture) : IClassFixture<Seeder>
 {
     /// <summary>
     /// Display information about all customers who have rented cars of the specified model, 

@@ -7,65 +7,69 @@ namespace CarRental.EFCore.Repositories;
 public class RentalCarsEfCoreRepository(CarRentalDbContext db) : IRentalCarRepository
 {
     /// <summary>
-    /// create entity
+    /// Create entity asynchronously
     /// </summary>
     /// <param name="entity">RentalCar entity</param>
-    public RentalCar Create(RentalCar entity)
+    public async Task<RentalCar> CreateAsync(RentalCar entity)
     {
         db.Rentals.Add(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return entity;
     }
 
     /// <summary>
-    /// Update entity
+    /// Update entity asynchronously
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public bool Update(RentalCar entity)
+    public async Task<bool> UpdateAsync(RentalCar entity)
     {
-        if (!db.Rentals.Any(r => r.Id == entity.Id)) return false;
+        var exists = await db.Rentals.AnyAsync(r => r.Id == entity.Id);
+        if (!exists) return false;
+
         db.Rentals.Update(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return true;
     }
 
     /// <summary>
-    /// read entity by id
+    /// Read entity by id asynchronously
     /// </summary>
-    /// <param name="Id">entity id</param>
-    /// <returns></returns>
-    public RentalCar? Read(int Id)
+    /// <param name="id">entity id</param>
+    public async Task<RentalCar?> ReadAsync(int id)
     {
-        return db.Rentals
+        return await db.Rentals
             .Include(r => r.RentedCar)
                 .ThenInclude(c => c.Generation)
                 .ThenInclude(g => g.Model)
             .Include(r => r.Client)
-            .FirstOrDefault(r => r.Id == Id);
+            .FirstOrDefaultAsync(r => r.Id == id);
     }
 
     /// <summary>
-    /// delete entity by id
+    /// Delete entity by id asynchronously
     /// </summary>
-    /// <param name="entity">the entity index what will be deleted</param>
-    public bool Delete(int id)
+    /// <param name="id">the entity index what will be deleted</param>
+    public async Task<bool> DeleteAsync(int id)
     {
-        var entity = db.Rentals.Find(id);
+        var entity = await db.Rentals.FindAsync(id);
         if (entity is null) return false;
+
         db.Rentals.Remove(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return true;
     }
 
     /// <summary>
-    /// read all
+    /// Read all entities asynchronously
     /// </summary>
-    /// <returns>return all entities</returns>
-    public IEnumerable<RentalCar> ReadAll()
+    /// <returns>All entities</returns>
+    public async Task<IEnumerable<RentalCar>> ReadAllAsync()
     {
-        return [.. db.Rentals.Include(r => r.RentedCar)
-            .ThenInclude(c => c.Generation)
-            .ThenInclude(g => g.Model)
-            .Include(r => r.Client)];
+        return await db.Rentals
+            .Include(r => r.RentedCar)
+                .ThenInclude(c => c.Generation)
+                .ThenInclude(g => g.Model)
+            .Include(r => r.Client)
+            .ToListAsync();
     }
 }

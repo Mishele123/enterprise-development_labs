@@ -16,56 +16,61 @@ public class ClientService(
 ) : IClientsService
 {
     /// <summary>
-    /// return all Clients
+    /// return all Clients asynchronously
     /// </summary>
-    /// <returns>sequence of</returns>
-    public IEnumerable<ClientsDto> ReadAll() => ClientRepo.ReadAll().Select(mapper.Map<ClientsDto>);
+    /// <returns>sequence of ClientsDto</returns>
+    public async Task<IEnumerable<ClientsDto>> ReadAllAsync()
+    {
+        var clients = await ClientRepo.ReadAllAsync();
+        return clients.Select(mapper.Map<ClientsDto>);
+    }
 
     /// <summary>
-    /// return single Client by id
+    /// return single Client by id asynchronously
     /// </summary>
     /// <param name="id">Client id</param>
-    /// <returns>Client</returns>
-    public ClientsDto? Read(int id)
+    /// <returns>ClientsDto</returns>
+    public async Task<ClientsDto?> ReadAsync(int id)
     {
-        var client = ClientRepo.Read(id);
+        var client = await ClientRepo.ReadAsync(id);
         return client is null ? null : mapper.Map<ClientsDto>(client);
     }
 
     /// <summary>
-    /// create new Client
+    /// create new Client asynchronously
     /// </summary>
     /// <param name="modelDto">Client data to create</param>
     /// <returns>Created dto</returns>
-    public ClientsDto Create(ClientsCreateDto modelDto)
+    public async Task<ClientsDto> CreateAsync(ClientsCreateDto modelDto)
     {
         var newClient = mapper.Map<Client>(modelDto);
-        ClientRepo.Create(newClient);
+        await ClientRepo.CreateAsync(newClient);
         return mapper.Map<ClientsDto>(newClient);
     }
 
     /// <summary>
-    /// update an existing Client
+    /// update an existing Client asynchronously
     /// </summary>
     /// <param name="id">Client id</param>
     /// <param name="modelDto">updated Client data</param>
-    public bool Update(int id, ClientsUpdateDto modelDto)
+    public async Task<bool> UpdateAsync(int id, ClientsUpdateDto modelDto)
     {
-        var existingClient = ClientRepo.Read(id);
+        var existingClient = await ClientRepo.ReadAsync(id);
         if (existingClient is null) return false;
-        mapper.Map(modelDto, existingClient);
 
-        return ClientRepo.Update(existingClient);
+        mapper.Map(modelDto, existingClient);
+        return await ClientRepo.UpdateAsync(existingClient);
     }
 
     /// <summary>
-    /// delete Client by its id 
+    /// delete Client by its id asynchronously
     /// </summary>
     /// <param name="id">Client id</param>
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var existingClient = ClientRepo.Read(id);
+        var existingClient = await ClientRepo.ReadAsync(id);
         if (existingClient is null) return false;
-        return ClientRepo.Delete(id);
+
+        return await ClientRepo.DeleteAsync(id);
     }
 }

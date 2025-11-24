@@ -9,32 +9,32 @@ public interface IRentalCarsService
     /// return all RentalCars
     /// </summary>
     /// <returns>sequence of</returns>
-    public IEnumerable<RentalCarsDto> ReadAll();
+    public Task<IEnumerable<RentalCarsDto>> ReadAllAsync();
 
     /// <summary>
     /// return single RentalCar by id
     /// </summary>
     /// <param name="id">RentalCar id</param>
     /// <returns>RentalCar</returns>
-    public RentalCarsDto? Read(int id);
+    public Task<RentalCarsDto?> ReadAsync(int id);
 
     /// <summary>
     /// create new RentalCar
     /// </summary>
     /// <param name="model">RentalCar data to create</param>
     /// <returns>Created dto</returns>
-    public RentalCarsDto Create(RentalCarsCreateDto model);
+    public Task<RentalCarsDto> CreateAsync(RentalCarsCreateDto model);
 
     /// <summary>
     /// update an existing RentalCar
     /// </summary>
     /// <param name="id">RentalCar id</param>
     /// <param name="model">updated RentalCar data</param>
-    public bool Update(int id, RentalCarsUpdateDto model);
+    public Task<bool> UpdateAsync(int id, RentalCarsUpdateDto model);
 
     /// <summary>
     /// delete RentalCar by its id 
     /// </summary>
     /// <param name="id">RentalCar id</param>
-    public bool Delete(int id);
+    public Task<bool> DeleteAsync(int id);
 }

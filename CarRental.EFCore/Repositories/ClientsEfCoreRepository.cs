@@ -1,53 +1,55 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.EFCore.Repositories;
 
 public class ClientsEfCoreRepository(CarRentalDbContext db) : IClientRepository
 {
     /// <summary>
-    /// create entity
+    /// Create entity asynchronously
     /// </summary>
     /// <param name="entity">Client entity</param>
-    public Client Create(Client entity)
+    public async Task<Client> CreateAsync(Client entity)
     {
         db.Clients.Add(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return entity;
     }
 
     /// <summary>
-    /// Update entity
+    /// Update entity asynchronously
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public bool Update(Client entity)
+    public async Task<bool> UpdateAsync(Client entity)
     {
-        if (!db.Clients.Any(c => c.Id == entity.Id)) return false;
+        var exists = await db.Clients.AnyAsync(c => c.Id == entity.Id);
+        if (!exists) return false;
+
         db.Clients.Update(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return true;
     }
 
     /// <summary>
-    /// read entity by id
+    /// Read entity by id asynchronously
     /// </summary>
-    /// <param name="Id">entity id</param>
-    /// <returns></returns>
-    public Client? Read(int Id)
+    /// <param name="id">entity id</param>
+    public async Task<Client?> ReadAsync(int id)
     {
-        return db.Clients.Find(Id);
+        return await db.Clients.FindAsync(id);
     }
 
     /// <summary>
-    /// delete entity by id
+    /// Delete entity by id asynchronously
     /// </summary>
-    /// <param name="entity">the entity index what will be deleted</param>
-    public bool Delete(int id)
+    /// <param name="id">the entity index what will be deleted</param>
+    public async Task<bool> DeleteAsync(int id)
     {
-        var entity = db.Clients.Find(id);
+        var entity = await db.Clients.FindAsync(id);
         if (entity is null) return false;
 
-        var hasRental = db.Rentals.Any(r => r.Client.Id == entity.Id);
+        var hasRental = await db.Rentals.AnyAsync(r => r.Client.Id == entity.Id);
 
         if (hasRental)
         {
@@ -56,16 +58,16 @@ public class ClientsEfCoreRepository(CarRentalDbContext db) : IClientRepository
         }
 
         db.Clients.Remove(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return true;
     }
 
     /// <summary>
-    /// read all
+    /// Read all entities asynchronously
     /// </summary>
-    /// <returns>return all entities</returns>
-    public IEnumerable<Client> ReadAll()
+    /// <returns>All entities</returns>
+    public async Task<IEnumerable<Client>> ReadAllAsync()
     {
-        return [.. db.Clients];
+        return await db.Clients.ToListAsync();
     }
 }

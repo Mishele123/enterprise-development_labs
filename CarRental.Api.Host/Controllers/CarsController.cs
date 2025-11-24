@@ -19,24 +19,24 @@ public class CarsController(ICarsService carsService, ILogger<CarsController> lo
     [HttpGet]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<CarsDto>> ReadAll()
+    public async Task<ActionResult<IEnumerable<CarsDto>>> ReadAllAsync()
     {
         logger.LogInformation("{method} method of {controller} is called",
-            nameof(ReadAll), GetType().Name);
+            nameof(ReadAllAsync), GetType().Name);
 
         try
         {
-            var result = carsService.ReadAll();
+            var result = await carsService.ReadAllAsync();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(ReadAll), GetType().Name);
+                nameof(ReadAllAsync), GetType().Name);
 
             return Ok(result);
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(ReadAll), GetType().Name, ex);
+                nameof(ReadAllAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -51,13 +51,13 @@ public class CarsController(ICarsService carsService, ILogger<CarsController> lo
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public ActionResult<CarsDto> Read(int id)
+    public async Task<ActionResult<CarsDto>> ReadAsync(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
-            nameof(Read), GetType().Name, id);
+            nameof(ReadAsync), GetType().Name, id);
         try
         {
-            var result = carsService.Read(id);
+            var result = await carsService.ReadAsync(id);
 
             if (result == null)
             {
@@ -66,14 +66,14 @@ public class CarsController(ICarsService carsService, ILogger<CarsController> lo
             }
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(Read), GetType().Name);
+                nameof(ReadAsync), GetType().Name);
 
             return Ok(result);
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Read), GetType().Name, ex);
+                nameof(ReadAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -88,10 +88,10 @@ public class CarsController(ICarsService carsService, ILogger<CarsController> lo
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
     [ProducesResponseType(500)]
-    public ActionResult<CarsDto> Create(CarsCreateDto modelDto)
+    public async Task<ActionResult<CarsDto>> CreateAsync(CarsCreateDto modelDto)
     {
         logger.LogInformation("{method} method of {controller} is called",
-            nameof(Create), GetType().Name);
+            nameof(CreateAsync), GetType().Name);
         if (!ModelState.IsValid)
         {
             logger.LogWarning("Validation failed: {Errors}",
@@ -102,12 +102,12 @@ public class CarsController(ICarsService carsService, ILogger<CarsController> lo
         }
         try
         {
-            var result = carsService.Create(modelDto);
+            var result = await carsService.CreateAsync(modelDto);
 
             logger.LogInformation("{method} method of {controller} executed successfully with id {id}",
-                nameof(Create), GetType().Name, result.Id);
+                nameof(CreateAsync), GetType().Name, result.Id);
 
-            return CreatedAtAction(nameof(Read), new { id = result.Id }, result);
+            return CreatedAtAction(nameof(ReadAsync), new { id = result.Id }, result);
         }
         catch (InvalidOperationException ex)
         {
@@ -117,7 +117,7 @@ public class CarsController(ICarsService carsService, ILogger<CarsController> lo
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Create), GetType().Name, ex);
+                nameof(CreateAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -133,10 +133,10 @@ public class CarsController(ICarsService carsService, ILogger<CarsController> lo
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public ActionResult Update(int id, CarsUpdateDto modelDto)
+    public async Task<ActionResult> UpdateAsync(int id, CarsUpdateDto modelDto)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
-            nameof(Update), GetType().Name, id);
+            nameof(UpdateAsync), GetType().Name, id);
         if (!ModelState.IsValid)
         {
             logger.LogWarning("Validation failed: {Errors}",
@@ -147,17 +147,17 @@ public class CarsController(ICarsService carsService, ILogger<CarsController> lo
         }
         try
         {
-            var result = carsService.Update(id, modelDto);
+            var result = await carsService.UpdateAsync(id, modelDto);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(Update), GetType().Name);
+                nameof(UpdateAsync), GetType().Name);
 
             return result ? Ok() : NotFound();
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Update), GetType().Name, ex);
+                nameof(UpdateAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -171,24 +171,24 @@ public class CarsController(ICarsService carsService, ILogger<CarsController> lo
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> DeleteAsync(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
-            nameof(Delete), GetType().Name, id);
+            nameof(DeleteAsync), GetType().Name, id);
 
         try
         {
-            var result = carsService.Delete(id);
-            
+            var result = await carsService.DeleteAsync(id);
+
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(Delete), GetType().Name);
+                nameof(DeleteAsync), GetType().Name);
 
             return result ? Ok() : NotFound();
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Delete), GetType().Name, ex);
+                nameof(DeleteAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }

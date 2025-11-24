@@ -5,6 +5,7 @@ using CarRental.Domain.Interfaces;
 
 namespace CarRental.Application.Services;
 
+
 /// <summary>
 /// Crud model generation operations
 /// </summary>
@@ -18,59 +19,65 @@ public class ModelGenerationService(
 ) : IModelGenerationsService
 {
     /// <summary>
-    /// Return all ModelGenerations
+    /// Return all ModelGenerations asynchronously
     /// </summary>
-    /// <returns>sequence of</returns>
-    public IEnumerable<ModelGenerationsDto> ReadAll() => ModelGenerationRepo.ReadAll().Select(mapper.Map<ModelGenerationsDto>);
+    /// <returns>sequence of ModelGenerationsDto</returns>
+    public async Task<IEnumerable<ModelGenerationsDto>> ReadAllAsync()
+    {
+        var modelGenerations = await ModelGenerationRepo.ReadAllAsync();
+        return modelGenerations.Select(mapper.Map<ModelGenerationsDto>);
+    }
 
     /// <summary>
-    /// Return single ModelGeneration by id
+    /// Return single ModelGeneration by id asynchronously
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
-    /// <returns>ModelGeneration</returns>
-    public ModelGenerationsDto? Read(int id)
+    /// <returns>ModelGenerationsDto</returns>
+    public async Task<ModelGenerationsDto?> ReadAsync(int id)
     {
-        var modelGeneration = ModelGenerationRepo.Read(id);
+        var modelGeneration = await ModelGenerationRepo.ReadAsync(id);
         return modelGeneration is null ? null : mapper.Map<ModelGenerationsDto>(modelGeneration);
     }
 
     /// <summary>
-    /// Create new ModelGeneration
+    /// Create new ModelGeneration asynchronously
     /// </summary>
     /// <param name="modelDto">ModelGeneration data to create</param>
     /// <returns>Created dto</returns>
-    public ModelGenerationsDto Create(ModelGenerationsCreateDto modelDto)
+    public async Task<ModelGenerationsDto> CreateAsync(ModelGenerationsCreateDto modelDto)
     {
-        var carModel = CarModelRepo.Read(modelDto.ModelId)
+        var carModel = await CarModelRepo.ReadAsync(modelDto.ModelId)
             ?? throw new InvalidOperationException($"car model with id: {modelDto.ModelId} not found");
+
         var newModelGeneration = mapper.Map<ModelGeneration>(modelDto);
         newModelGeneration.Model = carModel;
-        ModelGenerationRepo.Create(newModelGeneration);
+        await ModelGenerationRepo.CreateAsync(newModelGeneration);
         return mapper.Map<ModelGenerationsDto>(newModelGeneration);
     }
 
     /// <summary>
-    /// Update an existing ModelGeneration
+    /// Update an existing ModelGeneration asynchronously
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
     /// <param name="modelDto">updated ModelGeneration data</param>
-    public bool Update(int id, ModelGenerationsUpdateDto modelDto)
+    public async Task<bool> UpdateAsync(int id, ModelGenerationsUpdateDto modelDto)
     {
-        var existingModelGeneration = ModelGenerationRepo.Read(id);
+        var existingModelGeneration = await ModelGenerationRepo.ReadAsync(id);
         if (existingModelGeneration is null) return false;
-        mapper.Map(modelDto, existingModelGeneration);
 
-        return ModelGenerationRepo.Update(existingModelGeneration);
+        mapper.Map(modelDto, existingModelGeneration);
+        return await ModelGenerationRepo.UpdateAsync(existingModelGeneration);
     }
 
     /// <summary>
-    /// Delete ModelGeneration by its id 
+    /// Delete ModelGeneration by its id asynchronously
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var existingModelGeneration = ModelGenerationRepo.Read(id);
+        var existingModelGeneration = await ModelGenerationRepo.ReadAsync(id);
         if (existingModelGeneration is null) return false;
-        return ModelGenerationRepo.Delete(id);
+
+        return await ModelGenerationRepo.DeleteAsync(id);
     }
 }

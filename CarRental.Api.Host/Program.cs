@@ -111,10 +111,10 @@ if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<CarRentalDbContext>();
-    db.Database.Migrate();
+    await db.Database.MigrateAsync();
     var seeder = scope.ServiceProvider.GetRequiredService<DbSeederService>();
-    seeder.Seed(forceReset: false);
-
+    await seeder.SeedAsync(forceReset: false);
+    
     app.UseSwagger();
     app.UseSwaggerUI();
 }

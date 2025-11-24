@@ -9,32 +9,32 @@ public interface IModelGenerationsService
     /// return all ModelGenerations
     /// </summary>
     /// <returns>sequence of</returns>
-    public IEnumerable<ModelGenerationsDto> ReadAll();
+    public Task<IEnumerable<ModelGenerationsDto>> ReadAllAsync();
 
     /// <summary>
     /// return single ModelGeneration by id
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
     /// <returns>ModelGeneration</returns>
-    public ModelGenerationsDto? Read(int id);
+    public Task<ModelGenerationsDto?> ReadAsync(int id);
 
     /// <summary>
     /// create new ModelGeneration
     /// </summary>
     /// <param name="model">ModelGeneration data to create</param>
     /// <returns>Created dto</returns>
-    public ModelGenerationsDto Create(ModelGenerationsCreateDto model);
+    public Task<ModelGenerationsDto> CreateAsync(ModelGenerationsCreateDto model);
 
     /// <summary>
     /// update an existing ModelGeneration
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
     /// <param name="model">updated ModelGeneration data</param>
-    public bool Update(int id, ModelGenerationsUpdateDto model);
+    public Task<bool> UpdateAsync(int id, ModelGenerationsUpdateDto model);
 
     /// <summary>
     /// delete ModelGeneration by its id 
     /// </summary>
     /// <param name="id">ModelGeneration id</param>
-    public bool Delete(int id);
+    public Task<bool> DeleteAsync(int id);
 }

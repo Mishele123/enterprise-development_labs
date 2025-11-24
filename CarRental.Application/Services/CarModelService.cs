@@ -13,57 +13,61 @@ namespace CarRental.Application.Services;
 public class CarModelService(ICarModelRepository CarModelsRepo, IMapper mapper) : ICarModelsService
 {
     /// <summary>
-    /// return all CarModels
+    /// return all CarModels asynchronously
     /// </summary>
-    /// <returns>sequence of</returns>
-    public IEnumerable<CarModelDto> ReadAll() => CarModelsRepo.ReadAll().Select(mapper.Map<CarModelDto>);
+    /// <returns>sequence of CarModelDto</returns>
+    public async Task<IEnumerable<CarModelDto>> ReadAllAsync()
+    {
+        var carModels = await CarModelsRepo.ReadAllAsync();
+        return carModels.Select(mapper.Map<CarModelDto>);
+    }
 
     /// <summary>
-    /// return single CarModel by id
+    /// return single CarModel by id asynchronously
     /// </summary>
     /// <param name="id">CarModel id</param>
-    /// <returns>CarModel</returns>
-    public CarModelDto? Read(int id)
+    /// <returns>CarModelDto</returns>
+    public async Task<CarModelDto?> ReadAsync(int id)
     {
-        var carModel = CarModelsRepo.Read(id);
+        var carModel = await CarModelsRepo.ReadAsync(id);
         return carModel is null ? null : mapper.Map<CarModelDto>(carModel);
     }
 
     /// <summary>
-    /// create new CarModel
+    /// create new CarModel asynchronously
     /// </summary>
     /// <param name="modelDto">CarModel data to create</param>
     /// <returns>Created dto</returns>
-    public CarModelDto Create(CarModelsCreateDto modelDto)
+    public async Task<CarModelDto> CreateAsync(CarModelsCreateDto modelDto)
     {
         var entity = mapper.Map<CarModel>(modelDto);
-        var newCarModel = CarModelsRepo.Create(entity);
+        var newCarModel = await CarModelsRepo.CreateAsync(entity);
         return mapper.Map<CarModelDto>(newCarModel);
     }
 
     /// <summary>
-    /// update an existing CarModel
+    /// update an existing CarModel asynchronously
     /// </summary>
     /// <param name="id">CarModel id</param>
     /// <param name="modelDto">updated CarModel data</param>
-    public bool Update(int id, CarModelsUpdateDto modelDto)
+    public async Task<bool> UpdateAsync(int id, CarModelsUpdateDto modelDto)
     {
-        var existingModel = CarModelsRepo.Read(id);
+        var existingModel = await CarModelsRepo.ReadAsync(id);
         if (existingModel is null) return false;
-        
+
         mapper.Map(modelDto, existingModel);
-        return CarModelsRepo.Update(existingModel);
+        return await CarModelsRepo.UpdateAsync(existingModel);
     }
 
     /// <summary>
-    /// delete CarModel by its id 
+    /// delete CarModel by its id asynchronously
     /// </summary>
     /// <param name="id">CarModel id</param>
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var existingModel = CarModelsRepo.Read(id);
+        var existingModel = await CarModelsRepo.ReadAsync(id);
         if (existingModel is null) return false;
 
-        return CarModelsRepo.Delete(id);
+        return await CarModelsRepo.DeleteAsync(id);
     }
 }

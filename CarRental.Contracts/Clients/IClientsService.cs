@@ -9,32 +9,32 @@ public interface IClientsService
     /// return all Clients
     /// </summary>
     /// <returns>sequence of</returns>
-    public IEnumerable<ClientsDto> ReadAll();
+    public Task<IEnumerable<ClientsDto>> ReadAllAsync();
 
     /// <summary>
     /// return single Client by id
     /// </summary>
     /// <param name="id">Client id</param>
     /// <returns>Client</returns>
-    public ClientsDto? Read(int id);
+    public Task<ClientsDto?> ReadAsync(int id);
 
     /// <summary>
     /// create new Client
     /// </summary>
     /// <param name="modelDto">Client data to create</param>
     /// <returns>Created dto</returns>
-    public ClientsDto Create(ClientsCreateDto modelDto);
+    public Task<ClientsDto> CreateAsync(ClientsCreateDto modelDto);
 
     /// <summary>
     /// update an existing Client
     /// </summary>
     /// <param name="id">Client id</param>
     /// <param name="modelDto">updated Client data</param>
-    public bool Update(int id, ClientsUpdateDto modelDto);
+    public Task<bool> UpdateAsync(int id, ClientsUpdateDto modelDto);
 
     /// <summary>
     /// delete Client by its id 
     /// </summary>
     /// <param name="id">Client id</param>
-    public bool Delete(int id);
+    public Task<bool> DeleteAsync(int id);
 }

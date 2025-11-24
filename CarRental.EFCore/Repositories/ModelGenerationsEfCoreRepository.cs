@@ -7,50 +7,51 @@ namespace CarRental.EFCore.Repositories;
 public class ModelGenerationsEfCoreRepository(CarRentalDbContext db) : IModelGenerationRepository
 {
     /// <summary>
-    /// create entity
+    /// Create entity asynchronously
     /// </summary>
     /// <param name="entity">ModelGeneration entity</param>
-    public ModelGeneration Create(ModelGeneration entity)
+    public async Task<ModelGeneration> CreateAsync(ModelGeneration entity)
     {
         db.Generations.Add(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return entity;
     }
 
     /// <summary>
-    /// Update entity
+    /// Update entity asynchronously
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public bool Update(ModelGeneration entity)
+    public async Task<bool> UpdateAsync(ModelGeneration entity)
     {
-        if (!db.Generations.Any(mg => mg.Id == entity.Id)) return false;
+        var exists = await db.Generations.AnyAsync(mg => mg.Id == entity.Id);
+        if (!exists) return false;
+
         db.Generations.Update(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return true;
     }
 
     /// <summary>
-    /// read entity by id
+    /// Read entity by id asynchronously
     /// </summary>
-    /// <param name="Id">entity id</param>
-    /// <returns></returns>
-    public ModelGeneration? Read(int Id)
+    /// <param name="id">entity id</param>
+    public async Task<ModelGeneration?> ReadAsync(int id)
     {
-        return db.Generations
+        return await db.Generations
             .Include(g => g.Model)
-            .FirstOrDefault(g => g.Id == Id);
+            .FirstOrDefaultAsync(g => g.Id == id);
     }
 
     /// <summary>
-    /// delete entity by id
+    /// Delete entity by id asynchronously
     /// </summary>
-    /// <param name="entity">the entity index what will be deleted</param>
-    public bool Delete(int id)
+    /// <param name="id">the entity index what will be deleted</param>
+    public async Task<bool> DeleteAsync(int id)
     {
-        var entity = db.Generations.Find(id);
+        var entity = await db.Generations.FindAsync(id);
         if (entity is null) return false;
 
-        var hasCar = db.Cars.Any(c => c.Generation.Id == entity.Id);
+        var hasCar = await db.Cars.AnyAsync(c => c.Generation.Id == entity.Id);
 
         if (hasCar)
         {
@@ -59,16 +60,18 @@ public class ModelGenerationsEfCoreRepository(CarRentalDbContext db) : IModelGen
         }
 
         db.Generations.Remove(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return true;
     }
 
     /// <summary>
-    /// read all
+    /// Read all entities asynchronously
     /// </summary>
-    /// <returns>return all entities</returns>
-    public IEnumerable<ModelGeneration> ReadAll()
+    /// <returns>All entities</returns>
+    public async Task<IEnumerable<ModelGeneration>> ReadAllAsync()
     {
-        return [.. db.Generations.Include(g => g.Model)];
+        return await db.Generations
+            .Include(g => g.Model)
+            .ToListAsync();
     }
 }

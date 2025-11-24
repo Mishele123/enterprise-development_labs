@@ -12,25 +12,25 @@ public interface IReportsService
     /// Display information about all customers who have rented cars of the specified model, 
     /// arrange them by full name
     /// </summary>
-    public IEnumerable<ClientsDto> GetClientsByCarModel(string modelName);
+    public Task<IEnumerable<ClientsDto>> GetClientsByCarModelAsync(string modelName);
 
     /// <summary>
     /// Display information about cars that are rented with rental details
     /// </summary>
-    public IEnumerable<CurrentlyRentedCarDto> GetCarsCurrentlyRented();
+    public Task<IEnumerable<CurrentlyRentedCarDto>> GetCarsCurrentlyRentedAsync();
 
     /// <summary>
     /// top 5 most frequently rented cars with rental counts
     /// </summary>
-    public IEnumerable<CarWithRentalCountDto> GetTop5MostFrequentlyRentedCars();
+    public Task<IEnumerable<CarWithRentalCountDto>> GetTop5MostFrequentlyRentedCarsAsync();
 
     /// <summary>
     /// For each car, number of rents
     /// </summary>
-    public Dictionary<int, int> GetRentalCountPerCar();
+    public Task<Dictionary<int, int>> GetRentalCountPerCarAsync();
 
     /// <summary>
     /// top 5 clients by rental amount with spending info
     /// </summary>
-    public IEnumerable<ClientWithSpendingDto> GetTop5ClientsByRentalSum();
+    public Task<IEnumerable<ClientWithSpendingDto>> GetTop5ClientsByRentalSumAsync();
 }

@@ -1,11 +1,11 @@
-﻿using CarRental.EFCore.Seed;
+﻿using CarRental.Domain.Seed;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRental.EFCore;
 
 public class DbSeederService(CarRentalDbContext context)
 {
-
-    public void Seed(bool forceReset = false)
+    public async Task SeedAsync(bool forceReset = false)
     {
         if (forceReset)
         {
@@ -14,27 +14,27 @@ public class DbSeederService(CarRentalDbContext context)
             context.Clients.RemoveRange(context.Clients);
             context.Generations.RemoveRange(context.Generations);
             context.CarModels.RemoveRange(context.CarModels);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        if (!forceReset && context.CarModels.Any())
+        if (!forceReset && await context.CarModels.AnyAsync())
             return;
 
-        var seed = new DbSeeder();
+        var seed = new Seeder();
 
         context.CarModels.AddRange(seed.CarModels);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         context.Generations.AddRange(seed.Generations);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         context.Clients.AddRange(seed.Clients);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         context.Cars.AddRange(seed.Cars);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         context.Rentals.AddRange(seed.Rentals);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
     }
 }

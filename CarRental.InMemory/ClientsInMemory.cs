@@ -1,71 +1,72 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
-using CarRental.InMemory.Seed;
+using CarRental.Domain.Seed;
 
 namespace CarRental.InMemory;
 
 /// <summary>
-/// implementaion IClient Repository
+/// Implementation of IClient Repository
 /// </summary>
-public class ClientsInMemory(InMemoryData seed) : IClientRepository
+public class ClientsInMemory(Seeder seed) : IClientRepository
 {
     /// <summary>
-    /// create entity
+    /// Create entity asynchronously
     /// </summary>
     /// <param name="entity">Client entity</param>
-    public Client Create(Client entity)
+    public Task<Client> CreateAsync(Client entity)
     {
         if (entity.Id == 0)
         {
             entity.Id = seed.Clients.Count > 0 ? seed.Clients.Max(cm => cm.Id) + 1 : 1;
         }
         seed.Clients.Add(entity);
-        return entity;
+        return Task.FromResult(entity);
     }
 
     /// <summary>
-    /// Update entity
+    /// Update entity asynchronously
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public bool Update(Client entity)
+    public Task<bool> UpdateAsync(Client entity)
     {
         var idx = seed.Clients.FindIndex(x => x.Id == entity.Id);
-        if (idx < 0) return false;
+        if (idx < 0) return Task.FromResult(false);
+
         seed.Clients[idx] = entity;
-        return true;
+        return Task.FromResult(true);
     }
 
     /// <summary>
-    /// read entity by id
+    /// Read entity by id asynchronously
     /// </summary>
-    /// <param name="Id">entity id</param>
-    /// <returns></returns>
-    public Client? Read(int Id)
+    /// <param name="id">entity id</param>
+    public Task<Client?> ReadAsync(int id)
     {
-        return seed.Clients.FirstOrDefault(cm => cm.Id == Id);
+        var result = seed.Clients.FirstOrDefault(cm => cm.Id == id);
+        return Task.FromResult(result);
     }
 
     /// <summary>
-    /// delete entity by id
+    /// Delete entity by id asynchronously
     /// </summary>
-    /// <param name="entity">the entity index what will be deleted</param>
-    public bool Delete(int id)
+    /// <param name="id">the entity index what will be deleted</param>
+    public Task<bool> DeleteAsync(int id)
     {
-        var deletableEntity = Read(id);
+        var deletableEntity = seed.Clients.FirstOrDefault(cm => cm.Id == id);
         if (deletableEntity != null)
         {
             seed.Clients.Remove(deletableEntity);
-            return true;
+            return Task.FromResult(true);
         }
-        return false;
+        return Task.FromResult(false);
     }
 
     /// <summary>
-    /// read all
+    /// Read all entities asynchronously
     /// </summary>
-    /// <returns>return all entities</returns>
-    public IEnumerable<Client> ReadAll()
+    /// <returns>All entities</returns>
+    public Task<IEnumerable<Client>> ReadAllAsync()
     {
-        return [.. seed.Clients];
+        return Task.FromResult(seed.Clients.AsEnumerable());
     }
 }

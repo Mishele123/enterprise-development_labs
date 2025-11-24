@@ -10,7 +10,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/rental-cars")]
-public class RentalCarsController(IRentalCarsService rentalCarsService, 
+public class RentalCarsController(IRentalCarsService rentalCarsService,
     ILogger<RentalCarsController> logger) : ControllerBase
 {
     /// <summary>
@@ -20,21 +20,21 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
     [HttpGet]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<RentalCarsDto>> ReadAll()
+    public async Task<ActionResult<IEnumerable<RentalCarsDto>>> ReadAllAsync()
     {
         logger.LogInformation("{method} method of {controller} is called",
-            nameof(ReadAll), GetType().Name);
+            nameof(ReadAllAsync), GetType().Name);
         try
         {
-            var result = rentalCarsService.ReadAll();
+            var result = await rentalCarsService.ReadAllAsync();
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(ReadAll), GetType().Name);
+                nameof(ReadAllAsync), GetType().Name);
             return Ok(result);
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(ReadAll), GetType().Name, ex);
+                nameof(ReadAllAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -49,14 +49,14 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public ActionResult<RentalCarsDto> Read(int id)
+    public async Task<ActionResult<RentalCarsDto>> ReadAsync(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
-            nameof(Read), GetType().Name, id);
+            nameof(ReadAsync), GetType().Name, id);
 
         try
         {
-            var result = rentalCarsService.Read(id);
+            var result = await rentalCarsService.ReadAsync(id);
 
             if (result == null)
             {
@@ -65,7 +65,7 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
             }
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(Read), GetType().Name);
+                nameof(ReadAsync), GetType().Name);
 
             return Ok(result);
         }
@@ -77,7 +77,7 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Read), GetType().Name, ex);
+                nameof(ReadAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -92,10 +92,10 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
     [ProducesResponseType(500)]
-    public ActionResult<RentalCarsDto> Create(RentalCarsCreateDto model)
+    public async Task<ActionResult<RentalCarsDto>> CreateAsync(RentalCarsCreateDto model)
     {
         logger.LogInformation("{method} method of {controller} is called",
-            nameof(Create), GetType().Name);
+            nameof(CreateAsync), GetType().Name);
         if (!ModelState.IsValid)
         {
             logger.LogWarning("Validation failed: {Errors}",
@@ -106,12 +106,12 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
         }
         try
         {
-            var result = rentalCarsService.Create(model);
+            var result = await rentalCarsService.CreateAsync(model);
 
             logger.LogInformation("{method} method of {controller} executed successfully with id {id}",
-                nameof(Create), GetType().Name, result.Id);
+                nameof(CreateAsync), GetType().Name, result.Id);
 
-            return CreatedAtAction(nameof(Read), new { id = result.Id }, result);
+            return CreatedAtAction(nameof(ReadAsync), new { id = result.Id }, result);
         }
         catch (InvalidOperationException ex)
         {
@@ -121,7 +121,7 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Create), GetType().Name, ex);
+                nameof(CreateAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -137,10 +137,10 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public ActionResult Update(int id, RentalCarsUpdateDto model)
+    public async Task<ActionResult> UpdateAsync(int id, RentalCarsUpdateDto model)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
-            nameof(Update), GetType().Name, id);
+            nameof(UpdateAsync), GetType().Name, id);
         if (!ModelState.IsValid)
         {
             logger.LogWarning("Validation failed: {Errors}",
@@ -151,17 +151,17 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
         }
         try
         {
-            var result = rentalCarsService.Update(id, model);
+            var result = await rentalCarsService.UpdateAsync(id, model);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(Update), GetType().Name);
+                nameof(UpdateAsync), GetType().Name);
 
             return result ? Ok() : NotFound();
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Update), GetType().Name, ex);
+                nameof(UpdateAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -175,24 +175,24 @@ public class RentalCarsController(IRentalCarsService rentalCarsService,
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> DeleteAsync(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
-            nameof(Delete), GetType().Name, id);
+            nameof(DeleteAsync), GetType().Name, id);
 
         try
         {
-            var result = rentalCarsService.Delete(id);
+            var result = await rentalCarsService.DeleteAsync(id);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(Delete), GetType().Name);
+                nameof(DeleteAsync), GetType().Name);
 
             return result ? Ok() : NotFound();
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Delete), GetType().Name, ex);
+                nameof(DeleteAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }

@@ -1,12 +1,12 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Enums;
 
-namespace CarRental.EFCore.Seed;
+namespace CarRental.Domain.Seed;
 
 /// <summary>
 /// Fixture data
 /// </summary>
-public class DbSeeder
+public class Seeder
 {
     public readonly List<CarModel> CarModels;
     public readonly List<ModelGeneration> Generations;
@@ -17,7 +17,7 @@ public class DbSeeder
     /// <summary>
     /// Initializing test data
     /// </summary>
-    public DbSeeder()
+    public Seeder()
     {
         // Initialize CarModels
         CarModels =
@@ -321,7 +321,7 @@ public class DbSeeder
         ];
 
         // Initialize Rentals
-        var baseDate = new DateTime(2025, 11, 18);
+        var baseDate = new DateTime(2025, 11, 24);
         Rentals =
         [
         new() {

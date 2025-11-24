@@ -10,7 +10,7 @@ namespace CarRental.Api.Host.Controllers;
 /// <param name="logger">Logger for recording information</param>
 [ApiController]
 [Route("api/model-generations")]
-public class ModelGenerationsController(IModelGenerationsService modelGenerationsService, 
+public class ModelGenerationsController(IModelGenerationsService modelGenerationsService,
     ILogger<ModelGenerationsController> logger) : ControllerBase
 {
     /// <summary>
@@ -20,24 +20,24 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
     [HttpGet]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<IEnumerable<ModelGenerationsDto>> ReadAll()
+    public async Task<ActionResult<IEnumerable<ModelGenerationsDto>>> ReadAllAsync()
     {
         logger.LogInformation("{method} method of {controller} is called",
-            nameof(ReadAll), GetType().Name);
+            nameof(ReadAllAsync), GetType().Name);
 
         try
         {
-            var result = modelGenerationsService.ReadAll();
+            var result = await modelGenerationsService.ReadAllAsync();
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(ReadAll), GetType().Name);
+                nameof(ReadAllAsync), GetType().Name);
 
             return Ok(result);
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(ReadAll), GetType().Name, ex);
+                nameof(ReadAllAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -52,14 +52,14 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public ActionResult<ModelGenerationsDto> Read(int id)
+    public async Task<ActionResult<ModelGenerationsDto>> ReadAsync(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
-            nameof(Read), GetType().Name, id);
+            nameof(ReadAsync), GetType().Name, id);
 
         try
         {
-            var result = modelGenerationsService.Read(id);
+            var result = await modelGenerationsService.ReadAsync(id);
 
             if (result == null)
             {
@@ -68,7 +68,7 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
             }
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(Read), GetType().Name);
+                nameof(ReadAsync), GetType().Name);
 
             return Ok(result);
         }
@@ -80,7 +80,7 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Read), GetType().Name, ex);
+                nameof(ReadAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -95,10 +95,10 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
     [ProducesResponseType(500)]
-    public ActionResult<ModelGenerationsDto> Create(ModelGenerationsCreateDto model)
+    public async Task<ActionResult<ModelGenerationsDto>> CreateAsync(ModelGenerationsCreateDto model)
     {
         logger.LogInformation("{method} method of {controller} is called",
-            nameof(Create), GetType().Name);
+            nameof(CreateAsync), GetType().Name);
         if (!ModelState.IsValid)
         {
             logger.LogWarning("Validation failed: {Errors}",
@@ -109,12 +109,12 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
         }
         try
         {
-            var result = modelGenerationsService.Create(model);
+            var result = await modelGenerationsService.CreateAsync(model);
 
             logger.LogInformation("{method} method of {controller} executed successfully with id {id}",
-                nameof(Create), GetType().Name, result.Id);
+                nameof(CreateAsync), GetType().Name, result.Id);
 
-            return CreatedAtAction(nameof(Read), new { id = result.Id }, result);
+            return CreatedAtAction(nameof(ReadAsync), new { id = result.Id }, result);
         }
         catch (InvalidOperationException ex)
         {
@@ -124,7 +124,7 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Create), GetType().Name, ex);
+                nameof(CreateAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -140,10 +140,10 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public ActionResult Update(int id, ModelGenerationsUpdateDto model)
+    public async Task<ActionResult> UpdateAsync(int id, ModelGenerationsUpdateDto model)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
-            nameof(Update), GetType().Name, id);
+            nameof(UpdateAsync), GetType().Name, id);
         if (!ModelState.IsValid)
         {
             logger.LogWarning("Validation failed: {Errors}",
@@ -154,17 +154,17 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
         }
         try
         {
-            var result = modelGenerationsService.Update(id, model);
+            var result = await modelGenerationsService.UpdateAsync(id, model);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(Update), GetType().Name);
+                nameof(UpdateAsync), GetType().Name);
 
             return result ? Ok() : NotFound();
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Update), GetType().Name, ex);
+                nameof(UpdateAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
@@ -178,24 +178,24 @@ public class ModelGenerationsController(IModelGenerationsService modelGeneration
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> DeleteAsync(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter",
-            nameof(Delete), GetType().Name, id);
+            nameof(DeleteAsync), GetType().Name, id);
 
         try
         {
-            var result = modelGenerationsService.Delete(id);
+            var result = await modelGenerationsService.DeleteAsync(id);
 
             logger.LogInformation("{method} method of {controller} executed successfully",
-                nameof(Delete), GetType().Name);
+                nameof(DeleteAsync), GetType().Name);
 
             return result ? Ok() : NotFound();
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}",
-                nameof(Delete), GetType().Name, ex);
+                nameof(DeleteAsync), GetType().Name, ex);
 
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }

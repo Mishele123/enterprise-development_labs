@@ -5,71 +5,77 @@ using Microsoft.EntityFrameworkCore;
 namespace CarRental.EFCore.Repositories;
 
 /// <summary>
-/// implementaion ICar Repository
+/// Implementation of ICar Repository
 /// </summary>
 public class CarsEfCoreRepository(CarRentalDbContext db) : ICarRepository
 {
     /// <summary>
-    /// create entity
+    /// Create entity asynchronously
     /// </summary>
     /// <param name="entity">Car entity</param>
-    public Car Create(Car entity)
+    public async Task<Car> CreateAsync(Car entity)
     {
         db.Cars.Add(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return entity;
     }
 
     /// <summary>
-    /// Update entity
+    /// Update entity asynchronously
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public bool Update(Car entity)
+    public async Task<bool> UpdateAsync(Car entity)
     {
-        if (!db.CarModels.Any(c => c.Id == entity.Id)) return false;
+        var exists = await db.Cars.AnyAsync(c => c.Id == entity.Id);
+        if (!exists) return false;
+
         db.Cars.Update(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return true;
     }
 
     /// <summary>
-    /// read entity by id
+    /// Read entity by id asynchronously
     /// </summary>
-    /// <param name="Id">entity id</param>
-    /// <returns></returns>
-    public Car? Read(int Id)
+    /// <param name="id">entity id</param>
+    public async Task<Car?> ReadAsync(int id)
     {
-        return db.Cars
+        return await db.Cars
             .Include(c => c.Generation)
                 .ThenInclude(g => g.Model)
-            .FirstOrDefault(c => c.Id == Id);
+            .FirstOrDefaultAsync(c => c.Id == id);
     }
 
     /// <summary>
-    /// delete entity by id
+    /// Delete entity by id asynchronously
     /// </summary>
-    /// <param name="entity">the entity index what will be deleted</param>
-    public bool Delete(int id)
+    /// <param name="id">the entity index what will be deleted</param>
+    public async Task<bool> DeleteAsync(int id)
     {
-        var entity = db.Cars.Find(id);
+        var entity = await db.Cars.FindAsync(id);
         if (entity is null) return false;
-        var hasCar = db.Rentals.Any(r => r.RentedCar.Id == entity.Id);
+
+        var hasCar = await db.Rentals.AnyAsync(r => r.RentedCar.Id == entity.Id);
         if (hasCar)
         {
             throw new InvalidOperationException(
                 $"Cannot delete car '{entity.Id}' because it has in rented table");
         }
+
         db.Cars.Remove(entity);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return true;
     }
 
     /// <summary>
-    /// read all
+    /// Read all entities asynchronously
     /// </summary>
-    /// <returns>return all entities</returns>
-    public IEnumerable<Car> ReadAll()
+    /// <returns>All entities</returns>
+    public async Task<IEnumerable<Car>> ReadAllAsync()
     {
-        return [.. db.Cars.Include(c => c.Generation).ThenInclude(g => g.Model)];
+        return await db.Cars
+            .Include(c => c.Generation)
+            .ThenInclude(g => g.Model)
+            .ToListAsync();
     }
 }

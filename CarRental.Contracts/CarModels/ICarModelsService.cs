@@ -9,32 +9,32 @@ public interface ICarModelsService
     /// return all CarModels
     /// </summary>
     /// <returns>sequence of</returns>
-    public IEnumerable<CarModelDto> ReadAll();
+    public Task<IEnumerable<CarModelDto>> ReadAllAsync();
     
     /// <summary>
     /// return single CarModel by id
     /// </summary>
     /// <param name="id">CarModel id</param>
     /// <returns>CarModel</returns>
-    public CarModelDto? Read(int id);
+    public Task<CarModelDto?> ReadAsync(int id);
 
     /// <summary>
     /// create new CarModel
     /// </summary>
     /// <param name="modelDto">CarModel data to create</param>
     /// <returns>Created dto</returns>
-    public CarModelDto Create(CarModelsCreateDto modelDto);
+    public Task<CarModelDto> CreateAsync(CarModelsCreateDto modelDto);
 
     /// <summary>
     /// update an existing CarModel
     /// </summary>
     /// <param name="id">CarModel id</param>
     /// <param name="modelDto">updated CarModel data</param>
-    public bool Update(int id, CarModelsUpdateDto modelDto);
+    public Task<bool> UpdateAsync(int id, CarModelsUpdateDto modelDto);
     
     /// <summary>
     /// delete CarModel by its id 
     /// </summary>
     /// <param name="id">CarModel id</param>
-    public bool Delete(int id);
+    public Task<bool> DeleteAsync(int id);
 }

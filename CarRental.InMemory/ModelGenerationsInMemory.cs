@@ -1,71 +1,72 @@
 ﻿using CarRental.Domain.Entities;
 using CarRental.Domain.Interfaces;
-using CarRental.InMemory.Seed;
+using CarRental.Domain.Seed;
 
 namespace CarRental.InMemory;
 
 /// <summary>
-/// implementaion IModelGeneration Repository
+/// Implementation of IModelGeneration Repository
 /// </summary>
-public class ModelGenerationsInMemory(InMemoryData seed) : IModelGenerationRepository
+public class ModelGenerationsInMemory(Seeder seed) : IModelGenerationRepository
 {
     /// <summary>
-    /// create entity
+    /// Create entity asynchronously
     /// </summary>
     /// <param name="entity">ModelGeneration entity</param>
-    public ModelGeneration Create(ModelGeneration entity)
+    public Task<ModelGeneration> CreateAsync(ModelGeneration entity)
     {
         if (entity.Id == 0)
         {
             entity.Id = seed.Generations.Count > 0 ? seed.Generations.Max(cm => cm.Id) + 1 : 1;
         }
         seed.Generations.Add(entity);
-        return entity;
+        return Task.FromResult(entity);
     }
 
     /// <summary>
-    /// Update entity
+    /// Update entity asynchronously
     /// </summary>
     /// <param name="entity">updatable entity</param>
-    public bool Update(ModelGeneration entity)
+    public Task<bool> UpdateAsync(ModelGeneration entity)
     {
         var idx = seed.Generations.FindIndex(x => x.Id == entity.Id);
-        if (idx < 0) return false;
+        if (idx < 0) return Task.FromResult(false);
+
         seed.Generations[idx] = entity;
-        return true;
+        return Task.FromResult(true);
     }
 
     /// <summary>
-    /// read entity by id
+    /// Read entity by id asynchronously
     /// </summary>
-    /// <param name="Id">entity id</param>
-    /// <returns></returns>
-    public ModelGeneration? Read(int Id)
+    /// <param name="id">entity id</param>
+    public Task<ModelGeneration?> ReadAsync(int id)
     {
-        return seed.Generations.FirstOrDefault(cm => cm.Id == Id);
+        var result = seed.Generations.FirstOrDefault(cm => cm.Id == id);
+        return Task.FromResult(result);
     }
 
     /// <summary>
-    /// delete entity by id
+    /// Delete entity by id asynchronously
     /// </summary>
-    /// <param name="entity">the entity index what will be deleted</param>
-    public bool Delete(int id)
+    /// <param name="id">the entity index what will be deleted</param>
+    public Task<bool> DeleteAsync(int id)
     {
-        var deletableEntity = Read(id);
+        var deletableEntity = seed.Generations.FirstOrDefault(cm => cm.Id == id);
         if (deletableEntity != null)
         {
             seed.Generations.Remove(deletableEntity);
-            return true;
+            return Task.FromResult(true);
         }
-        return false;
+        return Task.FromResult(false);
     }
 
     /// <summary>
-    /// read all
+    /// Read all entities asynchronously
     /// </summary>
-    /// <returns>return all entities</returns>
-    public IEnumerable<ModelGeneration> ReadAll()
+    /// <returns>All entities</returns>
+    public Task<IEnumerable<ModelGeneration>> ReadAllAsync()
     {
-        return [.. seed.Generations];
+        return Task.FromResult(seed.Generations.AsEnumerable());
     }
 }

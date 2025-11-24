@@ -24,9 +24,10 @@ public class ReportService(
     /// Display information about all customers who have rented cars of the specified model, 
     /// arrange them by full name
     /// </summary>
-    public IEnumerable<ClientsDto> GetClientsByCarModel(string modelName)
+    public async Task<IEnumerable<ClientsDto>> GetClientsByCarModelAsync(string modelName)
     {
-        return RentalCarRepo.ReadAll()
+        var rentalCars = await RentalCarRepo.ReadAllAsync();
+        return rentalCars
             .Where(r => r.RentedCar.Generation.Model.Name == modelName)
             .Select(r => r.Client)
             .OrderBy(c => c.FullName)
@@ -36,12 +37,12 @@ public class ReportService(
     /// <summary>
     /// Display information about cars that are rented with rental details
     /// </summary>
-    public IEnumerable<CurrentlyRentedCarDto> GetCarsCurrentlyRented()
+    public async Task<IEnumerable<CurrentlyRentedCarDto>> GetCarsCurrentlyRentedAsync()
     {
         var currentTime = DateTime.Now;
+        var rentalCars = await RentalCarRepo.ReadAllAsync();
 
-
-        return RentalCarRepo.ReadAll()
+        return rentalCars
             .Where(r => r.IssueTime.AddHours(r.RentalHours) > currentTime)
             .Select(r => new CurrentlyRentedCarDto(
                 mapper.Map<CarsDto>(r.RentedCar),
@@ -52,9 +53,10 @@ public class ReportService(
     /// <summary>
     /// top 5 most frequently rented cars with rental counts
     /// </summary>
-    public IEnumerable<CarWithRentalCountDto> GetTop5MostFrequentlyRentedCars()
+    public async Task<IEnumerable<CarWithRentalCountDto>> GetTop5MostFrequentlyRentedCarsAsync()
     {
-        return RentalCarRepo.ReadAll()
+        var rentalCars = await RentalCarRepo.ReadAllAsync();
+        return rentalCars
             .GroupBy(r => r.RentedCar)
             .Select(g => new CarWithRentalCountDto(
                 mapper.Map<CarsDto>(g.Key),
@@ -67,13 +69,16 @@ public class ReportService(
     /// <summary>
     /// For each car, number of rents
     /// </summary>
-    public Dictionary<int, int> GetRentalCountPerCar()
+    public async Task<Dictionary<int, int>> GetRentalCountPerCarAsync()
     {
-        return CarRepo.ReadAll()
+        var cars = await CarRepo.ReadAllAsync();
+        var rentalCars = await RentalCarRepo.ReadAllAsync();
+
+        return cars
             .Select(car => new
             {
                 CarId = car.Id,
-                RentalCount = RentalCarRepo.ReadAll().Count(r => r.RentedCar.Id == car.Id)
+                RentalCount = rentalCars.Count(r => r.RentedCar.Id == car.Id)
             })
             .ToDictionary(x => x.CarId, x => x.RentalCount);
     }
@@ -81,9 +86,10 @@ public class ReportService(
     /// <summary>
     /// top 5 clients by rental amount with spending info
     /// </summary>
-    public IEnumerable<ClientWithSpendingDto> GetTop5ClientsByRentalSum()
+    public async Task<IEnumerable<ClientWithSpendingDto>> GetTop5ClientsByRentalSumAsync()
     {
-        return RentalCarRepo.ReadAll()
+        var rentalCars = await RentalCarRepo.ReadAllAsync();
+        return rentalCars
             .GroupBy(r => r.Client)
             .Select(g => new ClientWithSpendingDto(
                 mapper.Map<ClientsDto>(g.Key),

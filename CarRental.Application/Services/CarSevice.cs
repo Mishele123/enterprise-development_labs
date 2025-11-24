@@ -18,59 +18,65 @@ public class CarService(
 ) : ICarsService
 {
     /// <summary>
-    /// Return all Cars
+    /// Return all Cars asynchronously
     /// </summary>
-    /// <returns>sequence of</returns>
-    public IEnumerable<CarsDto> ReadAll() => CarRepo.ReadAll().Select(mapper.Map<CarsDto>);
+    /// <returns>sequence of CarsDto</returns>
+    public async Task<IEnumerable<CarsDto>> ReadAllAsync()
+    {
+        var cars = await CarRepo.ReadAllAsync();
+        return cars.Select(mapper.Map<CarsDto>);
+    }
 
     /// <summary>
-    /// Return single Car by id
+    /// Return single Car by id asynchronously
     /// </summary>
     /// <param name="id">Car id</param>
-    /// <returns>Car</returns>
-    public CarsDto? Read(int id)
+    /// <returns>CarDto</returns>
+    public async Task<CarsDto?> ReadAsync(int id)
     {
-        var car = CarRepo.Read(id);
+        var car = await CarRepo.ReadAsync(id);
         return car is null ? null : mapper.Map<CarsDto>(car);
     }
 
     /// <summary>
-    /// Create new Car
+    /// Create new Car asynchronously
     /// </summary>
     /// <param name="modelDto">Car data to create</param>
     /// <returns>Created dto</returns>
-    public CarsDto Create(CarsCreateDto modelDto)
+    public async Task<CarsDto> CreateAsync(CarsCreateDto modelDto)
     {
-        var generation = ModelGenerationRepo.Read(modelDto.GenerationId)
+        var generation = await ModelGenerationRepo.ReadAsync(modelDto.GenerationId)
             ?? throw new InvalidOperationException($"generation with id: {modelDto.GenerationId} not found");
+
         var newCar = mapper.Map<Car>(modelDto);
         newCar.Generation = generation;
-        CarRepo.Create(newCar);
+        await CarRepo.CreateAsync(newCar);
         return mapper.Map<CarsDto>(newCar);
     }
 
     /// <summary>
-    /// Update an existing Car
+    /// Update an existing Car asynchronously
     /// </summary>
     /// <param name="id">Car id</param>
     /// <param name="modelDto">updated Car data</param>
-    public bool Update(int id, CarsUpdateDto modelDto)
+    public async Task<bool> UpdateAsync(int id, CarsUpdateDto modelDto)
     {
-        var existingCar = CarRepo.Read(id);
+        var existingCar = await CarRepo.ReadAsync(id);
         if (existingCar is null) return false;
-        mapper.Map(modelDto, existingCar);
 
-        return CarRepo.Update(existingCar);
+        mapper.Map(modelDto, existingCar);
+        return await CarRepo.UpdateAsync(existingCar);
     }
 
     /// <summary>
-    /// Delete Car by its id 
+    /// Delete Car by its id asynchronously
     /// </summary>
     /// <param name="id">Car id</param>
-    public bool Delete(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
-        var existingCar = CarRepo.Read(id);
+        var existingCar = await CarRepo.ReadAsync(id);
         if (existingCar is null) return false;
-        return CarRepo.Delete(id);
+
+        return await CarRepo.DeleteAsync(id);
     }
 }
