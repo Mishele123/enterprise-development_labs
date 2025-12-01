@@ -7,7 +7,7 @@
 /// <param name="LicensePlate">License plate</param>
 /// <param name="Colour">Car colour</param>
 public record CarsCreateDto(
-    int GenerationId, 
-    string LicensePlate, 
+    int GenerationId,
+    string LicensePlate,
     string Colour
 );
