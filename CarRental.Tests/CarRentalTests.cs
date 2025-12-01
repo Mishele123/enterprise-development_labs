@@ -38,7 +38,7 @@ public class CarRentalTests(Seeder fixture) : IClassFixture<Seeder>
     public void GetCarsCurrentlyRented()
     {
         // Arrange
-        var currentTime = new DateTime(2025, 11, 24, 20, 0, 0);
+        var currentTime = new DateTime(2025, 12, 1, 20, 0, 0);
         var expectedRentedCarsCount = 9;
 
         // Act
