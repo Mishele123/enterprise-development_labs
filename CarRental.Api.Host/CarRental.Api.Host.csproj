@@ -9,11 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<Protobuf Include="..\CarRental.Grpc.Protos\Protos\generate.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+	<ItemGroup>
 	<PackageReference Include="Aspire.Pomelo.EntityFrameworkCore.MySql" Version="9.5.2" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
 	  <PrivateAssets>all</PrivateAssets>
 	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
+	<PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+	<PackageReference Include="Grpc.Core" Version="2.46.6" />
 	<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
 	

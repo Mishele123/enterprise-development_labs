@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option csharp_namespace = "CarRental.Grpc.Protos";
+
+service ContractGeneratorService {
+    rpc GenerateRental (stream RequestRental) returns (stream ResponseMessage);
+    rpc GenerateCar (stream RequestCar) returns (stream ResponseMessage);
+    rpc GenerateClient (stream RequestClient) returns (stream ResponseMessage);
+}
+
+message RequestRental {
+    int32 car_id = 1;
+    int32 client_id = 2;
+    string issue_time = 3;
+    int32 rental_hours = 4;
+}
+
+message RequestCar {
+    int32 generation = 1;
+    string license_plate = 2;
+    string colour = 3;
+}
+
+message RequestClient {
+    string driver_license_number = 1;
+    string full_name = 2;
+    string date_of_birth = 3;
+}
+
+message ResponseMessage {
+    bool success = 1;
+    string message = 2;
+}
