@@ -41,6 +41,7 @@ public class Consumer(
                     Success = true,
                     Message = $"Rental created with id: {result.Id}"
                 });
+                logger.LogInformation("Rental created with ID: {Id}", result.Id);
             }
             catch (Exception ex)
             {
@@ -77,6 +78,8 @@ public class Consumer(
                     Success = true,
                     Message = $"Car created with id: {result.Id}"
                 });
+
+                logger.LogInformation("Car created with ID: {Id}", result.Id);
             }
             catch (Exception ex)
             {
@@ -108,6 +111,8 @@ public class Consumer(
                 );
 
                 var result = await clientsService.CreateAsync(clientDto);
+
+                logger.LogInformation("Client created with ID: {Id}", result.Id);
 
                 await responseStream.WriteAsync(new ResponseMessage
                 {

@@ -1,5 +1,6 @@
 using AutoMapper;
 using CarRental.Api.Host;
+using CarRental.Api.Host.Grpc;
 using CarRental.Application;
 using CarRental.Application.Contracts.CarModels;
 using CarRental.Application.Contracts.Cars;
@@ -32,6 +33,13 @@ IMapper? mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 builder.Services.AddControllers();
+
+builder.Services.AddGrpc(options =>
+{
+    options.EnableDetailedErrors = builder.Environment.IsDevelopment();
+});
+
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
@@ -58,6 +66,7 @@ builder.Services.AddScoped<IClientsService, ClientService>();
 builder.Services.AddScoped<IRentalCarsService, RentalCarService>();
 builder.Services.AddScoped<IReportsService, ReportService>();
 
+builder.Services.AddScoped<Consumer>();
 
 builder.Services.AddTransient<DbSeederService>();
 
@@ -77,7 +86,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseAuthorization();
 app.MapControllers();
+
+app.MapGrpcService<Consumer>();
+
 app.Run();

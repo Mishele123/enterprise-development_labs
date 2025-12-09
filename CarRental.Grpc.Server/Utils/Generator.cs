@@ -11,7 +11,7 @@ public class Generator
             .RuleFor(r => r.ClientId, f => f.Random.Int(1, maxClientId))
             .RuleFor(r => r.CarId, f => f.Random.Int(1, maxCarId))
             .RuleFor(r => r.IssueTime, f => f.Date.Recent().ToString("O"))
-            .RuleFor(r => r.RentalHours, f => f.Random.Int(1, 72))
+            .RuleFor(r => r.RentalHours, f => f.Random.Int(1, 100))
             .Generate();
 
     public RequestCar GenerateRandomCar(int maxGeneration = 10) =>
