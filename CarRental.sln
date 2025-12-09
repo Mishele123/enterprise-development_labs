@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.ServiceDefaults",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Grpc.Protos", "CarRental.Grpc.Protos\CarRental.Grpc.Protos.csproj", "{EA06EE8A-B8BD-4974-B4D0-713E5477E7C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Grpc.Server", "CarRental.Grpc.Server\CarRental.Grpc.Server.csproj", "{DA237947-1925-4C03-B993-6A4D23AAD504}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Grpc.Producer", "CarRental.Grpc.Producer\CarRental.Grpc.Producer.csproj", "{DA237947-1925-4C03-B993-6A4D23AAD504}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

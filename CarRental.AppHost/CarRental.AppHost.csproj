@@ -18,7 +18,7 @@
 
   <ItemGroup>
 	  <ProjectReference Include="..\CarRental.Api.Host\CarRental.Api.Host.csproj" />
-	  <ProjectReference Include="..\CarRental.Grpc.Server\CarRental.Grpc.Server.csproj" />
+	  <ProjectReference Include="..\CarRental.Grpc.Producer\CarRental.Grpc.Producer.csproj" />
   </ItemGroup>
 
 </Project>

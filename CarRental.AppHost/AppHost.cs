@@ -10,7 +10,7 @@ var api = builder.AddProject<Projects.CarRental_Api_Host>("api")
                  .WithReference(carRentalDb)
                  .WaitFor(carRentalDb);
 
-var grpcClient = builder.AddProject<Projects.CarRental_Grpc_Server>("producer")
+var grpcClient = builder.AddProject<Projects.CarRental_Grpc_Producer>("producer")
                        .WithReference(api)
                        .WaitFor(api);
 
