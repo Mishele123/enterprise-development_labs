@@ -321,7 +321,7 @@ public class Seeder
         ];
 
         // Initialize Rentals
-        var baseDate = new DateTime(2025, 12, 1);
+        var baseDate = new DateTime(2025, 12, 9);
         Rentals =
         [
         new() {
