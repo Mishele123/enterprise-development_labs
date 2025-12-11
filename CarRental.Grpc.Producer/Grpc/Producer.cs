@@ -1,9 +1,9 @@
-﻿using CarRental.Grpc.Protos;
-using CarRental.Grpc.Server.Utils;
+﻿using CarRental.Grpc.Producer.Utils;
+using CarRental.Grpc.Protos;
 using Grpc.Core;
 
 
-namespace CarRental.Grpc.Server.Grpc;
+namespace CarRental.Grpc.Producer.Grpc;
 
 public class Producer(
     ContractGeneratorService.ContractGeneratorServiceClient client,

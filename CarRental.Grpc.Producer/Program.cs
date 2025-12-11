@@ -1,6 +1,6 @@
+using CarRental.Grpc.Producer.Grpc;
+using CarRental.Grpc.Producer.Utils;
 using CarRental.Grpc.Protos;
-using CarRental.Grpc.Server.Grpc;
-using CarRental.Grpc.Server.Utils;
 using Grpc.Net.Client;
 
 
@@ -14,7 +14,8 @@ builder.Services.AddHostedService<Producer>();
 
 builder.Services.AddSingleton(serviceProvider =>
 {
-    var grpcServiceUrl = "https://localhost:7133";
+    var grpcServiceUrl = builder.Configuration.GetValue<string>("services:api:https:0")
+        ?? "https://localhost:7133";
     var httpHandler = new HttpClientHandler();
 
     if (builder.Environment.IsDevelopment())
@@ -33,16 +34,5 @@ builder.Services.AddSingleton(serviceProvider =>
 });
 
 var host = builder.Build();
-
-try
-{
-    var client = host.Services
-        .GetRequiredService<ContractGeneratorService.ContractGeneratorServiceClient>();
-    Console.WriteLine("gRPC клиент успешно создан");
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Ошибка создания gRPC клиента: {ex.Message}");
-}
 
 await host.RunAsync();

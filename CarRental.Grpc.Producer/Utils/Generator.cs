@@ -2,7 +2,7 @@
 using CarRental.Grpc.Protos;
 
 
-namespace CarRental.Grpc.Server.Utils;
+namespace CarRental.Grpc.Producer.Utils;
 
 public class Generator
 {
